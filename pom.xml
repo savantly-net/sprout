@@ -9,7 +9,10 @@
 
 	<properties>
 		<camunda.version>7.3.0</camunda.version>
-		<spring.version>3.1.2.RELEASE</spring.version>
+		<spring.version>3.1.2.RELEASE</spring.version>		
+		<compileSource>1.7</compileSource>
+        <compileTarget>1.7</compileTarget>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
 	<!-- import Camunda BOM to ensure correct versions of Camunda projects -->
