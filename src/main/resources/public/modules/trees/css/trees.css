@@ -1,0 +1,25 @@
+.tree-page-list{
+	max-height: 500px;
+	overflow-y: auto;
+}
+
+.pageEditor{
+	min-height: 300px;
+}
+
+.choice-button-container{
+	margin-right: 1em;
+	margin-bottom: 1em;
+}
+
+.glyphicon{
+	font-size: 1.5em;
+}
+
+.glyphicon-lg{
+	font-size: 2.5em;
+}
+
+img {
+	max-width: 100%;
+}
