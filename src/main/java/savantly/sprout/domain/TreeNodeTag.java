@@ -1,36 +1,36 @@
 package savantly.sprout.domain;
 
-import java.util.UUID;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class TreeBranch {
-	
+public class TreeNodeTag {
+
 	@Id
-	private UUID _id;
-	private String displayText;
+	@GeneratedValue
+	private Long _id;
 	@ManyToOne(optional = false)
 	private TreeNode treeNode;
+	private String text;
 	
-	public UUID get_id() {
+	public Long get_id() {
 		return _id;
 	}
-	public void set_id(UUID _id) {
+	public void set_id(Long _id) {
 		this._id = _id;
-	}
-	public String getDisplayText() {
-		return displayText;
-	}
-	public void setDisplayText(String displayText) {
-		this.displayText = displayText;
 	}
 	public TreeNode getTreeNode() {
 		return treeNode;
 	}
 	public void setTreeNode(TreeNode treeNode) {
 		this.treeNode = treeNode;
+	}
+	public String getText() {
+		return text;
+	}
+	public void setText(String text) {
+		this.text = text;
 	}
 }

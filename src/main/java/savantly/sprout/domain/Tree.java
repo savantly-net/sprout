@@ -1,10 +1,13 @@
 package savantly.sprout.domain;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.joda.time.DateTime;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +23,8 @@ public class Tree {
 	private Boolean isPublic;
 	private DateTime created;
 	private UserDetails user;
-	private List<TreeNode> pages;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "tree")
+	private Set<TreeNode> pages = new HashSet<>();
 	
 	public UUID get_id() {
 		return _id;
@@ -64,10 +68,7 @@ public class Tree {
 	public void setUser(UserDetails user) {
 		this.user = user;
 	}
-	public List<TreeNode> getPages() {
+	public Set<TreeNode> getPages() {
 		return pages;
-	}
-	public void setPages(List<TreeNode> pages) {
-		this.pages = pages;
 	}
 }

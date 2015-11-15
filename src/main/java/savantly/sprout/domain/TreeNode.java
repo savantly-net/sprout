@@ -1,10 +1,14 @@
 package savantly.sprout.domain;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class TreeNode {
@@ -15,8 +19,12 @@ public class TreeNode {
 	private String title;
 	private String body;
 	private String imageUrl;
-	private List<String> tags;
-	private List<TreeBranch> choices;
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "treeNode")
+	private Set<TreeNodeTag> tags = new HashSet<>();
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "treeNode")
+	private Set<TreeBranch> choices = new HashSet<>();
+	@ManyToOne(optional = false)
+	private Tree tree;
 	
 	public UUID get_id() {
 		return _id;
@@ -48,17 +56,11 @@ public class TreeNode {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	public List<String> getTags() {
+	public Set<TreeNodeTag> getTags() {
 		return tags;
 	}
-	public void setTags(List<String> tags) {
-		this.tags = tags;
-	}
-	public List<TreeBranch> getChoices() {
+
+	public Set<TreeBranch> getChoices() {
 		return choices;
 	}
-	public void setChoices(List<TreeBranch> choices) {
-		this.choices = choices;
-	}
-
 }
