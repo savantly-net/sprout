@@ -12,18 +12,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
-	
+
 	@RequestMapping("/")
 	public String index(Model model) throws IOException {
-		
+
 		List<String> resourceArray = new ArrayList<String>();
-		
+
 		getResourcePaths("classpath:/public/modules/*/*.js", resourceArray);
 		getResourcePaths("classpath:/public/modules/*/config/*.js", resourceArray);
 		getResourcePaths("classpath:/public/modules/*/controllers/*.js", resourceArray);
 		getResourcePaths("classpath:/public/modules/*/services/*.js", resourceArray);
-		
+
 		model.addAttribute("moduleResources", resourceArray);
+
+		List<String> cssResourceArray = new ArrayList<String>();
+		getResourcePaths("classpath:/public/modules/*/css/*.css", cssResourceArray);
+		model.addAttribute("moduleCSSResources", cssResourceArray);
+
 		model.addAttribute("firstName", "Jeremy");
 		model.addAttribute("lastName", "Branham");
 		return "index";
@@ -55,10 +60,9 @@ public class HomeController {
 		int splitIndex = matchIndex + stringToMatch.length();
 		if (matchIndex == -1) {
 			return fullPath;
-		}
-		else{
+		} else {
 			return fullPath.substring(splitIndex);
 		}
 	}
-	
+
 }
