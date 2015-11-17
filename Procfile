@@ -1,1 +1,1 @@
-web: java target/sprout-web.jar
+web: java -jar target/sprout-web.jar
