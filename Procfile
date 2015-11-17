@@ -1,1 +1,1 @@
-web: sh target/bin/webapp
+web: java target/sprout-web.war
