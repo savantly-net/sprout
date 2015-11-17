@@ -22,23 +22,23 @@
 	<meta property="og:title" content="{{title}}"></meta>
 	<meta property="og:description" content="{{description}}"></meta>
 	<meta property="og:url" content="{{url}}"></meta>
-	<meta property="og:image" content="/img/brand/logo.png"></meta>
+	<meta property="og:image" content="modules/core/img/brand/logo.png"></meta>
 	<meta property="og:type" content="website"></meta>
 
 	<!-- Twitter META -->
 	<meta name="twitter:title" content="{{title}}"></meta>
 	<meta name="twitter:description" content="{{description}}"></meta>
 	<meta name="twitter:url" content="{{url}}"></meta>
-	<meta name="twitter:image" content="/img/brand/logo.png"></meta>
+	<meta name="twitter:image" content="modules/core/img/brand/logo.png"></meta>
 
 	<!-- Fav Icon -->
-	<!-- <link href="/modules/core/img/brand/favicon.ico" rel="shortcut icon" type="image/x-icon"> -->
+	<!-- <link href="modules/core/img/brand/favicon.ico" rel="shortcut icon" type="image/x-icon"> -->
 
 	<!-- Library CSS Files -->
 	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap.min.css"></link>
 	<link rel="stylesheet" href="libs/bootstrap/dist/css/bootstrap-theme.min.css"></link>
 	<link rel="stylesheet" href="libs/ng-tags-input/ng-tags-input.css"></link>
-	<link rel="stylesheet" href="libs/angular-notify/dist/angular-notify.css"></link>
+	<link rel="stylesheet" href="libs/angular-notify/dist/angular-notify.min.css"></link>
 	
 	<!-- Modules CSS Files -->
 	<link rel="stylesheet" data-th-each="resource : ${moduleCSSResources}" th:href="${resource}"></link>
@@ -50,7 +50,7 @@
 </head>
 
 <body class="ng-cloak">
-	<header data-ng-include="'/modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
+	<header data-ng-include="'modules/core/views/header.client.view.html'" class="navbar navbar-fixed-top navbar-inverse"></header>
 	<section class="content">
 		<section class="container">
 			<section data-ui-view=""></section>
@@ -60,36 +60,46 @@
 	<!--Embedding The User Object-->
 	<script type="text/javascript">
 		var user = {
-				userid: "jdbranham"
+				_id: 'jdbranham',
+				userid: 'jdbranham',
+				displayname: 'Jeremy Branham'
 		};
 	</script>
 	
 	<!-- JS Libraries -->
-	<script src="libs/jquery/dist/jquery.min.js"></script>
-	<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script>
-	<script src="libs/angular/angular.min.js"></script>
-	<script src="libs/angular-animate/angular-animate.min.js"></script>
-	<script src="libs/angular-bootstrap/ui-bootstrap.min.js"></script>
-	<script src="libs/angular-cookies/angular-cookies.min.js"></script>
-	<script src="libs/angular-markdown-directive/markdown.js"></script>
-	<script src="libs/angular-mocks/angular-mocks.js"></script>
-	<script src="libs/angular-notify/angular-notify.js"></script>
+	<!-- <script src="libs/jquery/dist/jquery.min.js"></script>
+	<script src="libs/bootstrap/dist/js/bootstrap.min.js"></script> 
+	
+	-->
+	
+	<script src="libs/angular/angular.js"></script>
 	<script src="libs/angular-resource/angular-resource.min.js"></script>
-	<script src="libs/angular-sanitize/angular-sanitize.min.js"></script>
+	<script src="libs/angular-cookies/angular-cookies.min.js"></script>
+	<script src="libs/angular-animate/angular-animate.min.js"></script>
 	<script src="libs/angular-touch/angular-touch.min.js"></script>
+	<script src="libs/angular-sanitize/angular-sanitize.min.js"></script>
+	<script src="libs/angular-ui-router/release/angular-ui-router.min.js"></script>
+	
+	<script src="libs/angular-ui-scroll/dist/ui-scroll.min.js"></script>
+	<script src="libs/angular-ui-scrollpoint/dist/scrollpoint.min.js"></script>
 	<script src="libs/angular-ui-event/dist/event.min.js"></script>
 	<script src="libs/angular-ui-indeterminate/dist/indeterminate.min.js"></script>
 	<script src="libs/angular-ui-mask/dist/mask.min.js"></script>
-	<script src="libs/angular-ui-router/release/angular-ui-router.min.js"></script>
-	<script src="libs/angular-ui-scroll/dist/ui-scroll.min.js"></script>
-	<script src="libs/angular-ui-scrollpoint/dist/scrollpoint.min.js"></script>
 	<script src="libs/angular-ui-uploader/dist/uploader.min.js"></script>
-	<script src="libs/angular-ui-utils/index.js"></script>
 	<script src="libs/angular-ui-validate/dist/validate.min.js"></script>
+	
+	<script src="libs/angular-ui-utils/index.js"></script>
+	
+	<script src="libs/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+	
 	<script src="libs/ng-tags-input/ng-tags-input.min.js"></script>
-	<script src="libs/ngSmoothScroll/dist/angular-smooth-scroll.min.js"></script>
+	<script src="libs/angular-notify/dist/angular-notify.min.js"></script>
 	<script src="libs/showdown/compressed/Showdown.min.js"></script>
+	<script src="libs/angular-markdown-directive/markdown.js"></script>
+	<script src="libs/ngSmoothScroll/dist/angular-smooth-scroll.min.js"></script>
 	<script src="libs/string/dist/string.min.js"></script>
+	
+	<!-- 	<script src="libs/angular-mocks/angular-mocks.js"></script> -->
 
  	<script src="config.js"></script>
 	<script src="application.js"></script>

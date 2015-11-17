@@ -195,7 +195,11 @@ angular.module('trees').controller('TreesController', ['$scope', '$stateParams',
 
 		// Get the starting page
 		$scope.getStartPage = function(tree){
-			for (var pageIndex = 0; pageIndex < tree.pages.length; pageIndex++) {
+			var pageCount = 0;
+			if(tree.pages){
+				pageCount = tree.pages.length;
+			}
+			for (var pageIndex = 0; pageIndex < pageCount; pageIndex++) {
 				if(tree.pages[pageIndex].isStartPage){
 					return tree.pages[pageIndex];
 				}

@@ -24,8 +24,8 @@ public class TreeRepositoryTest {
 	@Test
 	public void test() {
 		Tree tree = new Tree();
-		UUID uuid = UUID.randomUUID();
-		tree.set_id(uuid);
+		String id = UUID.randomUUID().toString();
+		tree.set_id(id);
 		tree.setName("Test Tree");
 		tree.setDescription("Test Description");
 

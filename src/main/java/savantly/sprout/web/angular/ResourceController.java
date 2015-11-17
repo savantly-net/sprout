@@ -1,10 +1,11 @@
 package savantly.sprout.web.angular;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.validation.Valid;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-public class ResourceController<T> {
- private JpaRepository entityRepository;
+public class ResourceController<T, ID extends Serializable> {
+ private MongoRepository<T, ID> entityRepository;
  
- public ResourceController(JpaRepository entityRepository) {
+ public ResourceController(MongoRepository<T, ID> entityRepository) {
   this.entityRepository = entityRepository;
  }
 
@@ -30,17 +31,17 @@ public class ResourceController<T> {
  }
 
  @RequestMapping(value="/{id}", method=RequestMethod.GET)
- public T get(@PathVariable("id") long id) {
-  return (T) this.entityRepository.findOne(id);
+ public T get(@PathVariable("id") ID id) {
+  return this.entityRepository.findOne(id);
  }
  
  @RequestMapping(value="/{id}", method=RequestMethod.PUT)
- public T update(@PathVariable("id") long id, @RequestBody @Valid T hotel) {
-  return (T) entityRepository.save(hotel);
+ public T update(@PathVariable("id") ID id, @RequestBody @Valid T model) {
+  return (T) entityRepository.save(model);
  }
  
  @RequestMapping(value="/{id}", method=RequestMethod.DELETE)
- public ResponseEntity<Boolean> delete(@PathVariable("id") long id) {
+ public ResponseEntity<Boolean> delete(@PathVariable("id") ID id) {
   this.entityRepository.delete(id);
   return new ResponseEntity<Boolean>(Boolean.TRUE, HttpStatus.OK);
  }

@@ -1,5 +1,7 @@
 package savantly.sprout.web.restControllers;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -11,7 +13,7 @@ import savantly.sprout.web.angular.ResourceController;
 
 @RestController
 @RequestMapping("/rest/trees")
-public class TreesController extends ResourceController<Tree> {
+public class TreesController extends ResourceController<Tree, String> {
 	
 	@Autowired
 	public TreesController(TreeRepository entityRepository) {
