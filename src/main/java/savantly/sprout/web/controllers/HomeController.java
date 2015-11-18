@@ -47,15 +47,9 @@ public class HomeController {
 			for (Resource resource : moduleResources) {
 				log.info(String.format("Processing resource: %s", resource));
 				
-				if(false){
-					URI resourceURI = resource.getURI();
-					log.info(String.format("Found resource URI: %s", resourceURI));
-					resourceArray.add(truncateBeginningOfPath(resourceURI.getPath(), "/public/"));
-				} else{
-					URL resourceURL = resource.getURL();
-					log.info(String.format("Found resource URL: %s", resourceURL));
-					resourceArray.add(truncateBeginningOfPath(resourceURL.getPath(), "public/"));
-				}
+				URL resourceURL = resource.getURL();
+				log.info(String.format("Found resource URL: %s", resourceURL));
+				resourceArray.add(truncateBeginningOfPath(resourceURL.getPath(), "/public/"));
 			}
 		} catch (IOException e) {
 			log.error(String.format("Error processing resources for pattern: %s", pattern));
