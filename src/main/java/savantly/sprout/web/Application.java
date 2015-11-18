@@ -1,5 +1,7 @@
 package savantly.sprout.web;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -21,11 +23,13 @@ import com.mongodb.MongoURI;
 // @EntityScan("savantly.sprout.domain")
 @ImportResource({ "classpath*:/spring/applicationContext.xml" })
 public class Application {
+	static final Logger log = LoggerFactory.getLogger(Application.class);
 	
 	@Value("${MONGOLAB_URI}")
 	private String MONGO_URI;
 
 	public static void main(String[] args) throws Exception {
+		log.debug(String.format("PORT: ", System.getenv("PORT")));
 		SpringApplication.run(Application.class, args);
 	}
 
