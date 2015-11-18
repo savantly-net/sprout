@@ -15,15 +15,15 @@ import com.mongodb.Mongo;
 @EnableMongoRepositories({ "savantly.sprout.repositories" })
 public class MongoConfiguration {
 
-	@Value("${MONGO_HOST:localhost}")
+	@Value("${MONGO_HOST}")
 	private String MONGO_HOST;
-	@Value("${MONGO_DATABASE:sprout}")
+	@Value("${MONGO_DATABASE}")
 	private String MONGO_DATABASE;
-	@Value("${MONGO_PORT:27017}")
+	@Value("${MONGO_PORT}")
 	private int MONGO_PORT;
-	@Value("${MONGO_USERAME:}")
+	@Value("${MONGO_USERAME}")
 	private String MONGO_USERAME;
-	@Value("${MONGO_PASSWORD:}")
+	@Value("${MONGO_PASSWORD}")
 	private String MONGO_PASSWORD;
 	
 	@SuppressWarnings("deprecation")
