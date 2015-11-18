@@ -47,7 +47,7 @@ public class HomeController {
 			for (Resource resource : moduleResources) {
 				log.info(String.format("Processing resource: %s", resource));
 				
-				if(resource.getURI() != null){
+				if(false){
 					URI resourceURI = resource.getURI();
 					log.info(String.format("Found resource URI: %s", resourceURI));
 					resourceArray.add(truncateBeginningOfPath(resourceURI.getPath(), "/public/"));
