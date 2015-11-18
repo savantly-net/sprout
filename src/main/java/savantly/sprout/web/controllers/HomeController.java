@@ -56,7 +56,6 @@ public class HomeController {
 					log.info(String.format("Found resource URL: %s", resourceURL));
 					resourceArray.add(truncateBeginningOfPath(resourceURL.getPath(), "public/"));
 				}
-				
 			}
 		} catch (IOException e) {
 			log.error(String.format("Error processing resources for pattern: %s", pattern));
