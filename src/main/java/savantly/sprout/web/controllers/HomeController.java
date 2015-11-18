@@ -2,6 +2,7 @@ package savantly.sprout.web.controllers;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,13 +46,20 @@ public class HomeController {
 			Resource[] moduleResources = resolver.getResources(pattern);
 			for (Resource resource : moduleResources) {
 				log.info(String.format("Processing resource: %s", resource));
-				URI resourceURI = resource.getURI();
-				log.info(String.format("Found resource URI: %s", resourceURI));
-				String fullPath = resourceURI.getPath();
-				resourceArray.add(truncateBeginningOfPath(fullPath, "/public/"));
+				
+				if(resource.getURI() != null){
+					URI resourceURI = resource.getURI();
+					log.info(String.format("Found resource URI: %s", resourceURI));
+					resourceArray.add(truncateBeginningOfPath(resourceURI.getPath(), "/public/"));
+				} else{
+					URL resourceURL = resource.getURL();
+					log.info(String.format("Found resource URL: %s", resourceURL));
+					resourceArray.add(truncateBeginningOfPath(resourceURL.getPath(), "public/"));
+				}
+				
 			}
 		} catch (IOException e) {
-			log.info(String.format("Error processing resources for pattern: %s", pattern));
+			log.error(String.format("Error processing resources for pattern: %s", pattern));
 		}
 		return resourceArray;
 	}
