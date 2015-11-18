@@ -44,14 +44,14 @@ public class HomeController {
 		try {
 			Resource[] moduleResources = resolver.getResources(pattern);
 			for (Resource resource : moduleResources) {
+				log.info(String.format("Processing resource: %s", resource));
 				URI resourceURI = resource.getURI();
-				log.info(String.format("Found resource with URI: %s", resourceURI));
+				log.info(String.format("Found resource URI: %s", resourceURI));
 				String fullPath = resourceURI.getPath();
 				resourceArray.add(truncateBeginningOfPath(fullPath, "/public/"));
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			log.info(String.format("Error processing resources for pattern: %s", pattern));
 		}
 		return resourceArray;
 	}
