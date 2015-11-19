@@ -8,8 +8,8 @@ public class TreeBranch {
 	@Id
 	private String _id;
 	private String displayText;
-	@DBRef
-	private TreeNode treeNode;
+	private String treeId;
+	private String treeNodeId;
 	
 	public String get_id() {
 		return _id;
@@ -23,10 +23,16 @@ public class TreeBranch {
 	public void setDisplayText(String displayText) {
 		this.displayText = displayText;
 	}
-	public TreeNode getTreeNode() {
-		return treeNode;
+	public String getTreeId() {
+		return treeId;
 	}
-	public void setTreeNode(TreeNode treeNode) {
-		this.treeNode = treeNode;
+	public void setTreeId(String treeId) {
+		this.treeId = treeId;
+	}
+	public String getTreeNodeId() {
+		return treeNodeId;
+	}
+	public void setTreeNodeId(String treeNodeId) {
+		this.treeNodeId = treeNodeId;
 	}
 }

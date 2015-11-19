@@ -15,6 +15,7 @@ angular.module('trees').controller('TreesController', ['$scope', '$stateParams',
 		$scope.create = function() {
 			// Create new Tree object
 			var tree = new Trees ({
+				_id: GuidGen.generate(),
 				name: this.name,
 				description: this.description,
 				coverImageUrl: this.coverImageUrl

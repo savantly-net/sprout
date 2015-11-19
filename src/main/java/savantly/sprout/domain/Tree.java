@@ -10,14 +10,17 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Tree {
 
 	@Id
-	private String _id;
+	@JsonProperty("_id")
+	private String id;
 	@Version
 	private Long version;
 	@CreatedDate
-	private DateTime created = new DateTime();
+	private DateTime created;
 	@CreatedBy
 	@DBRef
 	private SproutUserDetails user = new SproutUserDetails();
@@ -27,12 +30,12 @@ public class Tree {
 	private boolean isPublic = true;
 	private Set<TreeNode> pages = new HashSet<>();
 
-	public String get_id() {
-		return _id;
+	public String getId() {
+		return id;
 	}
 
-	public void set_id(String _id) {
-		this._id = _id;
+	public void setId(String _id) {
+		this.id = _id;
 	}
 
 	public String getName() {
@@ -89,5 +92,13 @@ public class Tree {
 
 	public void setPages(Set<TreeNode> pages) {
 		this.pages = pages;
+	}
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
 	}
 }
