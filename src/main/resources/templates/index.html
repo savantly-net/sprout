@@ -58,13 +58,13 @@
 	</section>
 
 	<!--Embedding The User Object-->
-	<script type="text/javascript">
-		var user = {
-				_id: 'jdbranham',
-				userid: 'jdbranham',
-				displayname: 'Jeremy Branham'
-		};
-	</script>
+	<script th:inline="javascript">
+/*<![CDATA[*/
+ 
+    var security = /*[[${security}]]*/;
+ 
+/*]]>*/
+</script>
 	
 	<!-- JS Libraries -->
 	<!-- <script src="libs/jquery/dist/jquery.min.js"></script>

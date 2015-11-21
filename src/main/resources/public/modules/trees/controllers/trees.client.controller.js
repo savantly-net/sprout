@@ -125,7 +125,7 @@ angular.module('trees').controller('TreesController', ['$scope', '$stateParams',
 			}).$promise.then(function(tree){
 				$scope.tree = tree;
 				$scope.startPage = $scope.getStartPage(tree);
-				$scope.activatePageById($stateParams.pageId);
+				$scope.activatePageById($stateParams.branchId);
 			});
 		};
 

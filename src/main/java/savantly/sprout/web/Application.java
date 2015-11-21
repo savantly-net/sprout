@@ -7,8 +7,11 @@ import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 
 @EnableAutoConfiguration
-@ComponentScan(basePackages = { "savantly.sprout.web.controllers", "savantly.sprout.web.restControllers" })
-@Import({WebSecurityConfig.class, MongoConfiguration.class})
+@ComponentScan(basePackages = {"savantly.sprout.web"})
+/*@Import({
+	WebSecurityConfig.class, 
+	MongoConfiguration.class, 
+	AuthenticationManagerConfiguration.class})*/
 @ImportResource({ "classpath*:/spring/applicationContext.xml" })
 public class Application {
 

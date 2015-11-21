@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
+import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import com.mongodb.Mongo;
@@ -16,6 +17,7 @@ import com.mongodb.ServerAddress;
 
 @Configuration
 @EnableMongoRepositories({ "savantly.sprout.repositories" })
+@EnableMongoAuditing
 public class MongoConfiguration extends AbstractMongoConfiguration {
 
 	@Value("${MONGO_HOST}")

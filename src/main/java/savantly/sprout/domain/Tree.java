@@ -23,7 +23,7 @@ public class Tree {
 	private DateTime created;
 	@CreatedBy
 	@DBRef
-	private SproutUserDetails user = new SproutUserDetails();
+	private SproutUser user;
 	private String name;
 	private String description;
 	private String coverImageUrl;
@@ -78,11 +78,11 @@ public class Tree {
 		this.created = created;
 	}
 
-	public SproutUserDetails getUser() {
+	public SproutUser getUser() {
 		return user;
 	}
 
-	public void setUser(SproutUserDetails user) {
+	public void setUser(SproutUser user) {
 		this.user = user;
 	}
 

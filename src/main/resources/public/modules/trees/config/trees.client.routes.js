@@ -14,7 +14,7 @@ angular.module('trees').config(['$stateProvider',
 			templateUrl: 'modules/trees/views/create-tree.client.view.html'
 		}).
 		state('viewTree', {
-			url: '/trees/:bookitoId',
+			url: '/trees/:treeId',
 			templateUrl: 'modules/trees/views/view-tree.client.view.html'
 		}).
 		// View a specific page

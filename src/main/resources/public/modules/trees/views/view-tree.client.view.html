@@ -3,7 +3,7 @@
 		<div class="page-header">
 			<h1 data-ng-bind="tree.name"></h1>
 		</div>
-		<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == tree.user._id))">
+		<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user.username == tree.user.username))">
 			<a class="btn btn-primary" href="/#!/trees/{{tree._id}}/edit">
 				<i class="glyphicon glyphicon-edit"></i>
 			</a>
@@ -28,7 +28,7 @@
        	</div>
        	<div btf-markdown="tree.description"></div>
        	<div>
-       		<a class="btn btn-primary" href="/#!/trees/{{tree._id}}/page/{{startPage._id}}">Launch!</a>
+       		<a class="btn btn-primary" href="/#!/trees/{{tree._id}}/branch/{{startPage._id}}">Launch!</a>
        	</div>
 	</div>
 </section>

@@ -6,10 +6,22 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
+import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.FilterInvocation;
+import org.springframework.security.web.access.expression.WebSecurityExpressionRoot;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +31,25 @@ public class HomeController {
 	static final Logger log = LoggerFactory.getLogger(HomeController.class);
 
 	@RequestMapping("/")
-	public String index(Model model) throws IOException {
+	public String index(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		ServletRequest req = (ServletRequest) request;
+        ServletResponse resp = (ServletResponse) response;
+        FilterInvocation filterInvocation = new FilterInvocation(req, resp, new FilterChain()
+        {
+            public void doFilter(ServletRequest request, ServletResponse response) throws IOException, ServletException
+            {
+                throw new UnsupportedOperationException();
+            }
+        });
+		
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null)
+        {
+            WebSecurityExpressionRoot sec = new WebSecurityExpressionRoot(authentication, filterInvocation);
+            sec.setTrustResolver(new AuthenticationTrustResolverImpl());
+            model.addAttribute("security", sec);
+        }
 
 		List<String> resourceArray = new ArrayList<String>();
 
@@ -34,8 +64,6 @@ public class HomeController {
 		getResourcePaths("classpath:/public/modules/*/css/*.css", cssResourceArray);
 		model.addAttribute("moduleCSSResources", cssResourceArray);
 
-		model.addAttribute("firstName", "Jeremy");
-		model.addAttribute("lastName", "Branham");
 		return "index";
 	}
 
