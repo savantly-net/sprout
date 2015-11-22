@@ -8,6 +8,9 @@ public class TreeBranch {
 	@Id
 	private String _id;
 	private String displayText;
+	private TreeNode treeNode;
+	
+	// These fields will be used in the future to swing to other trees
 	private String treeId;
 	private String treeNodeId;
 	
@@ -34,5 +37,11 @@ public class TreeBranch {
 	}
 	public void setTreeNodeId(String treeNodeId) {
 		this.treeNodeId = treeNodeId;
+	}
+	public TreeNode getTreeNode() {
+		return treeNode;
+	}
+	public void setTreeNode(TreeNode treeNode) {
+		this.treeNode = treeNode;
 	}
 }

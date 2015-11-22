@@ -31,7 +31,7 @@
 	</div>
 	<div class="container-flow">
 		<div data-ng-repeat="choice in activePage.choices" class="choice-button-container pull-left">
-	   		<a class="btn btn-primary" data-ng-bind="choice.displayText" href="/#!/trees/{{tree._id}}/branch/{{choice.page._id}}"></a>
+	   		<a class="btn btn-primary" data-ng-bind="choice.displayText" href="/#!/trees/{{tree._id}}/branch/{{choice.treeNode._id}}"></a>
 	   	</div>
 	</div>
 	<div data-ng-if="activePage.choices.length === 0" >
