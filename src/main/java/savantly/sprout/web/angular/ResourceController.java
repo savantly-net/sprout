@@ -22,7 +22,7 @@ public class ResourceController<T, ID extends Serializable> {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public T create(@RequestBody @Valid T model) {
-		return (T) this.entityRepository.save(model);
+		return (T) this.entityRepository.insert(model);
 	}
 
 	@RequestMapping(method = RequestMethod.GET)

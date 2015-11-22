@@ -3,32 +3,27 @@ package savantly.sprout.domain;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.joda.time.DateTime;
-import org.springframework.data.annotation.CreatedBy;
-import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Tree {
+import savantly.sprout.web.security.AbstractAuditableDomainObject;
 
+public class Tree extends AbstractAuditableDomainObject<String>{
+
+	private static final long serialVersionUID = -7600786993360904898L;
+	
 	@Id
 	@JsonProperty("_id")
 	private String id;
-	@Version
-	private Long version;
-	@CreatedDate
-	private DateTime created;
-	@CreatedBy
-	@DBRef
-	private SproutUser user;
 	private String name;
 	private String description;
 	private String coverImageUrl;
 	private boolean isPublic = true;
 	private Set<TreeNode> pages = new HashSet<>();
+	@Version
+	private Long version;
 
 	public String getId() {
 		return id;
@@ -68,22 +63,6 @@ public class Tree {
 
 	public void setIsPublic(boolean isPublic) {
 		this.isPublic = isPublic;
-	}
-
-	public DateTime getCreated() {
-		return created;
-	}
-
-	public void setCreated(DateTime created) {
-		this.created = created;
-	}
-
-	public SproutUser getUser() {
-		return user;
-	}
-
-	public void setUser(SproutUser user) {
-		this.user = user;
 	}
 
 	public Set<TreeNode> getPages() {

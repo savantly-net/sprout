@@ -91,6 +91,13 @@
 							<textarea rows="10" data-ng-model="activePage.body" id="pageBody" class="form-control" placeholder="Body"></textarea>
 						</div>
 					</tab>
+					<tab heading="Form">
+						<br />
+						<label class="control-label" for="pageForm">Choose a form to display on this page</label>
+						<div class="controls">
+							<input typeahead="form as form.form_name for form in formList | filter:{form_name: $viewValue} | limitTo:8" data-ng-model="activePage.form" class="form-control" placeholder="Form" />
+						</div>
+					</tab>
 					<tab heading="Choices">
 						<br />
 						<a class="btn" data-ng-click="addChoice(activePage)">Add Choice</a>

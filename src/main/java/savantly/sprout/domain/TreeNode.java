@@ -4,6 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
 public class TreeNode {
 	
@@ -15,6 +16,8 @@ public class TreeNode {
 	private String imageUrl;
 	private Set<TreeNodeTag> tags = new HashSet<>();
 	private Set<TreeBranch> choices = new HashSet<>();
+	@DBRef
+	private DynamicForm form;
 	
 	public String get_id() {
 		return _id;
@@ -52,5 +55,11 @@ public class TreeNode {
 
 	public Set<TreeBranch> getChoices() {
 		return choices;
+	}
+	public DynamicForm getForm() {
+		return form;
+	}
+	public void setForm(DynamicForm form) {
+		this.form = form;
 	}
 }

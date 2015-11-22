@@ -2,9 +2,10 @@
 
 
 // Trees controller
-angular.module('trees').controller('TreesController', ['$scope', '$stateParams', '$location', 'smoothScroll', 'Authentication', 'Trees', 'GuidGen', 'notify',
-	function($scope, $stateParams, $location, smoothScroll, Authentication, Trees, GuidGen, notify) {
+angular.module('trees').controller('TreesController', ['$scope', '$stateParams', '$location', 'smoothScroll', 'Authentication', 'Trees', 'FormBuilder', 'GuidGen', 'notify',
+	function($scope, $stateParams, $location, smoothScroll, Authentication, Trees, FormBuilder, GuidGen, notify) {
 		$scope.authentication = Authentication;
+		$scope.formList = FormBuilder.api.query();
 
 		$scope.scrollTo = function(id) {
 			var element = document.getElementById(id);

@@ -57,6 +57,7 @@ public class HomeController {
 		getResourcePaths("classpath:/public/modules/*/config/*.js", resourceArray);
 		getResourcePaths("classpath:/public/modules/*/controllers/*.js", resourceArray);
 		getResourcePaths("classpath:/public/modules/*/services/*.js", resourceArray);
+		getResourcePaths("classpath:/public/modules/*/directives/*.js", resourceArray);
 
 		model.addAttribute("moduleResources", resourceArray);
 
@@ -73,10 +74,10 @@ public class HomeController {
 		try {
 			Resource[] moduleResources = resolver.getResources(pattern);
 			for (Resource resource : moduleResources) {
-				log.info(String.format("Processing resource: %s", resource));
+				log.debug(String.format("Processing resource: %s", resource));
 				
 				URL resourceURL = resource.getURL();
-				log.info(String.format("Found resource URL: %s", resourceURL));
+				log.debug(String.format("Found resource URL: %s", resourceURL));
 				resourceArray.add(truncateBeginningOfPath(resourceURL.getPath(), "/public/"));
 			}
 		} catch (IOException e) {

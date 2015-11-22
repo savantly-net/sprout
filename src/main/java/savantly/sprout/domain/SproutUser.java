@@ -117,10 +117,10 @@ public class SproutUser implements UserDetails, CredentialsContainer {
 			boolean accountNonExpired, boolean credentialsNonExpired,
 			boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
 
-		if (((username == null) || "".equals(username)) || (password == null)) {
-			throw new IllegalArgumentException(
-					"Cannot pass null or empty values to constructor");
-		}
+//		if (((username == null) || "".equals(username)) || (password == null)) {
+//			throw new IllegalArgumentException(
+//					"Cannot pass null or empty values to constructor");
+//		}
 
 		this.username = username;
 		this.password = password;
