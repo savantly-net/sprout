@@ -31,10 +31,10 @@
 	</div>
 	<div class="container-flow">
 		<div data-ng-repeat="choice in activePage.choices" class="choice-button-container pull-left">
-	   		<a class="btn btn-primary" data-ng-bind="choice.displayText" href="/#!/trees/{{tree._id}}/page/{{choice.page._id}}"></a>
+	   		<a class="btn btn-primary" data-ng-bind="choice.displayText" href="/#!/trees/{{tree._id}}/branch/{{choice.page._id}}"></a>
 	   	</div>
 	</div>
 	<div data-ng-if="activePage.choices.length === 0" >
-		<a class="btn btn-primary" href="/#!/trees/{{tree._id}}/page/{{startPage._id}}">Back to the start!</a>
+		<a class="btn btn-primary" href="/#!/trees/{{tree._id}}/branch/{{startPage._id}}">Back to the start!</a>
 	</div>
 </section>
