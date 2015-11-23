@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Auditable;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,14 +14,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-public class ResourceController<T, ID extends Serializable> {
+import savantly.sprout.domain.SproutUser;
+
+public class ResourceController<T extends Auditable<SproutUser, ID>, ID extends Serializable> {
 	private MongoRepository<T, ID> entityRepository;
 
 	public ResourceController(MongoRepository<T, ID> entityRepository) {
 		this.entityRepository = entityRepository;
 	}
 
-	@RequestMapping(method = RequestMethod.POST)
+	@RequestMapping(value={"/", "/{id}"},method = RequestMethod.POST)
 	public T create(@RequestBody @Valid T model) {
 		return (T) this.entityRepository.insert(model);
 	}
@@ -35,7 +38,7 @@ public class ResourceController<T, ID extends Serializable> {
 		return this.entityRepository.findOne(id);
 	}
 
-	@RequestMapping(value = "/{id}", method = {RequestMethod.PUT, RequestMethod.POST})
+	@RequestMapping(value = "/{id}", method = {RequestMethod.PUT})
 	public T update(@PathVariable("id") ID id, @RequestBody @Valid T model) {
 		return (T) this.entityRepository.save(model);
 	}
