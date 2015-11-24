@@ -1,4 +1,12 @@
-<section data-ng-controller="ViewFormController" data-ng-init="findOne()">
+<section data-ng-controller="ViewFormController"
+	data-ng-init="findOne()">
+	<h2>{{ form.form_name }}</h2>
+
+	<div class="field row">
+		<div>Form ID:</div>
+		<div>{{ form.form_id }}</div>
+	</div>
+
 	<form-directive form="form"></form-directive>
 	<hr>
 
@@ -6,8 +14,7 @@
 		<a class="btn btn-small btn-primary" ng-show="!showJson"
 			ng-click="showJson = true">Show form json object</a> <a
 			class="btn btn-small btn-inverse" ng-show="showJson"
-			ng-click="showJson = false">Hide form json object</a><br>
-		<br>
+			ng-click="showJson = false">Hide form json object</a><br> <br>
 	</div>
 
 	<div ng-show="showJson">

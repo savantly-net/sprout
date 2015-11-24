@@ -3,19 +3,25 @@
 angular.module('form-builder').directive('formDirective', [function () {
     return {
         controller: function($scope){
-            $scope.submit = function(){
-                alert('Form submitted..');
+            $scope.submitHandler = function(){
                 $scope.form.submitted = true;
+                if($scope.onSubmit){
+                    $scope.onSubmit();
+                }
             }
 
-            $scope.cancel = function(){
-                alert('Form canceled..');
+            $scope.cancelHandler = function(){
+                if($scope.cancel){
+                	$scope.cancel;
+                }
             }
         },
         templateUrl: 'modules/form-builder/views/directive-templates/form/form.html',
         restrict: 'E',
         scope: {
-            form:'='
+            form:'=form',
+            onSubmit: '&onSubmit',
+            showCancel: '=showCancel'
         }
     };
   }]);

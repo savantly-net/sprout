@@ -21,6 +21,7 @@ public class Tree extends AbstractAuditableDomainObject<String>{
 	private String description;
 	private String coverImageUrl;
 	private boolean isPublic = true;
+	private boolean hasSubmitButton = true;
 	private Set<TreeNode> pages = new HashSet<>();
 	@Version
 	private Long version;
@@ -79,5 +80,13 @@ public class Tree extends AbstractAuditableDomainObject<String>{
 
 	public void setVersion(Long version) {
 		this.version = version;
+	}
+
+	public boolean isHasSubmitButton() {
+		return hasSubmitButton;
+	}
+
+	public void setHasSubmitButton(boolean hasSubmitButton) {
+		this.hasSubmitButton = hasSubmitButton;
 	}
 }

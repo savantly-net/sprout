@@ -1,3 +1,7 @@
+
+/* required for angular-bootstrap */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
 .content {
 	margin-top: 50px;
 }

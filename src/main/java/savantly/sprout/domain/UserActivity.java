@@ -1,0 +1,51 @@
+package savantly.sprout.domain;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+
+import savantly.sprout.web.security.AbstractAuditableDomainObject;
+
+public class UserActivity extends AbstractAuditableDomainObject<String> {
+
+	private static final long serialVersionUID = 616735134123056810L;
+	
+	@Id
+	private String id;
+	@DBRef
+	private Tree tree;
+	private StringPair[] questionAnswers;
+	private StringPair[] formAnswers;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public StringPair[] getQuestionAnswers() {
+		return questionAnswers;
+	}
+
+	public void setQuestionAnswers(StringPair[] questionAnswers) {
+		this.questionAnswers = questionAnswers;
+	}
+
+	public StringPair[] getFormAnswers() {
+		return formAnswers;
+	}
+
+	public void setFormAnswers(StringPair[] formAnswers) {
+		this.formAnswers = formAnswers;
+	}
+
+	public Tree getTree() {
+		return tree;
+	}
+
+	public void setTree(Tree tree) {
+		this.tree = tree;
+	}
+
+}

@@ -1,6 +1,15 @@
 'use strict';
 
 //Menu service used for managing  menus
+
+// Examples -
+
+// Add a menu Item
+// Menus.addMenuItem(menuId, menuItemTitle, menuItemURL, menuItemType, menuItemUIRoute, isPublic, roles, position)
+
+// Add a submenu Item
+// Menus.addSubMenuItem(menuId, rootMenuItemURL, menuItemTitle, menuItemURL, menuItemUIRoute, isPublic, roles, position)
+
 angular.module('core').service('Menus', [
 
 	function() {
@@ -88,7 +97,7 @@ angular.module('core').service('Menus', [
 				title: menuItemTitle,
 				link: menuItemURL,
 				menuItemType: menuItemType || 'item',
-				menuItemClass: menuItemType,
+				menuItemClass: menuItemType, //((menuItemType === 'dropdown') ? 'uib-dropdown' : menuItemType),
 				uiRoute: menuItemUIRoute || ('/' + menuItemURL),
 				isPublic: ((isPublic === null || typeof isPublic === 'undefined') ? this.menus[menuId].isPublic : isPublic),
 				roles: ((roles === null || typeof roles === 'undefined') ? this.menus[menuId].roles : roles),

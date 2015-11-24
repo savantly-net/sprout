@@ -9,23 +9,13 @@
 			Preview Form button.</p>
 	</blockquote>
 
-	<div class="well">
+	<div class="container">
 		<div class="form-fields" ng-hide="previewMode">
 			<div class="form-properties">
 				<h3>Form Properties</h3>
-				<div class="row">
-					<div class="span2">Form ID:</div>
-					<div class="span4">
-						<input type="text" name="form-id" ng-disabled="true"
-							ng-model="form.form_id">
-					</div>
-				</div>
-				<div class="row">
-					<div class="span2">Form Name:</div>
-					<div class="span4">
-						<input type="text" name="form-name" ng-disabled="previewMode"
-							ng-model="form.form_name">
-					</div>
+				<div>
+					<span>Form Name:</span> <input type="text" name="form-name"
+						ng-disabled="previewMode" ng-model="form.form_name">
 				</div>
 			</div>
 
@@ -41,45 +31,41 @@
 			</div>
 			<hr>
 			<p ng-show="form.form_fields.length == 0">No fields added yet.</p>
-			<accordion close-others="accordion.oneAtATime"> <accordion-group
-				heading="{{field.field_title}}"
-				ng-repeat="field in form.form_fields">
+			<uib-accordion close-others="accordion.oneAtATime"> <uib-accordion-group
+				ng-repeat="field in form.form_fields"> 
+				<uib-accordion-heading>
+					<span class="glyphicon red pull-right glyphicon-remove" 
+						ng-click="deleteField(field.field_id)">
+					</span>
+					<span>{{field.field_title}}</span>
+				</uib-accordion-heading>
 
 			<div class="accordion-edit">
-				<button class="btn btn-danger pull-right" type="button"
-					ng-click="deleteField(field.field_id)">
-					<i class="icon-trash icon-white"></i> Delete
-				</button>
 
-				<div class="row">
-					<div class="span2">Field ID:</div>
-					<div class="span4">{{field.field_id}}</div>
+
+				<div>
+					<span>Field ID:</span> <span>{{field.field_id}}</span>
 				</div>
-				<div class="row">
-					<div class="span2">Field Type:</div>
-					<div class="span4">{{field.field_type}}</div>
+				<div>
+					<span>Field Type:</span> <span>{{field.field_type}}</span>
 				</div>
 
 				<div class="clear"></div>
 				<hr>
 
-				<div class="row">
-					<div class="span2">Field Title:</div>
-					<div class="span4">
-						<input type="text" ng-model="field.field_title"
-							value="{{field.field_title}}">
-					</div>
+				<div>
+					<span>Field Title:</span> <span> <input type="text"
+						ng-model="field.field_title" value="{{field.field_title}}">
+					</span>
 				</div>
-				<div class="row">
-					<div class="span2">Field Default Value:</div>
-					<div class="span4">
-						<input type="text" ng-model="field.field_value"
-							value="{{field.field_value}}">
-					</div>
+				<div>
+					<span>Field Default Value:</span> <span> <input type="text"
+						ng-model="field.field_value" value="{{field.field_value}}">
+					</span>
 				</div>
-				<div class="row" ng-show="showAddOptions(field)">
-					<div class="span2">Field Options:</div>
-					<div class="span6">
+				<div ng-show="showAddOptions(field)">
+					<div>Field Options:</div>
+					<div>
 						<div ng-repeat="option in field.field_options">
 							<input type="text" ng-model="option.option_title"
 								value="{{option.option_title}}"> <a
@@ -99,9 +85,9 @@
 				<div class="clear"></div>
 				<hr>
 
-				<div class="row">
-					<div class="span2">Required:</div>
-					<div class="span4">
+				<div>
+					<div>Required:</div>
+					<div>
 						<label> <input type="radio" ng-value="true" ng-selected
 							ng-model="field.field_required" /> &nbsp; Yes
 						</label> <label> <input type="radio" ng-value="false"
@@ -113,9 +99,9 @@
 				<div class="clear"></div>
 				<hr>
 
-				<div class="row">
-					<div class="span2">Disabled:</div>
-					<div class="span4">
+				<div>
+					<div>Disabled:</div>
+					<div>
 						<label> <input type="radio" ng-value="true" ng-selected
 							ng-model="field.field_disabled" /> &nbsp; Yes
 						</label> <label> <input type="radio" ng-value="false"
@@ -124,7 +110,7 @@
 					</div>
 				</div>
 			</div>
-			</accordion-group> </accordion>
+			</uib-accordion-group> </uib-accordion>
 
 			<p class="text-center">
 				<button class="btn btn-primary right" type="button"
@@ -140,9 +126,9 @@
 					<i class="icon-refresh icon-white"></i> Reset
 				</button>
 			</p>
-<div data-ng-show="error" class="text-danger">
-					<strong data-ng-bind="error"></strong>
-				</div>
+			<div data-ng-show="error" class="text-danger">
+				<strong data-ng-bind="error"></strong>
+			</div>
 			<br>
 			<hr>
 
@@ -150,8 +136,7 @@
 				<a class="btn btn-small btn-primary" ng-show="!showJson"
 					ng-click="showJson = true">Show form json object</a> <a
 					class="btn btn-small btn-inverse" ng-show="showJson"
-					ng-click="showJson = false">Hide form json object</a><br>
-				<br>
+					ng-click="showJson = false">Hide form json object</a><br> <br>
 			</div>
 
 			<div ng-show="showJson">

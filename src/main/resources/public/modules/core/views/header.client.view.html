@@ -8,15 +8,15 @@
 		</button>
 		<a href="/#!/" class="navbar-brand">Sprout</a>
 	</div>
-	<nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
+	<nav class="uib-collapse navbar-collapse" uib-collapse="!isCollapsed" role="navigation">
 		<ul class="nav navbar-nav" data-ng-if="menu.shouldRender(authentication.user);">
-			<li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(authentication.user);" ng-switch="item.menuItemType" ui-route="{{item.uiRoute}}" class="{{item.menuItemClass}}" ng-class="{active: ($uiRoute)}" dropdown="item.menuItemType === 'dropdown'">
-				<a ng-switch-when="dropdown" class="dropdown-toggle">
+			<li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(authentication.user);" ng-switch="item.menuItemType" ui-route="{{item.uiRoute}}" class="{{item.menuItemClass}}" ng-class="{active: ($uiRoute)}" uib-dropdown="item.menuItemType === 'dropdown'">
+				<a ng-switch-when="dropdown" uib-dropdown-toggle>
 					<span data-ng-bind="item.title"></span>
 					<b class="caret"></b>
 				</a>
-				<ul ng-switch-when="dropdown" class="dropdown-menu">
-					<li data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(authentication.user);" ui-route="{{subitem.uiRoute}}" ng-class="{active: $uiRoute}">
+				<ul ng-switch-when="dropdown" uib-dropdown-menu role="menu">
+					<li role="menuitem" data-ng-repeat="subitem in item.items | orderBy: 'position'" data-ng-if="subitem.shouldRender(authentication.user);" ui-route="{{subitem.uiRoute}}" ng-class="{active: $uiRoute}">
 						<a href="/#!/{{subitem.link}}" data-ng-bind="subitem.title"></a>
 					</li>
 				</ul>
@@ -33,11 +33,11 @@
 			</li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+			<li uib-dropdown>
+				<a href="#" uib-dropdown-toggle on-toggle="dropdown">
 					<span data-ng-bind="authentication.user.username"></span> <b class="caret"></b>
 				</a>
-				<ul class="dropdown-menu">
+				<ul class="uib-dropdown-menu">
 					<li>
 						<a href="/#!/settings/profile">Edit Profile</a>
 					</li>

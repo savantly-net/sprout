@@ -23,7 +23,7 @@ public class ResourceController<T extends Auditable<SproutUser, ID>, ID extends 
 		this.entityRepository = entityRepository;
 	}
 
-	@RequestMapping(value={"/", "/{id}"},method = RequestMethod.POST)
+	@RequestMapping(value={"", "/{id}"},method = RequestMethod.POST)
 	public T create(@RequestBody @Valid T model) {
 		return (T) this.entityRepository.insert(model);
 	}

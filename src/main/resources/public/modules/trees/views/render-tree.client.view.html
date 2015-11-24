@@ -3,39 +3,49 @@
 		<div class="page-header">
 			<h1 data-ng-bind="activePage.title"></h1>
 		</div>
-		<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user.username == tree.createdBy.username))">
-			<a class="btn btn-primary" href="/#!/trees/{{tree._id}}/edit">
-				<i class="glyphicon glyphicon-edit"></i>
-			</a>
-			<a class="btn btn-primary" data-ng-click="remove();">
-				<i class="glyphicon glyphicon-trash"></i>
+		<div class="pull-right"
+			data-ng-show="((authentication.user) && (authentication.user.username == tree.createdBy.username))">
+			<a class="btn btn-primary" href="/#!/trees/{{tree._id}}/edit"> <i
+				class="glyphicon glyphicon-edit"></i>
+			</a> <a class="btn btn-primary" data-ng-click="remove();"> <i
+				class="glyphicon glyphicon-trash"></i>
 			</a>
 		</div>
-		<small>
-			<em class="text-muted">
-				Posted on
-				<span data-ng-bind="tree.createdDate | date:'mediumDate'"></span>
-				by
-				<span data-ng-bind="tree.createdBy.username"></span>
-			</em>
+		<small> <em class="text-muted"> Posted on <span
+				data-ng-bind="tree.createdDate | date:'mediumDate'"></span> by <span
+				data-ng-bind="tree.createdBy.username"></span>
+		</em>
 		</small>
 	</div>
 
+	<div data-ng-show="activePage.form && activePage.form.submitted == false" class="well container">
+		<form-directive form="activePage.form" on-submit="submitForm(activePage.form)"></form-directive>
+	</div>
+	<div
+		data-ng-if="activePage.form == undefined || activePage.form.submitted">
+		<div data-ng-if="activePage" class="well container">
+			<div class="text-center">
+				<img data-ng-if="activePage.imageUrl"
+					data-ng-src="{{activePage.imageUrl}}"></img>
+			</div>
+			<br />
 
-	<div data-ng-if="activePage" class="well container">
-		<div class="text-center">
-       		<img data-ng-if="activePage.imageUrl" data-ng-src="{{activePage.imageUrl}}"></img>
-       	</div>
-       	<br />
-       	<div class="col-lg-12 col-md-12 col-sm-12, col-xs-12" btf-markdown="activePage.body"></div>
-       	<form-directive form="activePage.form"></form-directive>
-	</div>
-	<div class="container-flow">
-		<div data-ng-repeat="choice in activePage.choices" class="choice-button-container pull-left">
-	   		<a class="btn btn-primary" data-ng-bind="choice.displayText" href="/#!/trees/{{tree._id}}/branch/{{choice.treeNode._id}}"></a>
-	   	</div>
-	</div>
-	<div data-ng-if="activePage.choices.length === 0" >
-		<a class="btn btn-primary" href="/#!/trees/{{tree._id}}/branch/{{startPage._id}}">Back to the start!</a>
+			<div class="col-lg-12 col-md-12 col-sm-12, col-xs-12"
+				btf-markdown="activePage.body"></div>
+
+		</div>
+		<div class="container-flow">
+			<div data-ng-repeat="choice in activePage.choices"
+				class="choice-button-container pull-left">
+				<a class="btn btn-primary" data-ng-bind="choice.displayText" data-ng-click="decisionMade(choice)"
+					href="/#!/trees/{{tree._id}}/branch/{{choice.treeNode._id}}"></a>
+			</div>
+		</div>
+		<div data-ng-if="activePage.choices.length === 0">
+			<!-- <a class="btn btn-primary"
+				href="/#!/trees/{{tree._id}}/branch/{{startPage._id}}">Back to
+				the start!</a> -->
+				<a class="btn btn-primary" data-ng-click="submitUserActivity()">Finish!</a>
+		</div>
 	</div>
 </section>

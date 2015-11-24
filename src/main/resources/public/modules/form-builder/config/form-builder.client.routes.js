@@ -20,6 +20,10 @@ angular.module('form-builder').config(['$stateProvider',
 		state('editForm', {
 			url: '/forms/:formId/edit',
 			templateUrl: 'modules/form-builder/views/edit-form.client.view.html'
+		}).
+		state('embeddedForm', {
+			url: '/forms/:formId/embedded',
+			templateUrl: 'modules/form-builder/views/embedded-form.client.view.html'
 		});
 	}
 ]);

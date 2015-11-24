@@ -2,8 +2,8 @@
 
 
 // Trees controller
-angular.module('trees').controller('TreesController', ['$scope', '$stateParams', '$location', 'smoothScroll', 'Authentication', 'Trees', 'FormBuilder', 'GuidGen', 'notify',
-	function($scope, $stateParams, $location, smoothScroll, Authentication, Trees, FormBuilder, GuidGen, notify) {
+angular.module('trees').controller('TreesController', ['$rootScope', '$scope', '$stateParams', '$location', 'smoothScroll', 'Authentication', 'Trees', 'FormBuilder', 'Activity', 'GuidGen', 'notify',
+	function($rootScope, $scope, $stateParams, $location, smoothScroll, Authentication, Trees, FormBuilder, Activity, GuidGen, notify) {
 		$scope.authentication = Authentication;
 		$scope.formList = FormBuilder.api.query();
 
@@ -219,10 +219,42 @@ angular.module('trees').controller('TreesController', ['$scope', '$stateParams',
 			}
 
 		};
+		
+		$scope.decisionMade = function(choice){
+			Activity.session.questionAnswers.push({
+				key: $scope.activePage.title,
+				value: choice.displayText
+			});
+		};
 
 		$scope.toggleFullScreen = function(elementId){
 			var myEl = angular.element(document.querySelector('#'+elementId));
 			myEl.toggleClass('full-screen');
+		};
+		
+		$scope.submitForm = function(form){
+			form.form_fields.map(function(form_field){
+				Activity.session.formAnswers.push({
+					key: form_field.field_title,
+					value: form_field.field_value
+				});
+			});
+		};
+		
+		$scope.submitUserActivity = function(){
+			var activity = new Activity.api({
+				tree: $scope.tree,
+				questionAnswers: Activity.session.questionAnswers,
+				formAnswers: Activity.session.formAnswers
+			});
+			activity.$save(function(response) {
+				// Clear user activity data
+				Activity.session.questionAnswers = [];
+				Activity.session.formAnswers = [];
+				$location.path('thankYou');				
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
 		};
 	}
 ]);
