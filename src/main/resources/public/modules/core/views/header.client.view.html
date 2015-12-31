@@ -23,16 +23,16 @@
 				<a ng-switch-default href="/#!/{{item.link}}" data-ng-bind="item.title"></a>
 			</li>
 		</ul>
-		<ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
+		<ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.security.authenticated">
 			<li ui-route="/signup" ng-class="{active: $uiRoute}">
 				<a href="/#!/signup">Sign Up</a>
 			</li>
 			<li class="divider-vertical"></li>
 			<li ui-route="/signin" ng-class="{active: $uiRoute}">
-				<a href="/#!/signin">Sign In</a>
+				<a href="/login">Sign In</a>
 			</li>
 		</ul>
-		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.user">
+		<ul class="nav navbar-nav navbar-right" data-ng-show="authentication.security.authenticated">
 			<li uib-dropdown>
 				<a href="#" uib-dropdown-toggle on-toggle="dropdown">
 					<span data-ng-bind="authentication.user.username"></span> <b class="caret"></b>
@@ -41,7 +41,7 @@
 					<li>
 						<a href="/#!/settings/profile">Edit Profile</a>
 					</li>
-					<li>
+					<li class="hidden">
 						<a href="/#!/settings/accounts">Manage Social Accounts</a>
 					</li>
 					<li data-ng-show="authentication.user.provider === 'local'">
@@ -49,7 +49,7 @@
 					</li>
 					<li class="divider"></li>
 					<li>
-						<a href="/auth/signout">Signout</a>
+						<a href="/login?logout">Signout</a>
 					</li>
 				</ul>
 			</li>

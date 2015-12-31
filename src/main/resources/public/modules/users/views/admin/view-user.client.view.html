@@ -1,0 +1,28 @@
+<section data-ng-controller="UserAdminController" data-ng-init="findOne()">
+	<div class="clearfix">
+		<div class="page-header">
+			<h1 data-ng-bind="user.name"></h1>
+		</div>
+		<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user.username == user.createdBy.username))">
+			<a class="btn btn-primary" href="/#!/users/{{user.id}}/edit">
+				<i class="glyphicon glyphicon-edit"></i>
+			</a>
+			<a class="btn btn-primary" data-ng-click="remove();">
+				<i class="glyphicon glyphicon-trash"></i>
+			</a>
+		</div>
+		<small>
+			<em class="text-muted">
+				Posted on
+				<span data-ng-bind="user.createdDate | date:'mediumDate'"></span>
+				by
+				<span data-ng-bind="user.createdBy.username"></span>
+			</em>
+		</small>
+	</div>
+
+
+	<div class="text-center well">
+       	<div ng-bind="user.username"></div>
+	</div>
+</section>

@@ -1,0 +1,19 @@
+<section data-ng-controller="OrganizationsController" data-ng-init="find()">
+    <div class="page-header">
+        <h1>Organizations</h1>
+    </div>
+    <div class="list-group">
+        <a data-ng-repeat="organization in organizations" data-ng-href="#!/organizations/{{organization.id}}" class="list-group-item">
+			<small class="list-group-item-text">
+				Posted on
+				<span data-ng-bind="organization.createdDate | date:'medium'"></span>
+				by
+				<span data-ng-bind="organization.createdBy.username"></span>
+			</small>
+			<h4 class="list-group-item-heading" data-ng-bind="organization.name"></h4>
+        </a>
+    </div>
+    <div class="alert alert-warning text-center" data-ng-hide="!organizations.$resolved || organizations.length">
+    	No items yet, why don't you <a href="/#!/organizations/create">create one</a>?
+    </div>
+</section>

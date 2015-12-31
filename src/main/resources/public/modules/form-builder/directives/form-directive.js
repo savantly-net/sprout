@@ -11,8 +11,8 @@ angular.module('form-builder').directive('formDirective', [function () {
             }
 
             $scope.cancelHandler = function(){
-                if($scope.cancel){
-                	$scope.cancel;
+                if($scope.onCancel){
+                	$scope.onCancel();
                 }
             }
         },
@@ -21,6 +21,7 @@ angular.module('form-builder').directive('formDirective', [function () {
         scope: {
             form:'=form',
             onSubmit: '&onSubmit',
+            onCancel: '&onCancel',
             showCancel: '=showCancel'
         }
     };

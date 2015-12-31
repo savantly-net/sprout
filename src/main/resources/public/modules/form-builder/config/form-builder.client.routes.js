@@ -24,6 +24,10 @@ angular.module('form-builder').config(['$stateProvider',
 		state('embeddedForm', {
 			url: '/forms/:formId/embedded',
 			templateUrl: 'modules/form-builder/views/embedded-form.client.view.html'
+		}).
+		state('renderForm', {
+			url: '/forms/:formId/render',
+			templateUrl: 'modules/form-builder/views/render-form.client.view.html'
 		});
 	}
 ]);

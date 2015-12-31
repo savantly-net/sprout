@@ -1,0 +1,31 @@
+<section data-ng-controller="OrganizationsController" data-ng-init="findOne()">
+    <div class="page-header">
+        <h1>Edit Organization</h1>
+    </div>
+    <div class="container-fluid">
+       	<div class="clearfix">
+	       	<form class="form-horizontal col-md-6 col-sm-6 col-xs-12 pull-left" data-ng-submit="update()" novalidate>
+	            <fieldset>
+		            <div class="clearfix form-group">
+		            	<div class="col-md-4 pull-left">
+	                    	<input type="submit" class="btn btn-primary" value="Save" />
+		                </div>
+		                <div class="col-md-4 pull-left">
+		                    <a class="btn btn-primary" href="#!/organizations/{{organization.id}}">Return</a>
+		                </div>
+		            </div>
+					<div data-ng-show="error" class="text-danger">
+						<strong data-ng-bind="error"></strong>
+					</div>
+	                <div class="form-group">
+	                    <label class="control-label" for="name">Name</label>
+	                    <div class="controls">
+	                        <input type="text" data-ng-model="organization.name" id="name" class="form-control" placeholder="Name" required="required">
+	                    </div>
+	                </div>
+	            </fieldset>
+	        </form>
+       	</div>
+    </div>
+
+</section>

@@ -1,0 +1,56 @@
+<section data-ng-controller="UserAdminController" data-ng-init="findOne()">
+    <div class="page-header">
+        <h1>Edit Organization</h1>
+    </div>
+    <div class="container-fluid">
+       	<div class="clearfix">
+	       	<form id="userForm" class="form-horizontal col-md-6 col-sm-6 col-xs-12 pull-left" data-ng-submit="update()" novalidate>
+	            <fieldset>
+		            <div class="clearfix form-group">
+		            	<div class="col-md-4 pull-left">
+	                    	<input type="submit" class="btn btn-primary" value="Save" />
+		                </div>
+		                <div class="col-md-4 pull-left">
+		                    <a class="btn btn-primary" href="#!/users/{{user.id}}">Return</a>
+		                </div>
+		            </div>
+					<div data-ng-show="error" class="text-danger">
+						<strong data-ng-bind="error"></strong>
+					</div>
+	                <div class="form-group">
+	                    <label class="control-label" for="username">Username</label>
+	                    <div class="controls">
+	                        <input type="text" disabled="disabled" data-ng-model="user.username" id="username" class="form-control"></input>
+	                        
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="control-label" for="e">Email</label>
+	                    <div class="controls">
+	                        <input type="email" data-ng-model="user.emailAddress" name="emailAddress" id="emailAddress" 
+	                        	class="form-control" placeholder="Email Address" required="required"
+	                        	ng-minlength="3">
+                        	<p ng-show="userForm.emailAddress.$invalid && !userForm.emailAddress.$pristine" class="help-block">A valid email address is required.</p>
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="control-label" for="password">Password</label>
+	                    <div class="controls">
+	                        <input type="password" data-ng-model="user.password" id="password" class="form-control" placeholder="password" required="required">
+	                    </div>
+	                </div>
+	                <div class="form-group">
+	                    <label class="control-label" for="verifyPassword">Verify Password</label>
+	                    <div class="controls">
+	                        <input type="password" data-ng-model="user.verifyPassword" id="verifyPassword" 
+	                        	class="form-control" placeholder="Verify Password" required="required"
+	                        	ui-validate=" '$value==user.password' "
+                        		ui-validate-watch=" 'user.password' ">
+	                    </div>
+	                </div>
+	            </fieldset>
+	        </form>
+       	</div>
+    </div>
+
+</section>
