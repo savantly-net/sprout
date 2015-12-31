@@ -6,4 +6,4 @@
  _____| |   |   |   |  | |       |       | |   |  
 |_______|___|   |___|  |_|_______|_______| |___|  
 ==================================================
-Sprout by Savantly :: ${application.formatted-version}
+Sprout by Savantly :: ${application.version}
