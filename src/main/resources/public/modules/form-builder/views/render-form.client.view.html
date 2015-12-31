@@ -1,6 +1,7 @@
 <section data-ng-controller="ViewFormController" data-ng-init="findOne()">
 	<div class="jumbotron">
 		<div class="container">
+		<h2>{{ form.form_name }}</h2>
 			<form-directive form="form" on-submit="submitForm(form)"></form-directive>
 		</div>
 	</div>

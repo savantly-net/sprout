@@ -1,5 +1,7 @@
 package savantly.sprout.domain;
 
+import java.util.List;
+
 import javax.persistence.Transient;
 
 import org.springframework.data.annotation.Id;
@@ -22,6 +24,8 @@ public class DynamicFormField {
 	private boolean required;
 	@JsonProperty("field_disabled")
 	private boolean disabled;
+	@JsonProperty("field_options")
+	private List<DynamicFormFieldOption> options;
 	
 	public String getId() {
 		return id;

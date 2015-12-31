@@ -27,6 +27,14 @@ angular.module('form-builder').controller('CreateFormController', ['$scope', '$s
     // accordion settings
     $scope.accordion = {}
     $scope.accordion.oneAtATime = true;
+    
+    $scope.findOne = function(){
+    	FormBuilder.api.get({
+			formId: $stateParams.formId
+		}).$promise.then(function(form){
+			$scope.form = form;
+		});
+    };
 
     // create new field button click
     $scope.addNewField = function(){
@@ -136,6 +144,15 @@ angular.module('form-builder').controller('CreateFormController', ['$scope', '$s
     $scope.save = function(){
     	var formToSave = new FormBuilder.api($scope.form);
     	formToSave.$save(function(response) {
+			$location.path('forms/' + response.form_id);
+		}, function(errorResponse) {
+			$scope.error = errorResponse.data.message;
+		});
+    }
+    
+    $scope.update = function(){
+    	var formToSave = new FormBuilder.api($scope.form);
+    	formToSave.$update(function(response) {
 			$location.path('forms/' + response.form_id);
 		}, function(errorResponse) {
 			$scope.error = errorResponse.data.message;

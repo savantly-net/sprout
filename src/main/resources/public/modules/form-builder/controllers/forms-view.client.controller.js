@@ -3,10 +3,11 @@
 // Create Form controller
 angular.module('form-builder').controller(
 		'ViewFormController',
-		[ '$scope', '$stateParams', 'Authentication', 'FormBuilder', 'Activity', 
+		[ '$scope', '$stateParams', 'Authentication', 'FormBuilder', 'Activity',  
 				function($scope, $stateParams, Authentication, FormBuilder, Activity) {
 					$scope.authentication = Authentication;
 					$scope.form = {};
+					$scope.stateParams = $stateParams;
 					
 					// Find existing form for id
 					$scope.findOne = function() {

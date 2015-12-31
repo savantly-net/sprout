@@ -1,24 +1,33 @@
 <section data-ng-controller="ViewFormController"
 	data-ng-init="findOne()">
-	<h2>{{ form.form_name }}</h2>
-
-	<div class="field row">
-		<div>Form ID:</div>
-		<div>{{ form.form_id }}</div>
+	<div class="page-header">
+		<div class="pull-right clear" data-ng-show="((authentication.user) && (authentication.user.username == form.createdBy.username))">
+			<a class="btn btn-primary" href="/#!/forms/{{form.form_id}}/edit">
+				<i class="glyphicon glyphicon-edit"></i>
+			</a>
+			<a class="btn btn-primary" data-ng-click="remove();">
+				<i class="glyphicon glyphicon-trash"></i>
+			</a>
+		</div>
+		<h2>{{ form.form_name }} <span class="text-warning">[Testing]</span></h2> 
+		<div><a class="btn btn-info" ui-sref="renderForm(stateParams)">Launch Published Form</a></div>
 	</div>
 
-	<form-directive form="form"></form-directive>
-	<hr>
-
-	<div class="text-center">
-		<a class="btn btn-small btn-primary" ng-show="!showJson"
-			ng-click="showJson = true">Show form json object</a> <a
-			class="btn btn-small btn-inverse" ng-show="showJson"
-			ng-click="showJson = false">Hide form json object</a><br> <br>
+	<div class="container">
+		<form-directive form="form"></form-directive>
+		<hr>
+	
+		<div class="text-center">
+			<a class="btn btn-small btn-primary" ng-show="!showJson"
+				ng-click="showJson = true">Show form json object</a> <a
+				class="btn btn-small btn-inverse" ng-show="showJson"
+				ng-click="showJson = false">Hide form json object</a><br> <br>
+		</div>
+	
+		<div ng-show="showJson">
+			<h4>Form object:</h4>
+			<pre>{{ form | json }}</pre>
+		</div>
 	</div>
-
-	<div ng-show="showJson">
-		<h4>Form object:</h4>
-		<pre>{{ form | json }}</pre>
-	</div>
+	
 </section>

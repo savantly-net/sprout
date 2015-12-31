@@ -4,7 +4,7 @@
 angular.module('form-builder').factory('FormBuilder',
 		[ '$resource', function($resource) {
 			return {
-				api : $resource('rest/forms/:formId', {formId : '@_id'}, {update : {method : 'PUT'}}),
+				api : $resource('rest/forms/:formId', {formId : '@form_id'}, {update : {method : 'PUT'}}),
 				fields : [ {
 					name : 'textfield',
 					value : 'Textfield'
