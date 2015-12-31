@@ -1,5 +1,7 @@
 package savantly.sprout.domain;
 
+import javax.persistence.Transient;
+
 import org.springframework.data.annotation.Id;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -14,6 +16,7 @@ public class DynamicFormField {
 	@JsonProperty("field_type")
 	private String type;
 	@JsonProperty("field_value")
+	@Transient
 	private String value;
 	@JsonProperty("field_required")
 	private boolean required;

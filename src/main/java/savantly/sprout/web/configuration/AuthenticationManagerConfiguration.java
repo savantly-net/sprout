@@ -1,4 +1,4 @@
-package savantly.sprout.web;
+package savantly.sprout.web.configuration;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +14,8 @@ public class AuthenticationManagerConfiguration extends
 
 	@Autowired
 	private UserDetailsService userDetailsService;
-	PasswordEncoder encoder = new BCryptPasswordEncoder();
+	@Autowired
+	PasswordEncoder encoder; // = new BCryptPasswordEncoder();
 
     @Override
     public void init(AuthenticationManagerBuilder auth) throws Exception {

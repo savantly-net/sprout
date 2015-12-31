@@ -26,6 +26,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import savantly.sprout.domain.SproutUser;
+
 @Controller
 public class HomeController {
 	static final Logger log = LoggerFactory.getLogger(HomeController.class);
@@ -46,6 +48,9 @@ public class HomeController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null)
         {
+        	if(authentication.getPrincipal() instanceof SproutUser){
+        		((SproutUser)authentication.getPrincipal()).eraseCredentials();
+        	}
             WebSecurityExpressionRoot sec = new WebSecurityExpressionRoot(authentication, filterInvocation);
             sec.setTrustResolver(new AuthenticationTrustResolverImpl());
             model.addAttribute("security", sec);

@@ -1,4 +1,4 @@
-package savantly.sprout.web;
+package savantly.sprout.web.configuration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
+import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 
 import com.mongodb.Mongo;
@@ -15,8 +16,12 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 
+import savantly.sprout.repositories.ExtendedMongoRepositoryImpl;
+
 @Configuration
-@EnableMongoRepositories({ "savantly.sprout.repositories" })
+@EnableMongoRepositories(
+		basePackages = { "savantly.sprout.repositories" },
+		repositoryBaseClass= ExtendedMongoRepositoryImpl.class)
 @EnableMongoAuditing
 public class MongoConfiguration extends AbstractMongoConfiguration {
 
@@ -48,6 +53,11 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
 		else{
 			return new MongoClient(new ServerAddress(MONGO_HOST, MONGO_PORT));
 		}
+	}
+	
+	@Bean
+	public MongoTemplate mongoTemplateBean() throws Exception{
+		return this.mongoTemplate();
 	}
 
 	private <T> List<T> singletonList(T object) {

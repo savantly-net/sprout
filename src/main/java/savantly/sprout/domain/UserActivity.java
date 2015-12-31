@@ -13,6 +13,8 @@ public class UserActivity extends AbstractAuditableDomainObject<String> {
 	private String id;
 	@DBRef
 	private Tree tree;
+	@DBRef
+	private DynamicForm form;
 	private StringPair[] questionAnswers;
 	private StringPair[] formAnswers;
 
@@ -46,6 +48,14 @@ public class UserActivity extends AbstractAuditableDomainObject<String> {
 
 	public void setTree(Tree tree) {
 		this.tree = tree;
+	}
+
+	public DynamicForm getForm() {
+		return form;
+	}
+
+	public void setForm(DynamicForm form) {
+		this.form = form;
 	}
 
 }

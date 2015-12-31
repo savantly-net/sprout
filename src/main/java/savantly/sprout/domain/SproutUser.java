@@ -31,11 +31,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.util.Assert;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonSubTypes;
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
+import savantly.sprout.web.security.AbstractAuditableDomainObject;
 import savantly.sprout.web.security.Role;
 
 /**
@@ -59,22 +60,21 @@ import savantly.sprout.web.security.Role;
  * @author Luke Taylor
  * @author Jeremy Branham (modified original)
  */
-public class SproutUser implements UserDetails, CredentialsContainer {
+public class SproutUser extends AbstractAuditableDomainObject<String> implements UserDetails, CredentialsContainer {
 
 	private static final long serialVersionUID = 6629698068044899330L;
 	
 	// ~ Instance fields
 	// ================================================================================================
-	@JsonIgnore
+	@JsonProperty(access=Access.WRITE_ONLY)
 	private String password;
 	@org.springframework.data.annotation.Id
 	private String username;
-	/*@JsonTypeInfo(use = com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NONE)
-	@JsonSubTypes({
-        @Type(Role.class)
-    })*/
-	@JsonIgnore
-	private Set<GrantedAuthority> authorities;
+	private String emailAddress;
+	private String firstName;
+	private String lastName;
+	@JsonTypeInfo(use = com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NONE)
+	private Set<Role> authorities;
 	private boolean accountNonExpired;
 	private boolean accountNonLocked;
 	private boolean credentialsNonExpired;
@@ -85,12 +85,16 @@ public class SproutUser implements UserDetails, CredentialsContainer {
 
 	public SproutUser (){}
 	
+	public SproutUser(String username, String password, String firstName, String lastName) {
+		this(username, password, firstName, lastName, true, true, true, true, Collections.<Role>emptySet());
+	}
+	
 	/**
 	 * Calls the more complex constructor with all boolean arguments set to {@code true}.
 	 */
-	public SproutUser(String username, String password,
-			Collection<? extends GrantedAuthority> authorities) {
-		this(username, password, true, true, true, true, authorities);
+	public SproutUser(String username, String password, String firstName, String lastName,
+			Collection<? extends Role> authorities) {
+		this(username, password, firstName, lastName, true, true, true, true, authorities);
 	}
 
 	/**
@@ -113,9 +117,9 @@ public class SproutUser implements UserDetails, CredentialsContainer {
 	 * a parameter or as an element in the <code>GrantedAuthority</code> collection
 	 */
 	@PersistenceConstructor
-	public SproutUser(String username, String password, boolean enabled,
+	public SproutUser(String username, String password, String firstName, String lastName, boolean enabled,
 			boolean accountNonExpired, boolean credentialsNonExpired,
-			boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+			boolean accountNonLocked, Collection<? extends Role> authorities) {
 
 //		if (((username == null) || "".equals(username)) || (password == null)) {
 //			throw new IllegalArgumentException(
@@ -124,6 +128,8 @@ public class SproutUser implements UserDetails, CredentialsContainer {
 
 		this.username = username;
 		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
 		this.enabled = enabled;
 		this.accountNonExpired = accountNonExpired;
 		this.credentialsNonExpired = credentialsNonExpired;
@@ -134,7 +140,9 @@ public class SproutUser implements UserDetails, CredentialsContainer {
 	// ~ Methods
 	// ========================================================================================================
 
-	public Collection<GrantedAuthority> getAuthorities() {
+
+
+	public Collection<Role> getAuthorities() {
 		return authorities;
 	}
 
@@ -166,15 +174,15 @@ public class SproutUser implements UserDetails, CredentialsContainer {
 		password = null;
 	}
 
-	private static SortedSet<GrantedAuthority> sortAuthorities(
-			Collection<? extends GrantedAuthority> authorities) {
+	private static SortedSet<Role> sortAuthorities(
+			Collection<? extends Role> authorities) {
 		Assert.notNull(authorities, "Cannot pass a null GrantedAuthority collection");
 		// Ensure array iteration order is predictable (as per
 		// UserDetails.getAuthorities() contract and SEC-717)
-		SortedSet<GrantedAuthority> sortedAuthorities = new TreeSet<GrantedAuthority>(
+		SortedSet<Role> sortedAuthorities = new TreeSet<Role>(
 				new AuthorityComparator());
 
-		for (GrantedAuthority grantedAuthority : authorities) {
+		for (Role grantedAuthority : authorities) {
 			Assert.notNull(grantedAuthority,
 					"GrantedAuthority list cannot contain any null elements");
 			sortedAuthorities.add(grantedAuthority);
@@ -257,5 +265,58 @@ public class SproutUser implements UserDetails, CredentialsContainer {
 		}
 
 		return sb.toString();
+	}
+
+	@Override
+	public String getId() {
+		return username;
+	}
+
+	public String getEmailAddress() {
+		return emailAddress;
+	}
+
+	public void setEmailAddress(String emailAddress) {
+		this.emailAddress = emailAddress;
+	}
+
+	public void setAuthorities(Set<Role> authorities) {
+		this.authorities = Collections.unmodifiableSet(sortAuthorities(authorities));
+	}
+
+	public void setAccountNonExpired(boolean accountNonExpired) {
+		this.accountNonExpired = accountNonExpired;
+	}
+
+	public void setAccountNonLocked(boolean accountNonLocked) {
+		this.accountNonLocked = accountNonLocked;
+	}
+
+	public void setCredentialsNonExpired(boolean credentialsNonExpired) {
+		this.credentialsNonExpired = credentialsNonExpired;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getLastName() {
+		return lastName;
+	}
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 }
