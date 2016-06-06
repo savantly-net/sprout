@@ -1,17 +1,17 @@
 <section data-ng-controller="HomeController">
-	<div class="container">
+	<div class="hero-unit container">
 		<div class="row-fluid">
-			<div class="hero-unit text-center">
+			<div class="text-center">
 				<img alt="Sprout!" src="modules/core/img/brand/sprout.png" />
 			</div>
+		</div>
+		<div class="row-fluid row-space">
 			<div data-ng-include="'modules/search/views/search.client.view.html'"></div>
 		</div>
 	</div>
-
-	<div class="featurette" style="margin:2em;">
-		<div>
-			<h2 class="featurette-heading">Decision trees with embedded
-				forms</h2>
+	<div class="panel panel-default">
+		<div class="panel-heading">Decision trees with embedded forms</div>
+		<div class="panel-body">
 			<span class="text-muted">Sprout <span
 				class="glyphicon glyphicon-heart"></span>'s Data.
 			</span>
@@ -20,5 +20,4 @@
 				transactions.</p>
 		</div>
 	</div>
-
 </section>

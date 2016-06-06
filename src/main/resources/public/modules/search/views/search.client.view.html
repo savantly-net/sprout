@@ -1,10 +1,13 @@
 <section data-ng-controller="SearchController">
 	<div class="input-group input-group-lg">
-		<input type="text" class="form-control" ng-bind="query"
+		<input type="text" class="form-control" ng-model="query"
 			placeholder="Search for..."></input> 
 		<span class="input-group-btn">
-        	<button class="btn btn-secondary" type="button"><span class="glyphicon glyphicon-search"> </span></button>
+        	<button class="btn btn-secondary" ng-click="search()" type="button"><span class="glyphicon glyphicon-search"> </span></button>
 		</span>
 	</div>
 	<!-- /input-group -->
+	<div>
+		<tree-list-directive trees="trees"></tree-list-directive>
+	</div>
 </section>

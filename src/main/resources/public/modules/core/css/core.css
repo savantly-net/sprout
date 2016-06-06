@@ -30,9 +30,13 @@
 	color: green;
 }
 
+.row-space{
+	margin-top: 2%;
+}
+
 .hero-unit {
 padding: 60px;/* CHANGE PADDING HERE*/
-margin-bottom: 30px; 
+margin-bottom: 20px; 
 font-size: 18px;
 font-weight: 200;
 line-height: 30px;
