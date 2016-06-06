@@ -1,8 +1,12 @@
 package savantly.sprout.repositories;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -18,6 +22,7 @@ public class ExtendedMongoRepositoryImpl<T, ID extends Serializable> extends Sim
 
 	private Class<T> clazz;
 	private MongoOperations mongoOperations;
+	@SuppressWarnings("unused")
 	private MongoEntityInformation<T, ID> metadata;
 	
 	public ExtendedMongoRepositoryImpl(MongoEntityInformation<T, ID> metadata, MongoOperations mongoOperations) {
@@ -63,6 +68,12 @@ public class ExtendedMongoRepositoryImpl<T, ID extends Serializable> extends Sim
 
 		return mongoOperations.findById(id, clazz);
 
+	}
+
+	@Override
+	public Page<T> query(Query query, Pageable pageable) {
+		List<T> list =  mongoOperations.find(query.with(pageable), clazz);
+		return new PageImpl<T>(list, pageable, list.size());
 	}
 
 }

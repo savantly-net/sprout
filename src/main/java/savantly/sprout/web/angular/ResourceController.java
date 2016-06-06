@@ -6,9 +6,9 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Auditable;
-import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -20,18 +20,18 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import savantly.sprout.domain.SproutUser;
 import savantly.sprout.exceptions.UnauthorizedClientException;
+import savantly.sprout.repositories.ExtendedMongoRepository;
 import savantly.sprout.web.security.Roles;
 
 public class ResourceController<T extends Auditable<SproutUser, ID>, ID extends Serializable> {
 	
-	private MongoRepository<T, ID> entityRepository;
+	private ExtendedMongoRepository<T, ID> entityRepository;
 
-	public ResourceController(MongoRepository<T, ID> entityRepository) {
-		this.entityRepository = entityRepository;
+	public ResourceController(ExtendedMongoRepository<T, ID> entityRepository) {
+		this.entityRepository = (ExtendedMongoRepository<T, ID>) entityRepository;
 	}
 
 	@RequestMapping(value={"", "/{id}"},method = RequestMethod.POST)
-	
 	public T create(@RequestBody @Valid T model, @AuthenticationPrincipal SproutUser user) {
 		if(!canCreate(model, user)) {
 			throw new RuntimeException("You do not have authorization to create new items.");
@@ -60,6 +60,7 @@ public class ResourceController<T extends Auditable<SproutUser, ID>, ID extends 
 	}
 
 	@RequestMapping(value = "/{id}", method = {RequestMethod.PUT})
+	@PreAuthorize("isAuthenticated()")
 	public T update(@PathVariable("id") ID id, @RequestBody @Valid T model, @AuthenticationPrincipal SproutUser user) {
 		if(!canUpdate(model, user))throw new UnauthorizedClientException("You do not have authorization to update this item.");
 		ResourceEvent<T> resourceEvent = onUpdating(new ResourceEvent<T>(model, false));
@@ -120,15 +121,15 @@ public class ResourceController<T extends Auditable<SproutUser, ID>, ID extends 
 	 * @param user The current user
 	 * @return True or false if the model should be created
 	 */
-	protected boolean canCreate(T model, SproutUser user) {
+	protected boolean canCreate(T model, SproutUser currentUser) {
 		return true;
 	}
 	
-	protected boolean canList(SproutUser user) {
+	protected boolean canList(SproutUser currentUser) {
 		return true;
 	}
 	
-	protected boolean canGet(ID id, SproutUser user) {
+	protected boolean canGet(ID id, SproutUser currentUser) {
 		return true;
 	}
 	
@@ -138,11 +139,15 @@ public class ResourceController<T extends Auditable<SproutUser, ID>, ID extends 
 	 * @param user The current user
 	 * @return True or false if the model should be updated
 	 */
-	protected boolean canUpdate(T model, SproutUser user) {
+	protected boolean canUpdate(T model, SproutUser currentUser) {
 		return true;
 	}
 	
-	protected boolean canDelete(ID id, SproutUser user) {
+	protected boolean canDelete(ID id, SproutUser currentUser) {
 		return true;
+	}
+
+	protected ExtendedMongoRepository<T, ID> getEntityRepository() {
+		return entityRepository;
 	}
 }

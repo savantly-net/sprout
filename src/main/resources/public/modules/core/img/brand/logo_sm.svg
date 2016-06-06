@@ -16,10 +16,10 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r13725"
-   sodipodi:docname="logo.svg"
-   inkscape:export-filename="C:\Projects\Sprout\sprout-web\src\main\resources\public\modules\core\img\brand\sprout.png"
-   inkscape:export-xdpi="300"
-   inkscape:export-ydpi="300">
+   sodipodi:docname="logo_sm.svg"
+   inkscape:export-filename="C:\Projects\Sprout\sprout-web\src\main\resources\public\modules\core\img\brand\sprout_sm.png"
+   inkscape:export-xdpi="23.82679"
+   inkscape:export-ydpi="23.82679">
   <defs
      id="defs4">
     <linearGradient
@@ -37,11 +37,11 @@
     <linearGradient
        inkscape:collect="always"
        xlink:href="#linearGradient4147"
-       id="linearGradient4153"
-       x1="559.87366"
-       y1="612.43988"
-       x2="569.66443"
-       y2="601.49719"
+       id="linearGradient4165"
+       x1="551.1839"
+       y1="621.73315"
+       x2="576.86505"
+       y2="604.40906"
        gradientUnits="userSpaceOnUse" />
   </defs>
   <sodipodi:namedview
@@ -52,8 +52,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1"
-     inkscape:cx="309.699"
-     inkscape:cy="122.16828"
+     inkscape:cx="279.77263"
+     inkscape:cy="87.424145"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -86,7 +86,7 @@
      style="display:inline">
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:180px;line-height:125%;font-family:'Curlz MT';-inkscape-font-specification:'Curlz MT';letter-spacing:0px;word-spacing:0px;fill:#6ecd24;fill-opacity:1;stroke:#000000;stroke-width:3;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:180px;line-height:125%;font-family:'Curlz MT';-inkscape-font-specification:'Curlz MT';letter-spacing:0px;word-spacing:0px;fill:#6ecd24;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        x="220.21326"
        y="731.13367"
        id="text5876"
@@ -96,14 +96,14 @@
          x="220.21326"
          y="731.13367">SPROUT</tspan></text>
     <path
-       style="opacity:1;fill:#6ecd24;fill-opacity:1;stroke:#000000;stroke-width:1.79711378;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:#6ecd24;fill-opacity:1;stroke:#000000;stroke-width:1;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
        d="m 589.53573,599.85154 c -2.4792,8.09878 -12.08715,13.60068 -23.21237,13.13625 l -3.10018,-13.81306 c -3.05156,-13.59637 5.28324,-16.25986 11.20653,-29.62339 6.42865,4.01082 20.28758,13.37364 15.10602,30.3002 z"
        id="path5914"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="scscs" />
     <path
-       style="opacity:1;fill:url(#linearGradient4153);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
-       d="m 554.88736,615.81686 c 5.36229,-1.1461 7.6209,-3.76436 11.25406,-5.99807 11.62345,-7.14624 9.99035,-21.5132 9.99035,-21.5132 0,0 2.64236,13.39302 -2.10484,18.91169 -11.60351,13.48921 -16.75377,14.11782 -16.75377,14.11782"
+       style="opacity:1;fill:url(#linearGradient4165);fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:round;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 554.36592,617.12982 c 5.36229,-1.1461 8.14234,-5.07732 11.7755,-7.31103 11.62345,-7.14624 9.99035,-21.5132 9.99035,-21.5132 0,0 2.64236,13.39302 -2.10484,18.91169 -11.60351,13.48921 -18.21448,13.29506 -18.21448,13.29506"
        id="path5919"
        inkscape:connector-curvature="0"
        sodipodi:nodetypes="cscsc" />

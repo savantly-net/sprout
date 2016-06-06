@@ -1,23 +1,15 @@
 <section data-ng-controller="HomeController">
-	<div class="jumbotron text-center">
-		<div class="row">
-			<div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3 col-xs-12">
-				<!-- <img width="500px" alt="Bookito!" class="img-responsive text-center" src="modules/core/img/brand/logo.svg" /> -->
+	<div class="container">
+		<div class="row-fluid">
+			<div class="hero-unit text-center">
+				<img alt="Sprout!"
+					src="modules/core/img/brand/sprout.png" />
 			</div>
-		</div>
-		<br>
-		<div class="row">
-			<p class="lead">
-				Get started with Sprout!
-			</p>
-		</div>
-		<div class="row">
-			<p>
-				<a data-ng-hide="authentication.user" class="btn btn-primary btn-lg" href="/#!/signin">Get Started!</a>
-				<a data-ng-show="authentication.user" class="btn btn-primary btn-lg" href="#!/trees/create">Get Started!</a>
-			</p>
+			<div data-ng-include="'modules/search/views/search.client.view.html'"></div>
 		</div>
 	</div>
-	<div data-ng-include="'modules/form-builder/views/list-forms.client.view.html'"></div>
-	<div data-ng-include="'modules/trees/views/list-trees.client.view.html'"></div>
+
+
+	<!-- <div data-ng-include="'modules/form-builder/views/list-forms.client.view.html'"></div>
+	<div data-ng-include="'modules/trees/views/list-trees.client.view.html'"></div> -->
 </section>

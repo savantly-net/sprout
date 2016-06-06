@@ -5,6 +5,8 @@ import java.util.Set;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
+import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.TextScore;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -17,7 +19,9 @@ public class Tree extends AbstractAuditableDomainObject<String>{
 	@Id
 	@JsonProperty("_id")
 	private String id;
+	@TextIndexed(weight=2)
 	private String name;
+	@TextIndexed
 	private String description;
 	private String coverImageUrl;
 	private boolean isPublic = true;
@@ -25,6 +29,7 @@ public class Tree extends AbstractAuditableDomainObject<String>{
 	private Set<TreeNode> pages = new HashSet<>();
 	@Version
 	private Long version;
+	@TextScore Float score;
 
 	public String getId() {
 		return id;
@@ -88,5 +93,9 @@ public class Tree extends AbstractAuditableDomainObject<String>{
 
 	public void setHasSubmitButton(boolean hasSubmitButton) {
 		this.hasSubmitButton = hasSubmitButton;
+	}
+
+	public Float getScore() {
+		return score;
 	}
 }

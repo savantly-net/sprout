@@ -2,6 +2,9 @@ package savantly.sprout.repositories;
 
 import java.io.Serializable;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 
@@ -15,5 +18,7 @@ public interface ExtendedMongoRepository<T, ID extends Serializable> extends Mon
    * @return
    */
   public T updatePartial(T entity, ID id);
+  
+  public Page<T> query(Query query, Pageable pageable);
 
 }

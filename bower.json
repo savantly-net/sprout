@@ -4,6 +4,7 @@
   "description": "An Enterprise Process Manager",
   "dependencies": {
     "bootstrap": "~3",
+    "bootswatch-dist": "3.3.0-cerulean",
     "angular": "~1.4",
     "angular-resource": "~1.4.7",
     "angular-mocks": "~1.4.7",

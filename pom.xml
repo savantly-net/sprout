@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.3.0.RELEASE</version>
+		<version>1.3.5.RELEASE</version>
 	</parent>
 
 	<properties>
@@ -86,7 +86,7 @@
 	</dependencyManagement>
 
 	<dependencies>
-	
+
 		<!-- TEST Dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -98,7 +98,19 @@
 			<artifactId>spring-boot-devtools</artifactId>
 			<scope>test</scope>
 		</dependency>
-		
+		<dependency>
+			<groupId>net.savantly</groupId>
+			<artifactId>spring-fixtures</artifactId>
+			<version>0.0.1-RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<artifactId>spring-data-jpa</artifactId>
+					<groupId>org.springframework.data</groupId>
+				</exclusion>
+			</exclusions>
+		</dependency>
+
+
 		<!-- Spring Dependencies -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -120,6 +132,10 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.hateoas</groupId>
+			<artifactId>spring-hateoas</artifactId>
+		</dependency>
 		<!-- <dependency> <groupId>org.springframework.boot</groupId> <artifactId>spring-boot-starter-data-jpa</artifactId> 
 			</dependency> -->
 
@@ -137,9 +153,9 @@
 		<!-- <dependency> <groupId>org.hsqldb</groupId> <artifactId>hsqldb</artifactId> 
 			</dependency> -->
 		<dependency>
-		    <groupId>org.thymeleaf.extras</groupId>
-		    <artifactId>thymeleaf-extras-springsecurity3</artifactId>
-		    <version>2.1.2.RELEASE</version>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity3</artifactId>
+			<version>2.1.2.RELEASE</version>
 		</dependency>
 
 		<dependency>
@@ -167,5 +183,11 @@
 				spring-boot-starter-cloud-connectors
 			</artifactId>
 		</dependency>
+
+		<!-- Metrics -->
+		<dependency>
+			<groupId>io.dropwizard.metrics</groupId>
+			<artifactId>metrics-core</artifactId>
+			</dependency>
 	</dependencies>
 </project>
