@@ -2,16 +2,10 @@ package savantly.sprout.web;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Import;
-
-import savantly.sprout.web.configuration.AuthenticationManagerConfiguration;
-import savantly.sprout.web.configuration.MethodSecurityConfiguration;
-import savantly.sprout.web.configuration.MongoConfiguration;
-import savantly.sprout.web.configuration.MvcConfiguration;
-import savantly.sprout.web.configuration.WebSecurityConfig;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 
 @SpringBootApplication
+@EnableSpringDataWebSupport
 /*@EnableAutoConfiguration*/
 /*@ComponentScan(basePackages = {"savantly.sprout.web"})*/
 /*@ComponentScan(basePackages = {

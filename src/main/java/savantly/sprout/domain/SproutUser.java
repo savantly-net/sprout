@@ -24,6 +24,7 @@ import java.util.SortedSet;
 import java.util.TreeSet;
 
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.annotation.Transient;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
@@ -34,9 +35,9 @@ import org.springframework.util.Assert;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 import savantly.sprout.web.security.AbstractAuditableDomainObject;
+import savantly.sprout.web.security.MD5Util;
 import savantly.sprout.web.security.Role;
 
 /**
@@ -79,6 +80,8 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 	private boolean accountNonLocked;
 	private boolean credentialsNonExpired;
 	private boolean enabled;
+	@Transient
+	private String gravatarUrl;
 
 	// ~ Constructors
 	// ===================================================================================================
@@ -319,4 +322,9 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
+	public String getGravatarUrl() {
+		return String.format("https://www.gravatar.com/avatar/%s?s=200&d=identicon", MD5Util.md5Hex(emailAddress));
+	}
+
 }

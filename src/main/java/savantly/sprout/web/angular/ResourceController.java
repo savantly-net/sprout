@@ -6,6 +6,11 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.data.domain.Auditable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import savantly.sprout.domain.SproutUser;
 import savantly.sprout.exceptions.UnauthorizedClientException;
@@ -44,6 +50,15 @@ public class ResourceController<T extends Auditable<SproutUser, ID>, ID extends 
 		}
 		else return resourceEvent.getEntity();
 		
+	}
+	
+	@RequestMapping(value={"/search/{field}/{value}"},method = RequestMethod.GET)
+	public Page<T> search(@PathVariable String field, @PathVariable String value, @RequestParam(required=false) Pageable pageable, @AuthenticationPrincipal SproutUser user) {
+		Query query = Query.query(Criteria.where(field).is(value));
+		if(pageable == null){
+			pageable = new PageRequest(0, 20);
+		}
+		return this.entityRepository.query(query, pageable);
 	}
 
 	@RequestMapping(method = RequestMethod.GET)

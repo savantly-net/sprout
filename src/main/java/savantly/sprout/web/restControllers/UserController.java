@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import savantly.sprout.domain.SproutUser;
-import savantly.sprout.repositories.UserRepository;
+import savantly.sprout.repositories.user.UserRepository;
 import savantly.sprout.web.angular.ResourceController;
 import savantly.sprout.web.angular.ResourceEvent;
 import savantly.sprout.web.security.ClientCredentials;

@@ -1,31 +1,61 @@
-<section data-ng-controller="OrganizationsController" data-ng-init="findOne()">
-    <div class="page-header">
-        <h1>Edit Organization</h1>
-    </div>
-    <div class="container-fluid">
-       	<div class="clearfix">
-	       	<form class="form-horizontal col-md-6 col-sm-6 col-xs-12 pull-left" data-ng-submit="update()" novalidate>
-	            <fieldset>
-		            <div class="clearfix form-group">
-		            	<div class="col-md-4 pull-left">
-	                    	<input type="submit" class="btn btn-primary" value="Save" />
-		                </div>
-		                <div class="col-md-4 pull-left">
-		                    <a class="btn btn-primary" href="#!/organizations/{{organization.id}}">Return</a>
-		                </div>
-		            </div>
+<section data-ng-controller="OrganizationsController"
+	data-ng-init="findOne()">
+	<div class="page-header">
+		<h1>Edit Organization</h1>
+	</div>
+	<div class="container-fluid">
+		<div class="clearfix">
+			<form class="form-horizontal col-md-6 col-sm-6 col-xs-12 pull-left"
+				data-ng-submit="update()" novalidate>
+				<fieldset>
+					<div class="clearfix form-group">
+						<div class="col-md-4 pull-left">
+							<input type="submit" class="btn btn-primary" value="Save" />
+						</div>
+						<div class="col-md-4 pull-left">
+							<a class="btn btn-primary"
+								href="#!/organizations/{{organization.id}}">Return</a>
+						</div>
+					</div>
 					<div data-ng-show="error" class="text-danger">
 						<strong data-ng-bind="error"></strong>
 					</div>
-	                <div class="form-group">
-	                    <label class="control-label" for="name">Name</label>
-	                    <div class="controls">
-	                        <input type="text" data-ng-model="organization.name" id="name" class="form-control" placeholder="Name" required="required">
-	                    </div>
-	                </div>
-	            </fieldset>
-	        </form>
-       	</div>
-    </div>
+					<div class="form-group">
+						<label class="control-label" for="name">Name</label>
+						<div class="controls">
+							<input type="text" data-ng-model="organization.name" id="name"
+								class="form-control" placeholder="Name" required="required">
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+
+	<hr />
+	<div class="container-fluid">
+		<div class="row-fluid clearfix controls">
+			<div class="col-md-6 col-sm-6 col-xs-8">
+				<input type="text" data-ng-model="newMemberEmailAddress"
+					id="newMemberEmailAddress" class="form-control"
+					placeholder="Email Address" required="required">
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-4">
+				<input type="button" class="btn btn-primary" ng-click="addMember()"
+					value="Add Member" />
+			</div>
+		</div>
+		<h3>Members</h3>
+		<div class="list-group">
+			<a data-ng-repeat="member in organization.members"
+				data-ng-href="#!/users/{{member.id.user.username}}" class="list-group-item">
+				<small class="list-group-item-text">
+					{{member.id.permission}}, {{member.id.user.firstName}}
+					{{member.id.user.lastName}} </small>
+				<h4 class="list-group-item-heading"
+					data-ng-bind="{{member.id.user.emailAddress}}"></h4>
+			</a>
+		</div>
+	</div>
 
 </section>

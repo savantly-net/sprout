@@ -6,7 +6,7 @@ angular.module('search').config(['$stateProvider', '$urlRouterProvider',
 		// search state routing
 		$stateProvider.
 		state('search', {
-			url: '/search',
+			url: '/search/:query',
 			templateUrl: 'modules/search/views/search.client.view.html'
 		});
 	}

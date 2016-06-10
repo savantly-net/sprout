@@ -1,5 +1,6 @@
 package savantly.sprout.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.data.annotation.Id;
@@ -15,7 +16,11 @@ public class Organization extends AbstractAuditableDomainObject<String> {
 	private String id;
 	private String name;
 	@DBRef
-	private Set<SproutUser> members;
+	private Set<OrganizationMember> members;
+	
+	public Organization(){
+		this.members = new HashSet<OrganizationMember>();
+	}
 
 	public String getId() {
 		return id;
@@ -33,11 +38,15 @@ public class Organization extends AbstractAuditableDomainObject<String> {
 		this.name = name;
 	}
 
-	public Set<SproutUser> getMembers() {
+	public Set<OrganizationMember> getMembers() {
 		return members;
 	}
 
-	public void setMembers(Set<SproutUser> members) {
+	public void setMembers(Set<OrganizationMember> members) {
 		this.members = members;
+	}
+	
+	public void addMember(OrganizationMember member){
+		this.members.add(member);
 	}
 }

@@ -11,7 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import savantly.sprout.domain.SproutUser;
-import savantly.sprout.repositories.UserRepository;
+import savantly.sprout.repositories.user.UserRepository;
 
 @Component
 public class SproutUserDetailsService implements UserDetailsService, InitializingBean {

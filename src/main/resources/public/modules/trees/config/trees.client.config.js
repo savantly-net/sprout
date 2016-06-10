@@ -1,6 +1,6 @@
 'use strict';
 
-// Configuring the Articles module
+// Configuring the module
 angular.module('trees').run(['Menus',
 	function(Menus) {
 		// Set top bar menu items

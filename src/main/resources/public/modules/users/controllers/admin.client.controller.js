@@ -1,7 +1,5 @@
 'use strict';
 
-
-// Trees controller
 angular.module('users').controller('UserAdminController', ['$scope', '$stateParams', '$location', 'Authentication', 'Users',
 	function($scope, $stateParams, $location, Authentication, Users) {
 		$scope.authentication = Authentication;

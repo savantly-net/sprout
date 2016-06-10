@@ -1,4 +1,4 @@
-package savantly.sprout.repositories;
+package savantly.sprout.repositories.user;
 
 import java.util.Collections;
 import java.util.HashSet;

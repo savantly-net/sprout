@@ -2,8 +2,8 @@
 
 
 // Trees controller
-angular.module('organizations').controller('OrganizationsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Organizations',
-	function($scope, $stateParams, $location, Authentication, Organizations) {
+angular.module('organizations').controller('OrganizationsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Organizations', 'notify',
+	function($scope, $stateParams, $location, Authentication, Organizations, notify) {
 		$scope.authentication = Authentication;
 
 		// Create new organization
@@ -63,5 +63,29 @@ angular.module('organizations').controller('OrganizationsController', ['$scope',
 				$scope.organization = organization;
 			});
 		};
+		
+		$scope.addMember = function(){
+			Organizations.addMember({
+				emailAddress: $scope.newMemberEmailAddress,
+				organizationId: $stateParams.organizationId,
+				permission: 'ADMIN'
+			}).$promise.then(function(result){
+				$scope.organization = result.value;
+				$scope.newMemberEmailAddress = null;
+				notify({
+					message: result.message,
+					duration: '5000',
+					position: 'right',
+					classes: ['success']
+				});
+			}, function failure(err){
+				notify({
+					message: result,
+					duration: '5000',
+					position: 'right',
+					classes: ['danger']
+				});
+			});
+		}
 	}
 ]);
