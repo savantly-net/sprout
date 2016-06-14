@@ -1,10 +1,10 @@
 <div class="container">
 	<div class="row-fluid no-gutter">
-		<div class="col-xs-12 col-sm-6 col-md-3 no-gutter" ng-show="{{trees != null}}" 
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2 no-gutter" ng-show="{{trees != null}}" 
 			data-ng-repeat="tree in trees">
 			<div class="thumbnail">
 				<a data-ng-href="#!/trees/{{tree._id}}"> <img
-					src='{{tree.coverImageUrl || "modules/core/img/brand/icon.png"}}'
+					ng-src="tree.coverImageUrl || 'modules/core/img/brand/icon.png'"
 					alt="{{tree.name}}">
 				</a>
 				<div class="caption">
