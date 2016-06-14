@@ -3,6 +3,9 @@ package savantly.sprout.web.configuration;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mongodb.morphia.Datastore;
+import org.mongodb.morphia.Morphia;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,10 +24,12 @@ import savantly.sprout.repositories.ExtendedMongoRepositoryImpl;
 
 @Configuration
 @EnableMongoRepositories(
-		basePackages = { "savantly.sprout.repositories" },
+		basePackages = MongoConfiguration.MONGO_REPOSITORIES_BASE_PACKAGE,
 		repositoryBaseClass= ExtendedMongoRepositoryImpl.class)
 @EnableMongoAuditing
 public class MongoConfiguration extends AbstractMongoConfiguration {
+	
+	final static String MONGO_REPOSITORIES_BASE_PACKAGE = "savantly.sprout.repositories" ;
 
 	@Value("${MONGO_HOST}")
 	private String MONGO_HOST;
@@ -60,6 +65,21 @@ public class MongoConfiguration extends AbstractMongoConfiguration {
 	@Primary
 	public MongoTemplate mongoTemplateBean() throws Exception{
 		return this.mongoTemplate();
+	}
+	
+	@Bean
+	@Autowired
+	public Datastore datastore(Morphia morphia, MongoClient client){
+		Datastore ds = morphia.createDatastore(client, getDatabaseName());
+		return ds;
+	}
+	
+	@Bean
+	@Autowired
+	public Morphia morphia(){
+		Morphia morphia = new Morphia();
+		morphia.mapPackage(MONGO_REPOSITORIES_BASE_PACKAGE);
+		return morphia;
 	}
 
 	private <T> List<T> singletonList(T object) {

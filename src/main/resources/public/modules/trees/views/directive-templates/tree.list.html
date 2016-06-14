@@ -1,18 +1,20 @@
 <div class="container">
-	<div class="row-fluid">
-		<div class="col-xs-12 col-sm-6 col-md-3"
+	<div class="row-fluid no-gutter">
+		<div class="col-xs-12 col-sm-6 col-md-3 no-gutter" ng-show="{{trees != null}}" 
 			data-ng-repeat="tree in trees">
 			<div class="thumbnail">
 				<a data-ng-href="#!/trees/{{tree._id}}"> <img
-					src="{{tree.coverImageUrl || 'modules/core/img/brand/icon.png'}}"
+					src='{{tree.coverImageUrl || "modules/core/img/brand/icon.png"}}'
 					alt="{{tree.name}}">
 				</a>
 				<div class="caption">
-					<h3>{{tree.name}}</h3>
-					<p>{{tree.description}}</p>
+					<a data-ng-href="#!/trees/{{tree._id}}">
+						<h3>{{tree.name}}</h3>
+						<p>{{tree.description}}</p>
+					</a>
 					<p>
 						Posted on <span data-ng-bind="tree.createdDate | date:'medium'"></span>
-						by <span data-ng-bind="tree.createdBy.username">
+						by <a href='/#!/profile/{{tree.createdBy.username}}'><span data-ng-bind="tree.createdBy.username"></a>
 					</p>
 				</div>
 			</div>

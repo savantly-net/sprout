@@ -25,18 +25,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import savantly.sprout.domain.SproutUser;
-import savantly.sprout.exceptions.UnauthorizedClientException;
 import savantly.sprout.repositories.ExtendedMongoRepository;
+import savantly.sprout.web.exception.UnauthorizedClientException;
 import savantly.sprout.web.security.Roles;
 
-public class ResourceController<T extends Auditable<SproutUser, ID>, ID extends Serializable> {
+@SuppressWarnings("rawtypes")
+public class ResourceController<T extends Auditable<SproutUser, ID>, ID extends Serializable, R extends ExtendedMongoRepository> {
 	
-	private ExtendedMongoRepository<T, ID> entityRepository;
+	private R entityRepository;
 
-	public ResourceController(ExtendedMongoRepository<T, ID> entityRepository) {
-		this.entityRepository = (ExtendedMongoRepository<T, ID>) entityRepository;
+	public ResourceController(R entityRepository) {
+		this.entityRepository = entityRepository;
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value={"", "/{id}"},method = RequestMethod.POST)
 	public T create(@RequestBody @Valid T model, @AuthenticationPrincipal SproutUser user) {
 		if(!canCreate(model, user)) {
@@ -44,7 +46,7 @@ public class ResourceController<T extends Auditable<SproutUser, ID>, ID extends 
 		}
 		ResourceEvent<T> resourceEvent = onCreating(new ResourceEvent<T>(model, false));
 		if(!resourceEvent.isHandled()){
-			T result = this.entityRepository.insert(resourceEvent.getEntity());
+			T result = (T) this.entityRepository.insert(resourceEvent.getEntity());
 			onCreated(model);
 			return result;
 		}
@@ -52,6 +54,7 @@ public class ResourceController<T extends Auditable<SproutUser, ID>, ID extends 
 		
 	}
 	
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value={"/search/{field}/{value}"},method = RequestMethod.GET)
 	public Page<T> search(@PathVariable String field, @PathVariable String value, @RequestParam(required=false) Pageable pageable, @AuthenticationPrincipal SproutUser user) {
 		Query query = Query.query(Criteria.where(field).is(value));
@@ -61,32 +64,36 @@ public class ResourceController<T extends Auditable<SproutUser, ID>, ID extends 
 		return this.entityRepository.query(query, pageable);
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.GET)
 	public List<T> list(@AuthenticationPrincipal SproutUser user) {
 		if(!canList(user))throw new UnauthorizedClientException("You do not have authorization to query items.");
 		return this.entityRepository.findAll();
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public T get(@PathVariable("id") ID id, @AuthenticationPrincipal SproutUser user) {
 		if(!canGet(id, user))throw new UnauthorizedClientException("You do not have authorization to query this item.");
-		T result = this.entityRepository.findOne(id);
+		T result = (T) this.entityRepository.findOne(id);
 		return onFindOne(result);
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/{id}", method = {RequestMethod.PUT})
 	@PreAuthorize("isAuthenticated()")
 	public T update(@PathVariable("id") ID id, @RequestBody @Valid T model, @AuthenticationPrincipal SproutUser user) {
 		if(!canUpdate(model, user))throw new UnauthorizedClientException("You do not have authorization to update this item.");
 		ResourceEvent<T> resourceEvent = onUpdating(new ResourceEvent<T>(model, false));
 		if(!resourceEvent.isHandled()){
-			T result = this.entityRepository.save(resourceEvent.getEntity());
-			onUpdated(model);
+			T result = (T) this.entityRepository.save(resourceEvent.getEntity());
+			onUpdated(result);
 			return result;
 		}
 		else return resourceEvent.getEntity();
 	}
 
+	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Boolean> delete(@PathVariable("id") ID id, @AuthenticationPrincipal SproutUser user) {
 		if(!canDelete(id, user))throw new UnauthorizedClientException("You do not have authorization to delete this item.");
@@ -103,11 +110,13 @@ public class ResourceController<T extends Auditable<SproutUser, ID>, ID extends 
 		return false;
 	}
 	
-	protected final boolean isUserInRole(Roles role) {
+	protected final boolean isUserInRole(Roles... roles) {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if(authentication == null) return false;
 		for (GrantedAuthority authority : authentication.getAuthorities()) {
-			if (role.name().equals(authority.getAuthority())) return true;
+			for (Roles role : roles) {
+				if (role.name().equals(authority.getAuthority())) return true;
+			}
 		}
 		return false;
 	}
@@ -162,7 +171,7 @@ public class ResourceController<T extends Auditable<SproutUser, ID>, ID extends 
 		return true;
 	}
 
-	protected ExtendedMongoRepository<T, ID> getEntityRepository() {
+	protected R getEntityRepository() {
 		return entityRepository;
 	}
 }

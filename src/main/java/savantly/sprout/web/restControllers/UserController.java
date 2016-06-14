@@ -11,21 +11,30 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import savantly.sprout.domain.EmailAddress;
 import savantly.sprout.domain.SproutUser;
+import savantly.sprout.repositories.emailAddress.EmailAddressRepository;
+import savantly.sprout.repositories.user.ProfileProjection;
 import savantly.sprout.repositories.user.UserRepository;
+import savantly.sprout.repositories.user.exception.EmailIsAlreadyRegisteredException;
 import savantly.sprout.web.angular.ResourceController;
 import savantly.sprout.web.angular.ResourceEvent;
+import savantly.sprout.web.exception.ResourceNotFoundException;
 import savantly.sprout.web.security.ClientCredentials;
 import savantly.sprout.web.security.Roles;
 
 @RestController
 @RequestMapping("/rest/users")
-public class UserController extends ResourceController<SproutUser, String>{
+public class UserController extends ResourceController<SproutUser, String, UserRepository>{
+	
+	@Autowired
+	EmailAddressRepository emailAddressRepository;
 
 	private UserRepository entityRepository;
 	
@@ -76,14 +85,25 @@ public class UserController extends ResourceController<SproutUser, String>{
 	
 	@PreAuthorize("isAnonymous()")
 	@RequestMapping(value="signup", method=RequestMethod.POST)
-	public Object signUp(@RequestBody @Valid ClientCredentials credentials, @AuthenticationPrincipal SproutUser currentUser, HttpServletRequest request, HttpServletResponse response) {
+	public Object signUp(@RequestBody @Valid ClientCredentials credentials, @AuthenticationPrincipal SproutUser currentUser, HttpServletRequest request, HttpServletResponse response) 
+			throws EmailIsAlreadyRegisteredException {
+		
+		String emailAddressString = credentials.getEmailAddress();
+		EmailAddress emailAddress = emailAddressRepository.findOne(emailAddressString);
+		if(emailAddress != null){
+			throw new EmailIsAlreadyRegisteredException();
+		} else{
+			emailAddress = new EmailAddress(emailAddressString);
+		}
+		
 		SproutUser model = new SproutUser(
 				credentials.getUsername(), 
 				credentials.getPassword(), 
 				credentials.getFirstName(), 
 				credentials.getLastName());
-		model.setEmailAddress(credentials.getEmailAddress());
+		model.addEmailAddress(emailAddress);
 		SproutUser newUser = this.create(model, currentUser);
+		
 		
 		UsernamePasswordAuthenticationToken newAuthenticationToken = 
 				new UsernamePasswordAuthenticationToken(newUser, "NA", newUser.getAuthorities());
@@ -92,6 +112,15 @@ public class UserController extends ResourceController<SproutUser, String>{
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         ((SproutUser)authentication.getPrincipal()).eraseCredentials();
         return newAuthenticationToken;
+	}
+	
+	@RequestMapping(value={"/profile/{username}"},method = RequestMethod.GET)
+	public ProfileProjection getProfile(@PathVariable String username){
+		ProfileProjection profile = entityRepository.findFirstByUsername(username);
+		if(profile == null) 
+			throw new ResourceNotFoundException();
+		
+		return profile;
 	}
 
 }

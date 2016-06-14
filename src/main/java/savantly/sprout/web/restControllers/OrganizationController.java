@@ -5,7 +5,6 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,15 +13,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 import savantly.sprout.domain.Organization;
 import savantly.sprout.domain.SproutUser;
-import savantly.sprout.exceptions.UnknownUserException;
 import savantly.sprout.repositories.organization.OrganizationRepository;
-import savantly.sprout.viewModel.CommonResponse;
-import savantly.sprout.viewModel.MemberViewModel;
+import savantly.sprout.repositories.user.exception.UnknownUserException;
 import savantly.sprout.web.angular.ResourceController;
+import savantly.sprout.web.viewModel.CommonResponse;
+import savantly.sprout.web.viewModel.MemberViewModel;
 
 @RestController
 @RequestMapping("/rest/organizations")
-public class OrganizationController extends ResourceController<Organization, String> {
+public class OrganizationController extends ResourceController<Organization, String, OrganizationRepository> {
 	private static Logger log = LoggerFactory.getLogger(OrganizationController.class);
 	
 	@Autowired

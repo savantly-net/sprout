@@ -7,12 +7,14 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Version;
 import org.springframework.data.mongodb.core.index.TextIndexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.TextScore;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import savantly.sprout.web.security.AbstractAuditableDomainObject;
 
+@Document(collection="tree")
 public class Tree extends AbstractAuditableDomainObject<String>{
 
 	private static final long serialVersionUID = -7600786993360904898L;

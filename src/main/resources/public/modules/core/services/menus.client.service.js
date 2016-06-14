@@ -1,6 +1,7 @@
 'use strict';
 
-//Menu service used for managing  menus
+// Menu service used for managing  menus
+// derived from mean.js menu service
 
 // Examples -
 

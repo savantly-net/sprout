@@ -10,7 +10,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
+import savantly.sprout.domain.EmailAddress;
 import savantly.sprout.domain.SproutUser;
+import savantly.sprout.repositories.emailAddress.EmailAddressRepository;
 import savantly.sprout.repositories.user.UserRepository;
 
 @Component
@@ -18,6 +20,8 @@ public class SproutUserDetailsService implements UserDetailsService, Initializin
 
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	EmailAddressRepository emailAddressRepository;
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -39,6 +43,11 @@ public class SproutUserDetailsService implements UserDetailsService, Initializin
         	List<Role> authorities = new ArrayList<Role>(1);
             authorities.add(new Role(Roles.ROLE_ANONYMOUS));
             SproutUser userDetails = new SproutUser("anonymousUser", "", "Anonymous", "User", authorities);
+            
+            EmailAddress emailAddress = new EmailAddress("jdbranham1@hotmail.com");
+            emailAddressRepository.insert(emailAddress);
+            
+            userDetails.addEmailAddress(emailAddress);
             userRepository.save(userDetails);
         }
         
@@ -48,6 +57,11 @@ public class SproutUserDetailsService implements UserDetailsService, Initializin
         	List<Role> authorities = new ArrayList<Role>(1);
             authorities.add(new Role(Roles.ROLE_USER));
             SproutUser userDetails = new SproutUser("user", "password", "Test",  "User", authorities);
+            
+            EmailAddress emailAddress = new EmailAddress("jdbranham2@hotmail.com");
+            emailAddressRepository.insert(emailAddress);
+            
+            userDetails.addEmailAddress(emailAddress);
             userRepository.save(userDetails);
         }
         
@@ -57,6 +71,11 @@ public class SproutUserDetailsService implements UserDetailsService, Initializin
         	List<Role> authorities = new ArrayList<Role>(1);
             authorities.add(new Role(Roles.ROLE_ADMIN));
             SproutUser userDetails = new SproutUser("admin", "password", "Admin",  "User", authorities);
+            
+            EmailAddress emailAddress = new EmailAddress("jdbranham@hotmail.com");
+            emailAddressRepository.insert(emailAddress);
+            
+            userDetails.addEmailAddress(emailAddress);
             userRepository.save(userDetails);
         }
 	}

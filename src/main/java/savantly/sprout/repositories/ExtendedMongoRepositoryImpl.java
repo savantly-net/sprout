@@ -12,12 +12,12 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.data.mongodb.repository.query.MongoEntityInformation;
-import org.springframework.data.mongodb.repository.support.SimpleMongoRepository;
+import org.springframework.data.mongodb.repository.support.QueryDslMongoRepository;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class ExtendedMongoRepositoryImpl<T, ID extends Serializable> extends SimpleMongoRepository<T, ID>
+public class ExtendedMongoRepositoryImpl<T, ID extends Serializable> extends QueryDslMongoRepository<T, ID>
 		implements ExtendedMongoRepository<T, ID> {
 
 	private Class<T> clazz;
@@ -75,5 +75,4 @@ public class ExtendedMongoRepositoryImpl<T, ID extends Serializable> extends Sim
 		List<T> list =  mongoOperations.find(query.with(pageable), clazz);
 		return new PageImpl<T>(list, pageable, list.size());
 	}
-
 }

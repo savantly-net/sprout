@@ -8,17 +8,17 @@ import org.springframework.web.bind.annotation.RestController;
 
 import savantly.sprout.domain.DynamicForm;
 import savantly.sprout.domain.SproutUser;
-import savantly.sprout.repositories.ExtendedMongoRepository;
+import savantly.sprout.repositories.dynamicForm.DynamicFormRepository;
 import savantly.sprout.web.angular.ResourceController;
 
 @RestController
 @RequestMapping("/rest/forms")
-public class DynamicFormController extends ResourceController<DynamicForm, String>{
+public class DynamicFormController extends ResourceController<DynamicForm, String, DynamicFormRepository>{
 
 	private MongoRepository<DynamicForm, String> entityRepository;
 
 	@Autowired
-	public DynamicFormController(ExtendedMongoRepository<DynamicForm, String> entityRepository) {
+	public DynamicFormController(DynamicFormRepository entityRepository) {
 		super(entityRepository);
 		this.entityRepository = entityRepository;
 	}

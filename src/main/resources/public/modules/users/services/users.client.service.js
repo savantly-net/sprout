@@ -7,7 +7,9 @@ angular.module('users').factory('Users', ['$resource',
 	}, {
 		update: {
 			method: 'PUT'
+		}, 
+		getProfile: {
+			url: 'rest/users/profile/:userId'
 		}
-	});
-}
+	})}
 ]);

@@ -19,12 +19,17 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
+import org.hibernate.validator.constraints.NotEmpty;
+import org.mongodb.morphia.annotations.Entity;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.SpringSecurityCoreVersion;
@@ -61,6 +66,7 @@ import savantly.sprout.web.security.Role;
  * @author Luke Taylor
  * @author Jeremy Branham (modified original)
  */
+@Entity
 public class SproutUser extends AbstractAuditableDomainObject<String> implements UserDetails, CredentialsContainer {
 
 	private static final long serialVersionUID = 6629698068044899330L;
@@ -69,9 +75,15 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 	// ================================================================================================
 	@JsonProperty(access=Access.WRITE_ONLY)
 	private String password;
-	@org.springframework.data.annotation.Id
+	@Id
 	private String username;
-	private String emailAddress;
+	private String displayName;
+	@DBRef
+	private Set<EmailAddress> emailAddresses = new HashSet<>();
+	@DBRef
+	@NotEmpty
+	private EmailAddress primaryEmailAddress;
+	private boolean hidePrimaryEmailAddress;
 	private String firstName;
 	private String lastName;
 	@JsonTypeInfo(use = com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NONE)
@@ -80,8 +92,6 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 	private boolean accountNonLocked;
 	private boolean credentialsNonExpired;
 	private boolean enabled;
-	@Transient
-	private String gravatarUrl;
 
 	// ~ Constructors
 	// ===================================================================================================
@@ -119,7 +129,7 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 	 * @throws IllegalArgumentException if a <code>null</code> value was passed either as
 	 * a parameter or as an element in the <code>GrantedAuthority</code> collection
 	 */
-	@PersistenceConstructor
+	//@PersistenceConstructor
 	public SproutUser(String username, String password, String firstName, String lastName, boolean enabled,
 			boolean accountNonExpired, boolean credentialsNonExpired,
 			boolean accountNonLocked, Collection<? extends Role> authorities) {
@@ -155,6 +165,14 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 
 	public String getUsername() {
 		return username;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
 	}
 
 	public boolean isEnabled() {
@@ -269,18 +287,35 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 
 		return sb.toString();
 	}
-
+	
+	// **********************************
+	// GETTERS/SETTERS
+	//
+	// **********************************
+	
 	@Override
 	public String getId() {
 		return username;
 	}
 
-	public String getEmailAddress() {
-		return emailAddress;
+	public Set<EmailAddress> getEmailAddresses() {
+		return emailAddresses;
 	}
 
-	public void setEmailAddress(String emailAddress) {
-		this.emailAddress = emailAddress;
+	public EmailAddress getPrimaryEmailAddress() {
+		return primaryEmailAddress;
+	}
+
+	public void setPrimaryEmailAddress(EmailAddress primaryEmailAddress) {
+		this.primaryEmailAddress = primaryEmailAddress;
+	}
+
+	public boolean isHidePrimaryEmailAddress() {
+		return hidePrimaryEmailAddress;
+	}
+
+	public void setHidePrimaryEmailAddress(boolean hidePrimaryEmailAddress) {
+		this.hidePrimaryEmailAddress = hidePrimaryEmailAddress;
 	}
 
 	public void setAuthorities(Set<Role> authorities) {
@@ -324,7 +359,25 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 	}
 
 	public String getGravatarUrl() {
-		return String.format("https://www.gravatar.com/avatar/%s?s=200&d=identicon", MD5Util.md5Hex(emailAddress));
+		return String.format("https://www.gravatar.com/avatar/%s?s=200&d=identicon", MD5Util.md5Hex(primaryEmailAddress.getEmailAddress()));
 	}
+	
+	// ************************
+	// Rich domain methods
+	// ************************
 
+	/**
+	 * Add an email address to associate to the user.
+	 * If this is the first address added, make it the primary email address
+	 * 
+	 * @param emailAddress
+	 * @return true is the email address was added, false if the email already existed
+	 */
+	public boolean addEmailAddress(EmailAddress emailAddress){
+		boolean added = this.emailAddresses.add(emailAddress);
+		if(this.emailAddresses.size() == 1){
+			this.setPrimaryEmailAddress(emailAddress);
+		}
+		return added;
+	}
 }

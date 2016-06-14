@@ -12,8 +12,8 @@ import savantly.sprout.domain.OrganizationMember;
 import savantly.sprout.domain.OrganizationMemberId;
 import savantly.sprout.domain.Permission;
 import savantly.sprout.domain.SproutUser;
-import savantly.sprout.exceptions.UnknownOrganizationException;
-import savantly.sprout.exceptions.UnknownUserException;
+import savantly.sprout.repositories.organization.exception.UnknownOrganizationException;
+import savantly.sprout.repositories.user.exception.UnknownUserException;
 
 public class OrganizationRepositoryImpl implements OrganizationRepositoryCustom{
 	

@@ -16,7 +16,7 @@
 				Posted on
 				<span data-ng-bind="tree.createdDate | date:'mediumDate'"></span>
 				by
-				<span data-ng-bind="tree.createdBy.username"></span>
+				<span><a href="/#!/profile/{{tree.createdBy.username}}" data-ng-bind="tree.createdBy.displayName"></a></span>
 			</em>
 		</small>
 	</div>
@@ -24,7 +24,7 @@
 
 	<div class="text-center well">
 		<div>
-       		<img data-ng-src="{{tree.coverImageUrl || 'modules/core/img/brand/icon.png'}}"></img>
+       		<img data-ng-src="{{tree.coverImageUrl || 'modules/core/img/brand/icon_lg.png'}}"></img>
        	</div>
        	<div btf-markdown="tree.description"></div>
        	<div>

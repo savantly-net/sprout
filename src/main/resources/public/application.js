@@ -10,6 +10,14 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 	}
 ]);
 
+//Configuring $resource Service
+angular.module(ApplicationConfiguration.applicationModuleName).config(['$resourceProvider',
+	function($resourceProvider) {
+		// Don't strip trailing slashes from calculated URLs
+	  $resourceProvider.defaults.stripTrailingSlashes = false;
+	}
+]);
+
 //Then define the init function for starting up the application
 angular.element(document).ready(function() {
 	//Fixing facebook bug with redirect
