@@ -23,11 +23,11 @@ import savantly.sprout.repositories.emailAddress.EmailAddressRepository;
 import savantly.sprout.repositories.user.ProfileProjection;
 import savantly.sprout.repositories.user.UserRepository;
 import savantly.sprout.repositories.user.exception.EmailIsAlreadyRegisteredException;
+import savantly.sprout.security.ClientCredentials;
+import savantly.sprout.security.Roles;
 import savantly.sprout.web.angular.ResourceController;
 import savantly.sprout.web.angular.ResourceEvent;
 import savantly.sprout.web.exception.ResourceNotFoundException;
-import savantly.sprout.web.security.ClientCredentials;
-import savantly.sprout.web.security.Roles;
 
 @RestController
 @RequestMapping("/rest/users")
@@ -45,6 +45,11 @@ public class UserController extends ResourceController<SproutUser, String, UserR
 	public UserController(UserRepository entityRepository) {
 		super(entityRepository);
 		this.entityRepository = entityRepository;
+	}
+	
+	@Override
+	public SproutUser get(String id, SproutUser user) {
+		return super.get(id, user);
 	}
 	
 	@Override

@@ -1,19 +1,21 @@
 <section data-ng-controller="ProfileController" data-ng-init="findOne()">
 	<div class="clearfix">
-		<div class="page-header">
-			<img alt="gravatar" src="{{user.gravatarUrl}}" />
-			<h1 data-ng-bind='{{user.displayName || user.username}}'></h1>
-			
-			<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user.username == user.username))">
-				<a class="btn btn-primary" href="/#!/users/{{user.id}}/edit">
-					<i class="glyphicon glyphicon-edit"></i>
+		<div class="page-header clearfix">
+			<div class="pull-right"
+				data-ng-show="((authentication.user) && (authentication.user.username == user.username))">
+				<a class="btn btn-primary" href="/#!/users/{{user.id}}/edit"> <i
+					class="glyphicon glyphicon-edit"></i>
 				</a>
 			</div>
+			<div class="col-sm-6 ">
+				<img alt="gravatar" src="{{user.gravatarUrl}}" />
+				<h1 data-ng-bind='{{user.displayName || user.username}}'></h1>
+			</div>
+			<div class="col-sm-6">{{user.displayName}}</div>
 		</div>
-		<div class="col-sm-6">{{user.displayName}}</div>
-		
+
 		<tree-list-directive trees="trees"></tree-list-directive>
-		
+
 	</div>
 
 </section>

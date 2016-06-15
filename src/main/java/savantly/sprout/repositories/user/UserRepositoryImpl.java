@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import savantly.sprout.domain.SproutUser;
-import savantly.sprout.web.security.Role;
+import savantly.sprout.security.Role;
 
 public class UserRepositoryImpl implements UserRepositoryCustom {
 	

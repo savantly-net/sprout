@@ -6,7 +6,7 @@ import java.util.Set;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import savantly.sprout.web.security.AbstractAuditableDomainObject;
+import savantly.sprout.security.AbstractAuditableDomainObject;
 
 public class Organization extends AbstractAuditableDomainObject<String> {
 

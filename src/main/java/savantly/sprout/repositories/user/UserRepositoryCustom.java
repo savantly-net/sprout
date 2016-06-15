@@ -3,7 +3,7 @@ package savantly.sprout.repositories.user;
 import java.util.Set;
 
 import savantly.sprout.domain.SproutUser;
-import savantly.sprout.web.security.Role;
+import savantly.sprout.security.Role;
 
 public interface UserRepositoryCustom {
 	SproutUser insert(SproutUser sproutUser);

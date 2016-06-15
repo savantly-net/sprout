@@ -134,6 +134,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>net.savantly</groupId>
 			<artifactId>spring-fixtures</artifactId>
 			<version>0.0.1-RELEASE</version>

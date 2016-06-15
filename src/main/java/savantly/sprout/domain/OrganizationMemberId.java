@@ -4,6 +4,8 @@ import javax.persistence.Embeddable;
 
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
+import savantly.sprout.security.Permission;
+
 @Embeddable
 public class OrganizationMemberId {
 	@DBRef

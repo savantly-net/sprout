@@ -1,6 +1,6 @@
 package savantly.sprout.web.viewModel;
 
-import savantly.sprout.domain.Permission;
+import savantly.sprout.security.Permission;
 
 public class MemberViewModel {
 	String organizationId;

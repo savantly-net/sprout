@@ -13,8 +13,8 @@ angular.module(ApplicationConfiguration.applicationModuleName).config(['$locatio
 //Configuring $resource Service
 angular.module(ApplicationConfiguration.applicationModuleName).config(['$resourceProvider',
 	function($resourceProvider) {
-		// Don't strip trailing slashes from calculated URLs
-	  $resourceProvider.defaults.stripTrailingSlashes = false;
+		// strip trailing slashes from calculated URLs
+	  $resourceProvider.defaults.stripTrailingSlashes = true;
 	}
 ]);
 

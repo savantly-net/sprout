@@ -10,10 +10,10 @@ import org.springframework.data.mongodb.core.query.Query;
 import savantly.sprout.domain.Organization;
 import savantly.sprout.domain.OrganizationMember;
 import savantly.sprout.domain.OrganizationMemberId;
-import savantly.sprout.domain.Permission;
 import savantly.sprout.domain.SproutUser;
 import savantly.sprout.repositories.organization.exception.UnknownOrganizationException;
 import savantly.sprout.repositories.user.exception.UnknownUserException;
+import savantly.sprout.security.Permission;
 
 public class OrganizationRepositoryImpl implements OrganizationRepositoryCustom{
 	

@@ -1,4 +1,4 @@
-package savantly.sprout.web.security;
+package savantly.sprout.security;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import savantly.sprout.domain.EmailAddress;
@@ -19,9 +20,13 @@ import savantly.sprout.repositories.user.UserRepository;
 public class SproutUserDetailsService implements UserDetailsService, InitializingBean {
 
 	@Autowired
+	PasswordEncoder passwordEncoder;
+	@Autowired
 	UserRepository userRepository;
 	@Autowired
 	EmailAddressRepository emailAddressRepository;
+	
+	private String password = "password";
 	
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -56,7 +61,7 @@ public class SproutUserDetailsService implements UserDetailsService, Initializin
         } catch (UsernameNotFoundException ex){
         	List<Role> authorities = new ArrayList<Role>(1);
             authorities.add(new Role(Roles.ROLE_USER));
-            SproutUser userDetails = new SproutUser("user", "password", "Test",  "User", authorities);
+            SproutUser userDetails = new SproutUser("user", passwordEncoder.encode(password), "Test",  "User", authorities);
             
             EmailAddress emailAddress = new EmailAddress("jdbranham2@hotmail.com");
             emailAddressRepository.insert(emailAddress);
@@ -70,7 +75,7 @@ public class SproutUserDetailsService implements UserDetailsService, Initializin
         } catch (UsernameNotFoundException ex){
         	List<Role> authorities = new ArrayList<Role>(1);
             authorities.add(new Role(Roles.ROLE_ADMIN));
-            SproutUser userDetails = new SproutUser("admin", "password", "Admin",  "User", authorities);
+            SproutUser userDetails = new SproutUser("admin", passwordEncoder.encode(password), "Admin",  "User", authorities);
             
             EmailAddress emailAddress = new EmailAddress("jdbranham@hotmail.com");
             emailAddressRepository.insert(emailAddress);

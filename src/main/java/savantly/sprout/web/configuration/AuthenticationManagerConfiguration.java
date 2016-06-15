@@ -8,11 +8,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-@Configuration
-public class AuthenticationManagerConfiguration extends
-        GlobalAuthenticationConfigurerAdapter {
+//@Configuration
+public class AuthenticationManagerConfiguration { //extends
+        //GlobalAuthenticationConfigurerAdapter {
 
-	@Autowired
+/*	@Autowired
 	private UserDetailsService userDetailsService;
 	@Autowired
 	PasswordEncoder encoder; // = new BCryptPasswordEncoder();
@@ -20,5 +20,5 @@ public class AuthenticationManagerConfiguration extends
     @Override
     public void init(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(encoder);
-    }
+    }*/
 }

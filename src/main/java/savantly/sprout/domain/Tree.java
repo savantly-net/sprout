@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.TextScore;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import savantly.sprout.web.security.AbstractAuditableDomainObject;
+import savantly.sprout.security.AbstractAuditableDomainObject;
 
 @Document(collection="tree")
 public class Tree extends AbstractAuditableDomainObject<String>{

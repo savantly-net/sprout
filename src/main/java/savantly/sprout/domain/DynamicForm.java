@@ -6,7 +6,7 @@ import org.springframework.data.annotation.Id;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import savantly.sprout.web.security.AbstractAuditableDomainObject;
+import savantly.sprout.security.AbstractAuditableDomainObject;
 
 public class DynamicForm extends AbstractAuditableDomainObject<String>{
 	

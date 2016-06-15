@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,8 +19,8 @@ import savantly.sprout.domain.SproutUser;
 import savantly.sprout.domain.Tree;
 import savantly.sprout.repositories.tree.TreeRepository;
 import savantly.sprout.repositories.tree.TreeSummary;
+import savantly.sprout.security.Roles;
 import savantly.sprout.web.angular.ResourceController;
-import savantly.sprout.web.security.Roles;
 
 @RestController
 @RequestMapping("/rest/trees")
@@ -28,11 +29,6 @@ public class TreesController extends ResourceController<Tree, String, TreeReposi
 	@Autowired
 	public TreesController(TreeRepository entityRepository) {
 		super(entityRepository);
-	}
-	
-	@Override
-	protected boolean canCreate(Tree model, SproutUser user) {
-		return this.isUserInRole(Roles.ROLE_USER, Roles.ROLE_ADMIN);
 	}
 	
 	@RequestMapping(value = "/search/{query}", method = RequestMethod.GET)
@@ -45,6 +41,7 @@ public class TreesController extends ResourceController<Tree, String, TreeReposi
 	  }
 	
 	@RequestMapping(value = "/summary/by/username/{username}", method = RequestMethod.GET)
+	@PreAuthorize("@treeSecurity.canList()")
 	List<TreeSummary> getTreeSummariesByUser(@PathVariable("username") String username){
 		List<TreeSummary> trees = this.getEntityRepository().findTreeSummaryListByUsername(username);
 		return trees;

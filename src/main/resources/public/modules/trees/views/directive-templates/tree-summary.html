@@ -1,0 +1,19 @@
+<div class="thumbnail">
+	<a data-ng-href="#!/trees/{{tree._id}}"> <img
+		ng-src="{{tree.coverImageUrl || 'modules/core/img/brand/icon_lg.png'}}"
+		alt="{{tree.name}}">
+	</a>
+	<div class="caption">
+		<a data-ng-href="#!/trees/{{tree._id}}">
+			<h3 class="text-center">{{tree.name}}</h3>
+		</a>
+		<div btf-markdown="tree.description"></div>
+		<sub>
+			Posted on <span data-ng-bind="tree.createdDate | date:'medium'"></span>
+			by <a href='/#!/profile/{{tree.createdBy.username}}'>
+					<span
+				data-ng-bind="tree.createdBy.username"></span>
+				</a>
+		</sub>
+	</div>
+</div>

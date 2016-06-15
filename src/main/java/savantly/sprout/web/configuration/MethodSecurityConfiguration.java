@@ -1,38 +1,53 @@
 package savantly.sprout.web.configuration;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler;
-import org.springframework.security.access.expression.method.MethodSecurityExpressionHandler;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
-import org.springframework.security.config.annotation.method.configuration.GlobalMethodSecurityConfiguration;
+import org.springframework.security.access.PermissionEvaluator;
 
-import savantly.sprout.web.security.MethodSecurityService;
-import savantly.sprout.web.security.MethodSecurityServiceImpl;
-import savantly.sprout.web.security.SproutPermissionEvaluator;
+import savantly.sprout.security.DynamicFormSecurity;
+import savantly.sprout.security.DynamicFormSecurityImpl;
+import savantly.sprout.security.OrganizationSecurity;
+import savantly.sprout.security.OrganizationSecurityImpl;
+import savantly.sprout.security.SproutPermissionEvaluator;
+import savantly.sprout.security.TreeSecurity;
+import savantly.sprout.security.TreeSecurityImpl;
+import savantly.sprout.security.UserActivitySecurity;
+import savantly.sprout.security.UserActivitySecurityImpl;
+import savantly.sprout.security.UserSecurity;
+import savantly.sprout.security.UserSecurityImpl;
 
 @Configuration
-@EnableGlobalMethodSecurity(prePostEnabled = true)
-public class MethodSecurityConfiguration extends GlobalMethodSecurityConfiguration {
+public class MethodSecurityConfiguration  {
 	
-/*    @Autowired
-    private AuthenticationManager am;
-
-    @Override
-    protected AuthenticationManager authenticationManager() {
-        return am;
-    }
-    @Override
-    protected MethodSecurityExpressionHandler createExpressionHandler() {
-    	DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
-        expressionHandler.setPermissionEvaluator(new SproutPermissionEvaluator());
-        return expressionHandler;
+    @Bean
+    public DynamicFormSecurity dynamicFormSecurity() {
+        return new DynamicFormSecurityImpl();
     }
     
     @Bean
-    public MethodSecurityService methodSecurityService() {
-        return new MethodSecurityServiceImpl();
-    }*/
+    public OrganizationSecurity organizationSecurity() {
+        return new OrganizationSecurityImpl();
+    }
+    
+    @Bean
+    public TreeSecurity treeSecurity() {
+        return new TreeSecurityImpl();
+    }
+    
+    @Bean
+    public UserSecurity userSecurity() {
+        return new UserSecurityImpl();
+    }
+    
+    @Bean
+    public UserActivitySecurity userActivitySecurity() {
+        return new UserActivitySecurityImpl();
+    }
+    
+    public static class PermissionEvaluationConfiguration{
+        @Bean
+        public PermissionEvaluator permissionEvaluator(){
+        	return new SproutPermissionEvaluator();
+        }
+    }
 }

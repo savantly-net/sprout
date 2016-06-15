@@ -3,7 +3,7 @@ package savantly.sprout.domain;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import savantly.sprout.web.security.AbstractAuditableDomainObject;
+import savantly.sprout.security.AbstractAuditableDomainObject;
 
 public class UserActivity extends AbstractAuditableDomainObject<String> {
 

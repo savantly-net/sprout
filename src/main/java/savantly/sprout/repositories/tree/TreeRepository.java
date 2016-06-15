@@ -12,4 +12,5 @@ public interface TreeRepository extends ExtendedMongoRepository<Tree, String>, T
 	//TreeSummary findOneTreeSummaryById(String id);
 	@Query("{'createdBy.username': 'admin'}")
 	List<TreeSummary> findTreeSummaryListByUsername(String username);
+	
 }

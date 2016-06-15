@@ -39,11 +39,12 @@ import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
-import savantly.sprout.web.security.AbstractAuditableDomainObject;
-import savantly.sprout.web.security.MD5Util;
-import savantly.sprout.web.security.Role;
+import savantly.sprout.security.AbstractAuditableDomainObject;
+import savantly.sprout.security.MD5Util;
+import savantly.sprout.security.Role;
+
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /**
  * Models core user information retrieved by a {@link UserDetailsService}.
