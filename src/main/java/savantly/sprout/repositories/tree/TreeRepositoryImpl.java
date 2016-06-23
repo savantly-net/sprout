@@ -24,7 +24,7 @@ public class TreeRepositoryImpl implements TreeRepositoryCustom{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<TreeSummary> findAllTreeSummaryByUsername(String username) {
-		Predicate predicate = QTree.tree.createdBy.id.eq(username);
+		Predicate predicate = QTree.tree.createdBy.eq(username);
 		MorphiaQuery<Tree> query = new MorphiaQuery<>(morphia, datastore, QTree.tree);
 		List<Tree> mQResult = query.where(predicate).fetch();
 		List<?> result = Projections.list(treeSummaryFactory).newInstance(mQResult);

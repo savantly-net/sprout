@@ -23,7 +23,7 @@ public class TreeSecurityImpl extends AuditableSecurityAdapter<Tree, String> imp
 			// If the tree is public
 			if(readable) return true;
 			// if the current user created the tree
-			else if (t.getCreatedBy().equals(getCurrentUser())) return true;
+			else if (t.getCreatedBy().equals(getCurrentUser().getUsername())) return true;
 			// if the current user is a member of the organization the tree is associated to
 			else if (t.getOrganization().getMembers().contains(getCurrentUser())) return true;
 			// otherwise reject access
@@ -40,7 +40,7 @@ public class TreeSecurityImpl extends AuditableSecurityAdapter<Tree, String> imp
 	@Override
 	public CriteriaDefinition CriteriaForReading(SproutUser user) {
 		user = user != null ? user : getCurrentUser();
-		Criteria criteria = where("createdBy").is(user)
+		Criteria criteria = where("createdBy").is(user.getUsername())
 				.orOperator(where("organization").in(user.getOrganizations().toArray()));
 		return criteria;
 	}
