@@ -6,7 +6,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Auditable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -28,10 +27,11 @@ import savantly.sprout.domain.SproutUser;
 import savantly.sprout.repositories.ExtendedMongoRepository;
 import savantly.sprout.security.AuditedDomainSecurity;
 import savantly.sprout.security.Roles;
+import savantly.sprout.security.SproutAuditable;
 import savantly.sprout.web.exception.UnauthorizedClientException;
 
 @SuppressWarnings("rawtypes")
-public abstract class ResourceController<T extends Auditable<SproutUser, ID>, ID extends Serializable, R extends ExtendedMongoRepository> {
+public abstract class ResourceController<T extends SproutAuditable<ID>, ID extends Serializable, R extends ExtendedMongoRepository> {
 	
 	@Autowired(required=false)
 	AuditedDomainSecurity<T, ID> domainSecurity;

@@ -3,17 +3,27 @@ package savantly.sprout.security;
 import java.io.Serializable;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import savantly.sprout.domain.SproutUser;
 
 public class AuditableSecurityAdapter<T extends 
 			AbstractAuditableDomainObject<ID>, ID extends Serializable> implements AuditedDomainSecurity<T, ID>{
 	
+	@Autowired
+	UserDetailsService userDetailsService;
+	
+	
 	final protected SproutUser getCurrentUser(){
-		return (SproutUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		if(principal.getClass().isAssignableFrom(SproutUser.class)){
+			return (SproutUser) principal;
+		}
+		else return (SproutUser) userDetailsService.loadUserByUsername((String) principal);
 	}
 	
 	@Override

@@ -1,14 +1,17 @@
 package savantly.sprout.repositories.user;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Value;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
+import savantly.sprout.domain.EmailAddress;
+
+@JsonDeserialize(as=ProfileProjectionImpl.class)
 public interface ProfileProjection {
-	@Value("#{target.primaryEmailAddress.emailAddress}")
-	String getEmailAddress();
-	@JsonIgnore
-	String getPrimaryEmailAddress();
+	EmailAddress getPrimaryEmailAddress();
+	List<EmailAddress> getEmailAddresses();
 	String getUsername();
 	String getDisplayName();
 	@Value("#{target.getGravatarUrl()}")

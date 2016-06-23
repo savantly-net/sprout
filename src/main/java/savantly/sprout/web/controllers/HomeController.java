@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
@@ -25,11 +26,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import savantly.sprout.domain.SproutUser;
+import savantly.sprout.web.viewModel.ClientSecurityContext;
 
 @Controller
 public class HomeController {
 	static final Logger log = LoggerFactory.getLogger(HomeController.class);
+	
+	@Autowired
+	ObjectMapper objectMapper;
 
 	@RequestMapping("/")
 	public String index(Model model, HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -52,7 +59,19 @@ public class HomeController {
         	}
             WebSecurityExpressionRoot sec = new WebSecurityExpressionRoot(authentication, filterInvocation);
             sec.setTrustResolver(new AuthenticationTrustResolverImpl());
-            model.addAttribute("security", sec);
+            
+            ClientSecurityContext clientSecurityContext = new ClientSecurityContext();
+            clientSecurityContext.setAnonymous(sec.isAnonymous());
+            clientSecurityContext.setAuthenticated(sec.isAuthenticated());
+            clientSecurityContext.setFullyAuthenticated(sec.isFullyAuthenticated());
+            clientSecurityContext.setPrincipal(sec.getPrincipal());
+            clientSecurityContext.setRememberMe(sec.isRememberMe());
+            clientSecurityContext.setAuthorities(sec.getAuthentication().getAuthorities());
+            
+            String securityContextString = objectMapper.writeValueAsString(clientSecurityContext);
+            
+            model.addAttribute("security", securityContextString);
+            
         }
 
 		List<String> resourceArray = new ArrayList<String>();

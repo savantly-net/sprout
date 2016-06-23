@@ -12,18 +12,35 @@
 					<input type="text" id="lastName" name="lastName" class="form-control" data-ng-model="user.lastName" placeholder="Last Name">
 				</div>
 				<div class="form-group">
-					<label for="email">Email</label>
-					<input type="email" id="email" name="email" class="form-control" data-ng-model="user.emailAddress" placeholder="Email">
+					<label for="email">Primary Email Address</label>
+					<label id="email" name="email" class="form-control" data-ng-bind="user.primaryEmailAddress.emailAddress"></label>
 				</div>
 				<div class="form-group">
 					<label for="email">Display Name</label>
 					<input type="text" id="displayName" name="displayName" class="form-control" data-ng-model="user.displayName" placeholder="Display Name">
 				</div>
-				<div class="form-group hidden">
-					<label for="username">Username</label>
-					<input type="text" id="username" name="username" class="form-control" data-ng-model="user.username" placeholder="Username">
+				<hr />
+				<div class="form-group">
+					<label for="email">Email Addresses</label>
+					<!-- <button type="button" ng-click="addNewEmailAddress()">Add</button> -->
+					<div ng-repeat="emailAddress in user.emailAddresses" >
+						<div class="input-group">
+							<span ng-if="emailAddress.isPrimary()" class="input-group-addon"><span class="glyphicon glyphicon-asterisk"></span></span>
+							<input type="email" class="form-control" data-ng-model="emailAddress.emailAddress" placeholder="Email Address"></input>
+							<div class="input-group-btn" uib-dropdown>
+								<button type="button" id="dlabel{{$index}}" class="btn btn-default dropdown-toggle" uib-dropdown-toggle aria-haspopup="true" aria-expanded="false">
+									<span class="caret"></span>
+								</button>
+						        <ul class="dropdown-menu dropdown-menu-right" uib-dropdown-menu role="menu" aria-labelledby="dlabel{{$index}}">
+						          <li><a ng-click="changePrimaryEmailAddress(emailAddress)">Make Primary</a></li>
+						          <li role="separator" class="divider"></li>
+						          <li><a ng-click="user.emailAddresses.splice($index, 1)">Remove</a></li>
+						        </ul>
+							</div>
+						</div>
+					</div>
 				</div>
-				<div class="text-center form-group">
+				<div class="text-center form-group"> 
 					<button type="submit" class="btn btn-large btn-primary">Save Profile</button>
 				</div>
 				<div data-ng-show="success" class="text-center text-success">

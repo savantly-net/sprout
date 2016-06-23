@@ -9,6 +9,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
 import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ import savantly.sprout.domain.SproutUser;
 import savantly.sprout.domain.Tree;
 import savantly.sprout.repositories.tree.TreeRepository;
 import savantly.sprout.repositories.tree.TreeSummary;
-import savantly.sprout.security.Roles;
+import savantly.sprout.security.TreeSecurity;
 import savantly.sprout.web.angular.ResourceController;
 
 @RestController
@@ -27,15 +28,18 @@ import savantly.sprout.web.angular.ResourceController;
 public class TreesController extends ResourceController<Tree, String, TreeRepository> {
 	
 	@Autowired
+	TreeSecurity treeSecurity;
+	
+	@Autowired
 	public TreesController(TreeRepository entityRepository) {
 		super(entityRepository);
 	}
 	
 	@RequestMapping(value = "/search/{query}", method = RequestMethod.GET)
-	Page<Tree> searchTrees(@PathVariable("query") String queryText, Pageable pageable) {
+	Page<Tree> searchTrees(@PathVariable("query") String queryText, Pageable pageable, @AuthenticationPrincipal SproutUser user) {
 		Assert.hasText(queryText, "A query is required");
 		TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny(queryText.split(" "));
-		Query query = TextQuery.queryText(criteria).sortByScore();
+		Query query = TextQuery.queryText(criteria).sortByScore().addCriteria(treeSecurity.CriteriaForReading(user));
 	    Page<Tree> trees = this.getEntityRepository().query(query, pageable);
 	    return trees;
 	  }

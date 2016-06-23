@@ -10,22 +10,31 @@ public class EmailAddress {
 
 	@Id
 	private String emailAddress;
-	private boolean confirmed;
+	private boolean verified;
+	
+	public EmailAddress(){}
 	
 	public EmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
+	
+	public EmailAddress(String emailAddress, boolean verified) {
+		this.emailAddress = emailAddress;
+		this.verified = verified;
+	}
+	
+	
 	public String getEmailAddress() {
 		return emailAddress;
 	}
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
-	public boolean isConfirmed() {
-		return confirmed;
+	public boolean isVerified() {
+		return verified;
 	}
-	public void setConfirmed(boolean confirmed) {
-		this.confirmed = confirmed;
+	public void setVerified(boolean confirmed) {
+		this.verified = confirmed;
 	}
 
 }

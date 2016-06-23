@@ -10,12 +10,9 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.domain.Auditable;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import savantly.sprout.domain.SproutUser;
 
 @Entity
 @MappedSuperclass
@@ -24,21 +21,19 @@ import savantly.sprout.domain.SproutUser;
 		"createdBy", 
 		"lastModifiedDate", 
 		"lastModifiedBy" }, allowGetters=true)
-public abstract class AbstractAuditableDomainObject<ID extends Serializable> implements Auditable<SproutUser, ID> {
+public abstract class AbstractAuditableDomainObject<ID extends Serializable> implements SproutAuditable<ID> {
 
 	private static final long serialVersionUID = -6599910493211110333L;
 
 	// Auditing Metadata
 	@CreatedDate
 	private DateTime createdDate;
-	@DBRef
 	@CreatedBy
-	private SproutUser createdBy;
+	private String createdBy;
 	@LastModifiedDate
 	private DateTime lastModifiedDate;
-	@DBRef
 	@LastModifiedBy
-	private SproutUser lastModifiedBy;
+	private String lastModifiedBy;
 
 	public DateTime getCreatedDate() {
 		return createdDate;
@@ -48,11 +43,11 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 		this.createdDate = createdDate;
 	}
 
-	public SproutUser getCreatedBy() {
+	public String getCreatedBy() {
 		return createdBy;
 	}
 
-	public void setCreatedBy(SproutUser createdBy) {
+	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
 
@@ -64,11 +59,11 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 		this.lastModifiedDate = lastModifiedDate;
 	}
 
-	public SproutUser getLastModifiedBy() {
+	public String getLastModifiedBy() {
 		return lastModifiedBy;
 	}
 
-	public void setLastModifiedBy(SproutUser lastModifiedBy) {
+	public void setLastModifiedBy(String lastModifiedBy) {
 		this.lastModifiedBy = lastModifiedBy;
 	}
 

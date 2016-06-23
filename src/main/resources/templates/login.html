@@ -27,25 +27,50 @@
 	</header>
 	<section class="content">
 		<section class="container">
-			<div class="page-header"><h1>Please Login</h1></div>
+			<div class="page-header">
+				<h1>Login</h1>
+			</div>
+			<div>
+				<h3 class="col-md-12 text-center">Using your social
+					accounts</h3>
+				<div class="col-md-12 text-center">
+					<!-- <a href="/auth/facebook" class="undecorated-link">
+				<img src="/modules/users/img/buttons/facebook.png">
+			</a>
+			<a href="/auth/twitter" class="undecorated-link">
+				<img src="/modules/users/img/buttons/twitter.png">
+			</a> -->
+					<a href="/login/google" class="undecorated-link"> <img
+						src="/modules/users/img/buttons/google.png"></img>
+					</a> <a href="/login/linkedin" class="undecorated-link"> <img
+						src="/modules/users/img/buttons/linkedin.png"></img>
+					</a> <a href="/login/github" class="undecorated-link"> <img
+						src="/modules/users/img/buttons/github.png"></img>
+					</a>
+				</div>
+				<h3 class="col-md-12 text-center">Or your Sprout Account</h3>
+			</div>
+			<br />
 			<div class="container">
-				<form name="f" th:action="@{/login}" method="post" class="form-horizontal text-center">
+				<form name="f" th:action="@{/login}" method="post"
+					class="form-horizontal text-center">
 					<fieldset>
 						<div th:if="${param.error}" class="alert alert-error">Invalid
 							username and password.</div>
 						<div th:if="${param.logout}" class="alert alert-success">You
 							have been logged out.</div>
 						<div class="form-group">
-							<label for="username">Username</label> 
-							<input type="text" id="username" name="username" />
+							<label for="username">Username</label> <input type="text"
+								id="username" name="username" />
 						</div>
 						<div class="form-group">
-							<label for="password">Password</label>
-							<input type="password" id="password" name="password" />
+							<label for="password">Password</label> <input type="password"
+								id="password" name="password" />
 						</div>
 
 						<div class="form-group">
-							<button type="submit" class="text-center btn btn-large btn-primary">Log in</button>
+							<button type="submit"
+								class="text-center btn btn-large btn-primary">Log in</button>
 						</div>
 					</fieldset>
 				</form>

@@ -4,6 +4,7 @@
 // Trees controller
 angular.module('trees').controller('TreesController', ['$rootScope', '$scope', '$stateParams', '$location', 'smoothScroll', 'Authentication', 'Trees', 'FormBuilder', 'Activity', 'GuidGen', 'notify',
 	function($rootScope, $scope, $stateParams, $location, smoothScroll, Authentication, Trees, FormBuilder, Activity, GuidGen, notify) {
+		$scope.title = 'Trees';
 		$scope.authentication = Authentication;
 		$scope.formList = FormBuilder.api.query();
 

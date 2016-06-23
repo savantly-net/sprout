@@ -24,7 +24,7 @@ angular.module('users').factory('Authentication', [
 			if(userDetails.principal === 'anonymousUser'){
 				_this._data.user = {username: userDetails.principal};
 				// reformatting the authority array to make it easier to access
-				_this._data.user.roles = mapRoles(userDetails.authentication.authorities);
+				_this._data.user.roles = mapRoles(userDetails.authorities);
 			}
 			else{
 				_this._data.security = userDetails;

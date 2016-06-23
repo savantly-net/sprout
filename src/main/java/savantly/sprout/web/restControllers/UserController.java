@@ -121,11 +121,20 @@ public class UserController extends ResourceController<SproutUser, String, UserR
 	
 	@RequestMapping(value={"/profile/{username}"},method = RequestMethod.GET)
 	public ProfileProjection getProfile(@PathVariable String username){
-		ProfileProjection profile = entityRepository.findFirstByUsername(username);
+		ProfileProjection profile = entityRepository.findProfileFirstByUsername(username);
 		if(profile == null) 
 			throw new ResourceNotFoundException();
 		
 		return profile;
+	}
+	
+	@PreAuthorize("#currentUser.username == #myAccount.username")
+	@RequestMapping(value={"/profile"},method = RequestMethod.PUT)
+	public SproutUser updateProfile(@RequestBody SproutUser myAccount, @AuthenticationPrincipal SproutUser currentUser){
+		if(myAccount == null) 
+			throw new ResourceNotFoundException();
+		
+		return entityRepository.updateMyProfile(myAccount);
 	}
 
 }

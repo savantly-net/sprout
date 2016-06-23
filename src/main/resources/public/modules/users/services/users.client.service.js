@@ -10,6 +10,10 @@ angular.module('users').factory('Users', ['$resource',
 		}, 
 		getProfile: {
 			url: 'rest/users/profile/:userId'
+		},
+		updateProfile:{
+			method: 'PUT',
+			url: 'rest/users/profile'
 		}
 	})}
 ]);

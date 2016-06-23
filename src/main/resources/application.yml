@@ -1,0 +1,25 @@
+spring:
+  jpa:
+    properties:
+      jadira.usertype.autoRegisterUserTypes: true
+
+MONGO_HOST: localhost
+MONGO_PORT: 27017
+MONGO_USERDB: admin
+MONGO_DATABASE: sprout
+
+management: 
+  context-path: /manage
+  security:
+    role: SUPERUSER
+
+github:
+  client:
+    clientId: bd1c0a783ccdd1c9b9e4
+    clientSecret: 1a9030fbca47a5b2c28e92f19050bb77824b5ad1
+    accessTokenUri: https://github.com/login/oauth/access_token
+    userAuthorizationUri: https://github.com/login/oauth/authorize
+    clientAuthenticationScheme: form
+    scope: user:email
+  resource:
+    userInfoUri: https://api.github.com/user

@@ -16,19 +16,23 @@
 package savantly.sprout.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.UUID;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
 import org.mongodb.morphia.annotations.Entity;
 import org.springframework.data.annotation.Id;
-import org.springframework.data.annotation.PersistenceConstructor;
-import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.GrantedAuthority;
@@ -39,12 +43,11 @@ import org.springframework.util.Assert;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 import savantly.sprout.security.AbstractAuditableDomainObject;
 import savantly.sprout.security.MD5Util;
 import savantly.sprout.security.Role;
-
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
 /**
  * Models core user information retrieved by a {@link UserDetailsService}.
@@ -74,25 +77,32 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 	
 	// ~ Instance fields
 	// ================================================================================================
+
+	@Id
+	private String id;
 	@JsonProperty(access=Access.WRITE_ONLY)
 	private String password;
-	@Id
+	@Indexed(unique=true)
 	private String username;
+	@Size(min=1)
 	private String displayName;
 	@DBRef
 	private Set<EmailAddress> emailAddresses = new HashSet<>();
 	@DBRef
-	@NotEmpty
+	@NotNull
 	private EmailAddress primaryEmailAddress;
 	private boolean hidePrimaryEmailAddress;
 	private String firstName;
 	private String lastName;
 	@JsonTypeInfo(use = com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NONE)
-	private Set<Role> authorities;
+	private Set<Role> authorities = new HashSet<Role>();
 	private boolean accountNonExpired;
 	private boolean accountNonLocked;
 	private boolean credentialsNonExpired;
 	private boolean enabled;
+	@DBRef
+	private Set<Organization> organizations = new HashSet<>();
+	private List<OAuthAccount> oAuthAccounts = new ArrayList<>();
 
 	// ~ Constructors
 	// ===================================================================================================
@@ -100,7 +110,7 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 	public SproutUser (){}
 	
 	public SproutUser(String username, String password, String firstName, String lastName) {
-		this(username, password, firstName, lastName, true, true, true, true, Collections.<Role>emptySet());
+		this(username, password, firstName, lastName, true, true, true, true, new HashSet<Role>());
 	}
 	
 	/**
@@ -109,6 +119,12 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 	public SproutUser(String username, String password, String firstName, String lastName,
 			Collection<? extends Role> authorities) {
 		this(username, password, firstName, lastName, true, true, true, true, authorities);
+	}
+	
+	public SproutUser(String username, String password, String firstName, String lastName, boolean enabled,
+			boolean accountNonExpired, boolean credentialsNonExpired,
+			boolean accountNonLocked, Collection<? extends Role> authorities){
+		this(UUID.randomUUID().toString(), username, password, firstName, lastName, true, true, true, true, authorities);
 	}
 
 	/**
@@ -131,7 +147,7 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 	 * a parameter or as an element in the <code>GrantedAuthority</code> collection
 	 */
 	//@PersistenceConstructor
-	public SproutUser(String username, String password, String firstName, String lastName, boolean enabled,
+	public SproutUser(String id, String username, String password, String firstName, String lastName, boolean enabled,
 			boolean accountNonExpired, boolean credentialsNonExpired,
 			boolean accountNonLocked, Collection<? extends Role> authorities) {
 
@@ -140,6 +156,7 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 //					"Cannot pass null or empty values to constructor");
 //		}
 
+		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.firstName = firstName;
@@ -155,42 +172,14 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 	// ========================================================================================================
 
 
-
-	public Collection<Role> getAuthorities() {
-		return authorities;
+	public void addAuthority(Role role){
+		this.authorities.add(role);
+	}
+	
+	public void removeAuthority(Role role){
+		this.authorities.remove(role);
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public String getDisplayName() {
-		return displayName;
-	}
-
-	public void setDisplayName(String displayName) {
-		this.displayName = displayName;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public boolean isAccountNonExpired() {
-		return accountNonExpired;
-	}
-
-	public boolean isAccountNonLocked() {
-		return accountNonLocked;
-	}
-
-	public boolean isCredentialsNonExpired() {
-		return credentialsNonExpired;
-	}
 
 	public void eraseCredentials() {
 		password = null;
@@ -296,7 +285,51 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 	
 	@Override
 	public String getId() {
+		return id;
+	}
+	
+	public void setId(String id){
+		this.id = id;
+	}
+	
+	public Collection<Role> getAuthorities() {
+		return Collections.unmodifiableSet(authorities);
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public String getUsername() {
 		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public void setDisplayName(String displayName) {
+		this.displayName = displayName;
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public boolean isAccountNonExpired() {
+		return accountNonExpired;
+	}
+
+	public boolean isAccountNonLocked() {
+		return accountNonLocked;
+	}
+
+	public boolean isCredentialsNonExpired() {
+		return credentialsNonExpired;
 	}
 
 	public Set<EmailAddress> getEmailAddresses() {
@@ -380,5 +413,30 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 			this.setPrimaryEmailAddress(emailAddress);
 		}
 		return added;
+	}	
+	
+	public void addEmailAddress(Collection<EmailAddress> emailAddresses) {
+		for (EmailAddress emailAddress : emailAddresses) {
+			if(!this.emailAddresses.contains(emailAddress))
+				this.addEmailAddress(emailAddress);
+		}
 	}
+
+	public Set<Organization> getOrganizations() {
+		return organizations;
+	}
+
+	public void setOrganizations(Set<Organization> memberOf) {
+		this.organizations = memberOf;
+	}
+
+	public void addOAuthAccount(OAuthAccount oauthAccount) {
+		this.oAuthAccounts.add(oauthAccount);
+	}
+	
+	public List<OAuthAccount> getOAuthAccounts() {
+		return oAuthAccounts;
+	}
+
+
 }

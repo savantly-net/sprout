@@ -3,6 +3,20 @@
 angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication',
 	function($scope, $http, $location, Users, Authentication) {
 		$scope.user = Authentication.user;
+		$scope.user.emailAddresses = $scope.user.emailAddresses || [];
+		
+		$scope.EmailAddressClass = function(options){
+			options = options || {emailAddress: "", verfied:false};
+			var _self = this;
+			this.emailAddress = options.emailAddress;
+			this.isPrimary = function(){
+				return _self.emailAddress == $scope.user.primaryEmailAddress.emailAddress;
+			}
+		};
+		
+		for(var i=0; i < $scope.user.emailAddresses.length; i++){
+			$scope.user.emailAddresses[i] = new $scope.EmailAddressClass($scope.user.emailAddresses[i]);
+		}
 
 		// If user is not signed in or is anonymous then redirect back home
 		if (!$scope.user || $scope.user.username === 'anonymousUser') $location.path('/');
@@ -12,8 +26,15 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 			for (var i in $scope.user.additionalProvidersData) {
 				return true;
 			}
-
 			return false;
+		};
+		
+		$scope.addNewEmailAddress = function(){
+			$scope.user.emailAddresses.push(new $scope.EmailAddressClass());
+		};
+		
+		$scope.changePrimaryEmailAddress = function(emailAddress){
+			$scope.user.primaryEmailAddress = emailAddress;
 		};
 
 		// Check if provider is already in use with current user
@@ -44,7 +65,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 				$scope.success = $scope.error = null;
 				var user = new Users($scope.user);
 
-				user.$update(function(response) {
+				user.$updateProfile(function(response) {
 					$scope.success = true;
 					Authentication.user = response;
 				}, function(response) {
@@ -67,5 +88,6 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
 				$scope.error = response.message;
 			});
 		};
+		
 	}
 ]);

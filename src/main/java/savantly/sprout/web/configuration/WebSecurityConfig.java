@@ -3,12 +3,13 @@ package savantly.sprout.web.configuration;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 
+import javax.servlet.Filter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -19,12 +20,12 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
@@ -37,12 +38,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	UserDetailsService userDetailsService;
 	
-	PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+	@Autowired
+	@Qualifier("ssoFilter")
+	Filter ssoFilter;
 	
-	@Bean
-	public PasswordEncoder passwordEncoderBean(){
-		return passwordEncoder;
-	}
+	@Autowired
+	@Qualifier("oauth2ClientContextFilter")
+	Filter oauth2ClientContextFilter;
+	
+	@Autowired
+	PasswordEncoder passwordEncoder;
 	
 	@Override
  	public void configure(WebSecurity web) throws Exception {
@@ -75,7 +80,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 			.and()
 		.exceptionHandling()
 			.accessDeniedPage("/errors/403")
-			.authenticationEntryPoint(authenticationEntryPoint);
+			.authenticationEntryPoint(authenticationEntryPoint)
+			.and()
+		.addFilterBefore(oauth2ClientContextFilter, BasicAuthenticationFilter.class)
+		.addFilterBefore(ssoFilter, BasicAuthenticationFilter.class);
 	}
 	
 	private LinkedHashMap<RequestMatcher, AuthenticationEntryPoint> entryPoints() {

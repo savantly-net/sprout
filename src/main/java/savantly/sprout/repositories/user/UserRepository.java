@@ -5,5 +5,7 @@ import savantly.sprout.repositories.ExtendedMongoRepository;
 
 public interface UserRepository extends ExtendedMongoRepository<SproutUser, String>, UserRepositoryCustom {
 
-	ProfileProjection findFirstByUsername(String username);
+	ProfileProjection findProfileFirstByUsername(String username);
+	SproutUser findOneByUsername(String username);
+	SproutUser findByPrimaryEmailAddress_EmailAddress(String emailAddress);
 }

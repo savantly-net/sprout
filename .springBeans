@@ -8,8 +8,19 @@
 	<enableImports><![CDATA[false]]></enableImports>
 	<configs>
 		<config>java:savantly.sprout.web.Application</config>
+		<config>java:savantly.sprout.security.SproutAuditorAware</config>
 	</configs>
 	<autoconfigs>
+		<config>java:savantly.sprout.web.configuration.MethodSecurityConfiguration$PermissionEvaluationConfiguration</config>
+		<config>java:savantly.sprout.web.configuration.JacksonConfiguration</config>
+		<config>java:savantly.sprout.security.SproutUserDetailsService</config>
+		<config>java:savantly.sprout.web.configuration.MongoIndexConfiguration</config>
+		<config>java:savantly.sprout.web.configuration.WebSecurityConfig</config>
+		<config>java:savantly.sprout.web.configuration.MvcConfiguration</config>
+		<config>java:savantly.sprout.web.configuration.MongoConfiguration</config>
+		<config>java:savantly.sprout.web.configuration.MethodSecurityConfiguration</config>
+		<config>java:savantly.sprout.web.configuration.OAuthConfiguration</config>
+		<config>java:savantly.sprout.web.configuration.DozerConfiguration</config>
 	</autoconfigs>
 	<configSets>
 	</configSets>
