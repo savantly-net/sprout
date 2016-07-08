@@ -23,3 +23,14 @@ github:
     scope: user:email
   resource:
     userInfoUri: https://api.github.com/user
+    
+linkedin:
+  client:
+    clientId: 785uoqwaoq853w
+    clientSecret: ytdFR5txsETqdsjW
+    accessTokenUri: https://www.linkedin.com/oauth/v2/accessToken
+    userAuthorizationUri: https://www.linkedin.com/oauth/v2/authorization
+    clientAuthenticationScheme: form
+    scope: r_basicprofile r_emailaddress
+  resource:
+    userInfoUri: https://api.linkedin.com/v1/people/~:(email-address,first-name,last-name,location,industry)?format=json

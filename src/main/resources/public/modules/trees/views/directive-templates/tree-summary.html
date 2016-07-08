@@ -9,10 +9,10 @@
 		</a>
 		<div btf-markdown="tree.description"></div>
 		<sub>
-			Posted on <span data-ng-bind="tree.createdDate | date:'medium'"></span>
-			by <a href='/#!/profile/{{tree.createdBy.username}}'>
+			Created on <span data-ng-bind="tree.createdDate | date:'medium'"></span>
+			by <a href='/#!/profile/{{tree.createdBy}}'>
 					<span
-				data-ng-bind="tree.createdBy.username"></span>
+				data-ng-bind="tree.createdBy"></span>
 				</a>
 		</sub>
 	</div>

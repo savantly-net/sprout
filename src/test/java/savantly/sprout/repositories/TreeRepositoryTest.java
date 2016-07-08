@@ -9,8 +9,8 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import savantly.sprout.domain.Tree;
-import savantly.sprout.repositories.tree.TreeRepository;
+import savantly.sprout.domain.tree.Tree;
+import savantly.sprout.domain.tree.repository.TreeRepository;
 import savantly.sprout.web.Application;
 
 @RunWith(SpringJUnit4ClassRunner.class)

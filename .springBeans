@@ -9,11 +9,11 @@
 	<configs>
 		<config>java:savantly.sprout.web.Application</config>
 		<config>java:savantly.sprout.security.SproutAuditorAware</config>
+		<config>java:savantly.sprout.domain.user.security.SproutUserDetailsServiceImpl</config>
 	</configs>
 	<autoconfigs>
 		<config>java:savantly.sprout.web.configuration.MethodSecurityConfiguration$PermissionEvaluationConfiguration</config>
 		<config>java:savantly.sprout.web.configuration.JacksonConfiguration</config>
-		<config>java:savantly.sprout.security.SproutUserDetailsService</config>
 		<config>java:savantly.sprout.web.configuration.MongoIndexConfiguration</config>
 		<config>java:savantly.sprout.web.configuration.WebSecurityConfig</config>
 		<config>java:savantly.sprout.web.configuration.MvcConfiguration</config>

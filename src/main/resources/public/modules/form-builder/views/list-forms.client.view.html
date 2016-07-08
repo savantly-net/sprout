@@ -5,10 +5,10 @@
     <div class="list-group">
         <a data-ng-repeat="form in forms" data-ng-href="#!/forms/{{form.form_id}}" class="list-group-item">
 			<small class="list-group-item-text">
-				Posted on
+				Created on
 				<span data-ng-bind="form.createdDate | date:'medium'"></span>
 				by
-				<span data-ng-bind="form.createdBy.username"></span>
+				<span data-ng-bind="form.createdBy"></span>
 			</small>
 			<h4 class="list-group-item-heading" data-ng-bind="form.form_name"></h4>
         </a>

@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.index.TextIndexDefinition;
 import org.springframework.data.mongodb.core.index.TextIndexDefinition.TextIndexDefinitionBuilder;
 
-import savantly.sprout.domain.Tree;
+import savantly.sprout.domain.tree.Tree;
 
 @Configuration
 public class MongoIndexConfiguration implements InitializingBean{

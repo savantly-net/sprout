@@ -9,7 +9,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
-import savantly.sprout.domain.SproutUser;
+import savantly.sprout.domain.user.SproutUser;
 
 public class AuditableSecurityAdapter<T extends 
 			AbstractAuditableDomainObject<ID>, ID extends Serializable> implements AuditedDomainSecurity<T, ID>{
@@ -38,15 +38,15 @@ public class AuditableSecurityAdapter<T extends
 	}
 	
 	@Override
-	@PreAuthorize("isFullyAuthenticated()")
+	@PreAuthorize("isFullyAuthenticated() and #t.createdBy == principal.username")
 	public boolean canUpdate(T t) {
-		return t.getCreatedBy().equals(getCurrentUser());
+		return true;
 	}
 	
 	@Override
-	@PreAuthorize("isFullyAuthenticated()")
+	@PreAuthorize("isFullyAuthenticated() and #t.createdBy == principal.username")
 	public boolean canDelete(T t) {
-		return t.getCreatedBy().equals(getCurrentUser());
+		return true;
 	}
 
 	@Override

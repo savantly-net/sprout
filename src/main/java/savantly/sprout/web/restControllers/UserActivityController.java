@@ -4,8 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import savantly.sprout.domain.UserActivity;
-import savantly.sprout.repositories.reporting.UserActivityRepository;
+import savantly.sprout.domain.report.UserActivity;
+import savantly.sprout.domain.report.repository.UserActivityRepository;
 import savantly.sprout.web.angular.ResourceController;
 
 @RestController

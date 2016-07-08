@@ -30,7 +30,7 @@ import org.springframework.security.web.util.matcher.RegexRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @Configuration
-@ComponentScan(basePackages={"savantly.sprout.security"})
+@ComponentScan(basePackages={"savantly.sprout.security", "savantly.sprout.**.security"})
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {

@@ -1,0 +1,73 @@
+<div class="container">
+	<div class="row">
+		<div class="col-xs-4">
+			<span>ID:</span> 
+		</div>
+		<div class="col-xs-8">
+			<span>{{field.field_id}}</span>
+		</div>
+	</div>
+	<div class="row row-space">
+		<div class="col-xs-4">
+			<span>Type:</span> 
+		</div>
+		<div class="col-xs-8">
+			<span>{{field.field_type}}</span>
+		</div>
+	</div>
+	<div class="row row-space">
+		<div class="col-xs-4">
+			<span>Title:</span>
+		</div>
+		<div class="col-xs-8">
+			<input type="text" ng-model="field.field_title" value="{{field.field_title}}">
+		</div>
+	</div>
+	<div class="row row-space">
+		<div class="col-xs-4">
+			<span>Default Value:</span>
+		</div>
+		<div class="col-xs-8">
+			<input type="text" ng-model="field.field_value" value="{{field.field_value}}">
+		</div>
+	</div>
+
+	<div class="row row-space" ng-show="showAddOptions(field)">
+		<div class="col-xs-4"><span>Options:</span></div>
+		<div class="col-xs-8">
+			<div class=" input-group" ng-repeat="option in field.field_options">
+				<input type="text" ng-model="option.option_title"
+					value="{{option.option_title}}">
+				<span class="input-addon glyphicon glyphicon-remove red" ng-click="deleteOption(field, option)">
+				
+				</span>
+				<!-- <span
+					class="label label-inverse">Value: {{ option.option_value}}</span> -->
+			</div>
+			<button class="btn btn-primary btn-small" type="button"
+				ng-click="addOption(field)">
+				<i class="icon-plus icon-white"></i> Add Option
+			</button>
+		</div>
+	</div>
+	<div class="row row-space">
+		<div class="col-xs-4">Required:</div>
+		<div class="col-xs-8">
+			<label> <input type="radio" ng-value="true" ng-selected
+				ng-model="field.field_required" /> &nbsp; Yes
+			</label> <label> <input type="radio" ng-value="false"
+				ng-model="field.field_required" /> &nbsp; No
+			</label>
+		</div>
+	</div>
+	<div class="row row-space">
+		<div class="col-xs-4">Disabled:</div>
+		<div class="col-xs-8">
+			<label> <input type="radio" ng-value="true" ng-selected
+				ng-model="field.field_disabled" /> &nbsp; Yes
+			</label> <label> <input type="radio" ng-value="false"
+				ng-model="field.field_disabled" /> &nbsp; No
+			</label>
+		</div>
+	</div>
+</div>

@@ -28,7 +28,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import savantly.sprout.domain.SproutUser;
+import savantly.sprout.domain.user.SproutUser;
 import savantly.sprout.web.viewModel.ClientSecurityContext;
 
 @Controller

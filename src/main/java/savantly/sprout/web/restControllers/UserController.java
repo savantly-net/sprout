@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import savantly.sprout.domain.EmailAddress;
-import savantly.sprout.domain.SproutUser;
-import savantly.sprout.repositories.emailAddress.EmailAddressRepository;
-import savantly.sprout.repositories.user.ProfileProjection;
-import savantly.sprout.repositories.user.UserRepository;
-import savantly.sprout.repositories.user.exception.EmailIsAlreadyRegisteredException;
+import savantly.sprout.domain.emailAddress.EmailAddress;
+import savantly.sprout.domain.emailAddress.repository.EmailAddressRepository;
+import savantly.sprout.domain.user.SproutUser;
+import savantly.sprout.domain.user.exception.EmailIsAlreadyRegisteredException;
+import savantly.sprout.domain.user.repository.ProfileProjection;
+import savantly.sprout.domain.user.repository.UserRepository;
 import savantly.sprout.security.ClientCredentials;
 import savantly.sprout.security.Roles;
 import savantly.sprout.web.angular.ResourceController;

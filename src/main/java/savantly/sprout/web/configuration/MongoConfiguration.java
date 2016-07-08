@@ -20,7 +20,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 
-import savantly.sprout.repositories.ExtendedMongoRepositoryImpl;
+import savantly.sprout.mongo.repository.ExtendedMongoRepositoryImpl;
 
 @Configuration
 @EnableMongoRepositories(
@@ -29,7 +29,7 @@ import savantly.sprout.repositories.ExtendedMongoRepositoryImpl;
 @EnableMongoAuditing
 public class MongoConfiguration extends AbstractMongoConfiguration {
 	
-	final static String MONGO_REPOSITORIES_BASE_PACKAGE = "savantly.sprout.repositories" ;
+	final static String MONGO_REPOSITORIES_BASE_PACKAGE = "savantly.sprout.**.repository" ;
 
 	@Value("${MONGO_HOST}")
 	private String MONGO_HOST;

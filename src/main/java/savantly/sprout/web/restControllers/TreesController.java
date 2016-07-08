@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import savantly.sprout.domain.SproutUser;
-import savantly.sprout.domain.Tree;
-import savantly.sprout.repositories.tree.TreeRepository;
-import savantly.sprout.repositories.tree.TreeSummary;
-import savantly.sprout.security.TreeSecurity;
+import savantly.sprout.domain.tree.Tree;
+import savantly.sprout.domain.tree.repository.TreeRepository;
+import savantly.sprout.domain.tree.repository.TreeSummary;
+import savantly.sprout.domain.tree.security.TreeSecurity;
+import savantly.sprout.domain.user.SproutUser;
 import savantly.sprout.web.angular.ResourceController;
 
 @RestController

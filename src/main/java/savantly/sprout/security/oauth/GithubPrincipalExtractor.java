@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import org.springframework.boot.autoconfigure.security.oauth2.resource.PrincipalExtractor;
 import org.springframework.security.oauth2.client.OAuth2RestTemplate;
 
-import savantly.sprout.domain.EmailAddress;
-import savantly.sprout.domain.OAuthAccount;
-import savantly.sprout.repositories.user.UserRepository;
+import savantly.sprout.domain.emailAddress.EmailAddress;
+import savantly.sprout.domain.user.OAuthAccount;
+import savantly.sprout.domain.user.repository.UserRepository;
 
 public class GithubPrincipalExtractor implements PrincipalExtractor {
 	

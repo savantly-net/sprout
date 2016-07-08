@@ -3,7 +3,7 @@
 		<div class="page-header">
 			<h1 data-ng-bind="tree.name"></h1>
 		</div>
-		<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user.username == tree.createdBy.username))">
+		<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user.username == tree.createdBy">
 			<a class="btn btn-primary" href="/#!/trees/{{tree._id}}/edit">
 				<i class="glyphicon glyphicon-edit"></i>
 			</a>
@@ -13,10 +13,10 @@
 		</div>
 		<small>
 			<em class="text-muted">
-				Posted on
+				Created on
 				<span data-ng-bind="tree.createdDate | date:'mediumDate'"></span>
 				by
-				<span><a href="/#!/profile/{{tree.createdBy.username}}" data-ng-bind="tree.createdBy.displayName"></a></span>
+				<span><a href="/#!/profile/{{tree.createdBy" data-ng-bind="tree.createdBy"></a></span>
 			</em>
 		</small>
 	</div>

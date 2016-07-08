@@ -4,17 +4,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.PermissionEvaluator;
 
-import savantly.sprout.security.DynamicFormSecurity;
-import savantly.sprout.security.DynamicFormSecurityImpl;
-import savantly.sprout.security.OrganizationSecurity;
-import savantly.sprout.security.OrganizationSecurityImpl;
+import savantly.sprout.domain.dynamicForm.repository.DynamicFormSecurity;
+import savantly.sprout.domain.dynamicForm.repository.DynamicFormSecurityImpl;
+import savantly.sprout.domain.organization.security.OrganizationSecurity;
+import savantly.sprout.domain.organization.security.OrganizationSecurityImpl;
+import savantly.sprout.domain.report.security.UserActivitySecurity;
+import savantly.sprout.domain.report.security.UserActivitySecurityImpl;
+import savantly.sprout.domain.tree.security.TreeSecurity;
+import savantly.sprout.domain.tree.security.TreeSecurityImpl;
+import savantly.sprout.domain.user.security.UserSecurity;
+import savantly.sprout.domain.user.security.UserSecurityImpl;
 import savantly.sprout.security.SproutPermissionEvaluator;
-import savantly.sprout.security.TreeSecurity;
-import savantly.sprout.security.TreeSecurityImpl;
-import savantly.sprout.security.UserActivitySecurity;
-import savantly.sprout.security.UserActivitySecurityImpl;
-import savantly.sprout.security.UserSecurity;
-import savantly.sprout.security.UserSecurityImpl;
 
 @Configuration
 public class MethodSecurityConfiguration  {

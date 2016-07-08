@@ -17,7 +17,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import savantly.sprout.repositories.tree.TreeRepository;
+import savantly.sprout.domain.tree.repository.TreeRepository;
 import savantly.sprout.web.Application;
 
 @RunWith(SpringJUnit4ClassRunner.class)

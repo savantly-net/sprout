@@ -10,22 +10,23 @@ import org.springframework.boot.autoconfigure.security.oauth2.resource.UserInfoT
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.client.OAuth2ClientContext;
 import org.springframework.security.oauth2.client.filter.OAuth2ClientAuthenticationProcessingFilter;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableOAuth2Client;
 import org.springframework.web.filter.CompositeFilter;
 
-import savantly.sprout.repositories.user.UserRepository;
+import savantly.sprout.domain.user.repository.UserRepository;
+import savantly.sprout.domain.user.security.SproutUserDetailsService;
 import savantly.sprout.security.oauth.ClientResources;
 import savantly.sprout.security.oauth.GithubPrincipalExtractor;
+import savantly.sprout.security.oauth.LinkedinPrincipalExtractor;
 
 @Configuration
 @EnableOAuth2Client
 public class OAuthConfiguration {
 
 	@Autowired
-	UserDetailsService userDetailsService;
+	SproutUserDetailsService userDetailsService;
 	@Autowired
 	OAuth2ClientContext oauth2ClientContext;
 	@Autowired 
@@ -36,6 +37,14 @@ public class OAuthConfiguration {
 	ClientResources github() {
 		ClientResources resources = new ClientResources(oauth2ClientContext);
 		resources.setPrincipalExtractor(new GithubPrincipalExtractor(userRepository, resources.getRestTemplate()));
+		return resources;
+	}
+	
+	@Bean(name="linkedinClient")
+	@ConfigurationProperties("linkedin")
+	ClientResources linkedin() {
+		ClientResources resources = new ClientResources(oauth2ClientContext);
+		resources.setPrincipalExtractor(new LinkedinPrincipalExtractor(userRepository, userDetailsService, resources.getRestTemplate()));
 		return resources;
 	}
 	
@@ -54,6 +63,7 @@ public class OAuthConfiguration {
 		List<Filter> filters = new ArrayList<>();
 		/* filters.add(ssoFilter(facebook(), "/login/facebook")); */
 		filters.add(ssoFilter(github(), "/login/github"));
+		filters.add(ssoFilter(linkedin(), "/login/linkedin"));
 		filter.setFilters(filters);
 		return filter;
 	}

@@ -3,7 +3,8 @@
     	<em class="text-danger" ng-show="field.field_required && !field.field_value">* required</em>
    	</div>
     <div class="col-sm-10">
-		<input type="text" class="form-control" ng-model="field.field_value" data-date-format="mm/dd/yyyy" bs-datepicker  ng-required="field.field_required" ng-disabled="field.field_disabled">
-        <button type="button" class="btn" data-toggle="datepicker"><i class="icon-calendar"></i></button>
+	    <div style="display:inline-block; min-height:290px;">
+	      <uib-datepicker ng-model="field.field_value" class="well well-sm" datepicker-options="options" ng-required="field.field_required" ng-disabled="field.field_disabled"></uib-datepicker>
+	    </div>
     </div>
 </div>

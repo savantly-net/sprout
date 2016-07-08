@@ -1,12 +1,9 @@
 <section data-ng-controller="ViewFormController"
 	data-ng-init="findOne()">
 	<div class="page-header">
-		<div class="pull-right clear" data-ng-show="((authentication.user) && (authentication.user.username == form.createdBy.username))">
-			<a class="btn btn-primary" href="/#!/forms/{{form.form_id}}/edit">
+		<div class="pull-right clear" data-ng-show="((authentication.user) && (authentication.user.username == form.createdBy))">
+			<a class="btn btn-default" href="/#!/forms/{{form.form_id}}/edit">
 				<i class="glyphicon glyphicon-edit"></i>
-			</a>
-			<a class="btn btn-primary" data-ng-click="remove();">
-				<i class="glyphicon glyphicon-trash"></i>
 			</a>
 		</div>
 		<h2>{{ form.form_name }} <span class="text-warning">[Testing]</span></h2> 
@@ -18,7 +15,7 @@
 		<hr>
 	
 		<div class="text-center">
-			<a class="btn btn-small btn-primary" ng-show="!showJson"
+			<a class="btn btn-small btn-default" ng-show="!showJson"
 				ng-click="showJson = true">Show form json object</a> <a
 				class="btn btn-small btn-inverse" ng-show="showJson"
 				ng-click="showJson = false">Hide form json object</a><br> <br>

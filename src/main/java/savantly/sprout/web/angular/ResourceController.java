@@ -23,8 +23,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import savantly.sprout.domain.SproutUser;
-import savantly.sprout.repositories.ExtendedMongoRepository;
+import savantly.sprout.domain.user.SproutUser;
+import savantly.sprout.mongo.repository.ExtendedMongoRepository;
 import savantly.sprout.security.AuditedDomainSecurity;
 import savantly.sprout.security.Roles;
 import savantly.sprout.security.SproutAuditable;
@@ -42,11 +42,17 @@ public abstract class ResourceController<T extends SproutAuditable<ID>, ID exten
 		this.entityRepository = entityRepository;
 	}
 
+	/**
+	 * Creates a new Entity in storage
+	 * @param model
+	 * @param user
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value={"", "/{id}"},method = RequestMethod.POST)
 	public T create(@RequestBody @Valid T model, @AuthenticationPrincipal SproutUser user) {
 		if(!canCreate(model, user)) {
-			throw new RuntimeException("You do not have authorization to create new items.");
+			throw new UnauthorizedClientException("You do not have authorization to create new items.");
 		}
 		ResourceEvent<T> resourceEvent = onCreating(new ResourceEvent<T>(model, false));
 		if(!resourceEvent.isHandled()){
@@ -58,6 +64,15 @@ public abstract class ResourceController<T extends SproutAuditable<ID>, ID exten
 		
 	}
 	
+	/**
+	 * Search for entities where 'field' contains 'value'
+	 * 
+	 * @param field
+	 * @param value
+	 * @param pageable
+	 * @param user
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value={"/search/{field}/{value}"},method = RequestMethod.GET)
 	public Page<T> search(@PathVariable String field, @PathVariable String value, @RequestParam(required=false) Pageable pageable, @AuthenticationPrincipal SproutUser user) {
@@ -68,6 +83,12 @@ public abstract class ResourceController<T extends SproutAuditable<ID>, ID exten
 		return this.entityRepository.query(query, pageable);
 	}
 
+	/**
+	 * Get a list of all the entities
+	 * 
+	 * @param user
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.GET)
 	public List<T> list(@AuthenticationPrincipal SproutUser user) {
@@ -75,6 +96,13 @@ public abstract class ResourceController<T extends SproutAuditable<ID>, ID exten
 		return this.entityRepository.findAll();
 	}
 
+	/**
+	 * Get one entity by the ID
+	 * 
+	 * @param id
+	 * @param user
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
 	public T get(@PathVariable("id") ID id, @AuthenticationPrincipal SproutUser user) {
@@ -83,10 +111,19 @@ public abstract class ResourceController<T extends SproutAuditable<ID>, ID exten
 		return onFindOne(result);
 	}
 
+	/**
+	 * Update an entity
+	 * 
+	 * @param id
+	 * @param model
+	 * @param user
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/{id}", method = {RequestMethod.PUT})
 	public T update(@PathVariable("id") ID id, @RequestBody @Valid T model, @AuthenticationPrincipal SproutUser user) {
-		if(!canUpdate(model, user))throw new UnauthorizedClientException("You do not have authorization to update this item.");
+		T existingModel = (T) this.entityRepository.findOne(model.getId());
+		if(!canUpdate(existingModel, user))throw new UnauthorizedClientException("You do not have authorization to update this item.");
 		ResourceEvent<T> resourceEvent = onUpdating(new ResourceEvent<T>(model, false));
 		if(!resourceEvent.isHandled()){
 			T result = (T) this.entityRepository.save(resourceEvent.getEntity());
@@ -96,6 +133,13 @@ public abstract class ResourceController<T extends SproutAuditable<ID>, ID exten
 		else return resourceEvent.getEntity();
 	}
 
+	/**
+	 * Delete an entity 
+	 * 
+	 * @param id
+	 * @param user
+	 * @return
+	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<Boolean> delete(@PathVariable("id") ID id, @AuthenticationPrincipal SproutUser user) {
