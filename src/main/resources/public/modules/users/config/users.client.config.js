@@ -4,8 +4,8 @@
 angular.module('users').config(['$httpProvider',
 	function($httpProvider) {
 		// Set the httpProvider "not authorized" interceptor
-		$httpProvider.interceptors.push(['$q', '$location', 'Authentication',
-			function($q, $location, Authentication) {
+		$httpProvider.interceptors.push(['$q', '$window', 'Authentication',
+			function($q, $window, Authentication) {
 				return {
 					responseError: function(rejection) {
 						switch (rejection.status) {
@@ -14,10 +14,11 @@ angular.module('users').config(['$httpProvider',
 								Authentication.user = null;
 
 								// Redirect to signin page
-								$location.path('signin');
+								$window.location.href = '/login';
 								break;
 							case 403:
-								// Add unauthorized behaviour 
+								// Redirect to signin page
+								$window.location.href = '/login';
 								break;
 						}
 

@@ -1,5 +1,9 @@
 package savantly.sprout.exceptions;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(value=HttpStatus.UNAUTHORIZED, reason="Not Authorized") 
 public class UnauthorizedClientException extends RuntimeException {
 
 	public UnauthorizedClientException() {

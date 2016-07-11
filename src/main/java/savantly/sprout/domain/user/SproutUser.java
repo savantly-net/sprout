@@ -50,6 +50,7 @@ import savantly.sprout.domain.organization.Organization;
 import savantly.sprout.security.AbstractAuditableDomainObject;
 import savantly.sprout.security.MD5Util;
 import savantly.sprout.security.Role;
+import savantly.sprout.security.Roles;
 
 /**
  * Models core user information retrieved by a {@link UserDetailsService}.
@@ -442,6 +443,12 @@ public class SproutUser extends AbstractAuditableDomainObject<String> implements
 
 	public void clearEmailAddresses() {
 		this.emailAddresses.clear();
+	}
+
+	public boolean hasRole(Roles role){
+		String roleString = role.name().toUpperCase();
+		boolean result = this.authorities.stream().anyMatch(r->r.getAuthority().equals(roleString));
+		return result;
 	}
 
 
