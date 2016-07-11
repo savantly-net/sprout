@@ -1,5 +1,4 @@
 'use strict';
-
 // Config HTTP Error Handling
 angular.module('users').config(['$httpProvider',
 	function($httpProvider) {
@@ -10,7 +9,7 @@ angular.module('users').config(['$httpProvider',
 					responseError: function(rejection) {
 						switch (rejection.status) {
 							case 401:
-								// Deauthenticate the global user
+								// Deauthenticate the global user t
 								Authentication.user = null;
 
 								// Redirect to signin page

@@ -5,13 +5,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import savantly.sprout.domain.user.SproutUser;
-import savantly.sprout.exceptions.UnauthorizedClientException;
 
 public abstract class AuditableSecurityAdapter<T extends 
 			AbstractAuditableDomainObject<ID>, ID extends Serializable> implements AuditedDomainSecurity<T, ID>{
