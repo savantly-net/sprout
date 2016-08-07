@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.http.HttpStatus;
@@ -87,14 +88,30 @@ public abstract class ResourceController<T extends SproutAuditable<ID>, ID exten
 	 * Get a list of all the entities
 	 * 
 	 * @param user
+	 * @param pageable 
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
 	@RequestMapping(method = RequestMethod.GET)
-	public List<T> list(@AuthenticationPrincipal SproutUser user) {
+	public List<T> list(Pageable pageable, @AuthenticationPrincipal SproutUser user) {
 		if(!canList(user))throw new UnauthorizedClientException("You do not have authorization to query items.");
-		return this.entityRepository.findAll();
+		return this.entityRepository.findAll(pageable).getContent();
 	}
+	
+	/**
+	 * Get a page of all the entities
+	 * 
+	 * @param user
+	 * @param pageable 
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	@RequestMapping(value="/page", method = RequestMethod.GET)
+	public Page<T> page(Pageable pageable, @AuthenticationPrincipal SproutUser user) {
+		if(!canList(user))throw new UnauthorizedClientException("You do not have authorization to query items.");
+		return this.entityRepository.findAll(pageable);
+	}
+	
 
 	/**
 	 * Get one entity by the ID

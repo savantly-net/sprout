@@ -2,6 +2,20 @@
     <div class="page-header">
         <h1>Activity</h1>
     </div>
+    <div>
+    	<h3>Total Records: {{pageQuery.response.totalElements}}</h3>
+    </div>
+    <uib-pagination total-items="pageQuery.response.totalElements" ng-model="pageQuery.options.pageIndex" ng-change="find()"
+     	num-pages="pageQuery.totalPages" class="pagination-sm" boundary-link-numbers="true" rotate="false"></uib-pagination>
+    <div>
+    	<label>Items per page</label>
+    	<select ng-model="pageQuery.options.size" ng-change="find()">
+    		<option selected="selected">5</option>
+    		<option>10</option>
+    		<option>20</option>
+    		<option>40</option>
+    	</select>
+    </div>
     <div class="list-group">
         <a data-ng-repeat="activity in activities" data-ng-href="#!/activity/{{activity.id}}" class="list-group-item">
 			<small class="list-group-item-text">

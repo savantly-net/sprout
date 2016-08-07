@@ -22,8 +22,10 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.DelegatingAuthenticationEntryPoint;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.util.matcher.RegexRequestMatcher;
@@ -69,6 +71,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .formLogin()
             .loginPage("/login")
             .permitAll()
+            .successHandler(successHandler())
             .and()
         .logout()
         	.logoutSuccessHandler(logoutSuccessHandler())
@@ -115,5 +118,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				res.setStatus(200);
 			}
 		};
+	}
+	
+	AuthenticationSuccessHandler successHandler(){
+		return new SimpleUrlAuthenticationSuccessHandler();
 	}
 }

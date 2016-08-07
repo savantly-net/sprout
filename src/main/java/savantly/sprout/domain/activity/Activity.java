@@ -1,23 +1,20 @@
-package savantly.sprout.domain.report;
+package savantly.sprout.domain.activity;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import savantly.sprout.domain.StringPair;
-import savantly.sprout.domain.dynamicForm.DynamicForm;
-import savantly.sprout.domain.tree.Tree;
 import savantly.sprout.security.AbstractAuditableDomainObject;
 
-public class UserActivity extends AbstractAuditableDomainObject<String> {
+@Document(collection="activity")
+public class Activity extends AbstractAuditableDomainObject<String> {
 
 	private static final long serialVersionUID = 616735134123056810L;
 	
 	@Id
 	private String id;
-	@DBRef
-	private Tree tree;
-	@DBRef
-	private DynamicForm form;
+	private String treeId;
+	private String formId;
 	private StringPair[] questionAnswers;
 	private StringPair[] formAnswers;
 
@@ -45,20 +42,20 @@ public class UserActivity extends AbstractAuditableDomainObject<String> {
 		this.formAnswers = formAnswers;
 	}
 
-	public Tree getTree() {
-		return tree;
+	public String getTreeId() {
+		return treeId;
 	}
 
-	public void setTree(Tree tree) {
-		this.tree = tree;
+	public void setTreeId(String treeId) {
+		this.treeId = treeId;
 	}
 
-	public DynamicForm getForm() {
-		return form;
+	public String getFormId() {
+		return formId;
 	}
 
-	public void setForm(DynamicForm form) {
-		this.form = form;
+	public void setFormId(String formId) {
+		this.formId = formId;
 	}
 
 }

@@ -5,10 +5,22 @@
 angular.module('activity').controller('ActivityController', ['$scope', '$stateParams', '$location', 'Authentication', 'Activity',
 	function($scope, $stateParams, $location, Authentication, Activity) {
 		$scope.authentication = Authentication;
+		$scope.pageQuery = {
+				options: {
+					pageIndex: 1,
+					size: 5
+				}
+		};
 
 		// Find a list of Activity
 		$scope.find = function() {
-			$scope.activities = Activity.api.query();
+			Activity.api.page({
+					page: $scope.pageQuery.options.pageIndex-1,
+					size: $scope.pageQuery.options.size }, function(response){
+				$scope.pageQuery.response = response;
+				$scope.pageQuery.totalPages = response.totalPages;
+				$scope.activities = response.content;
+			});
 		};
 
 		// Find existing Activity

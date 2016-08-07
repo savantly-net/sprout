@@ -5,7 +5,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import com.google.common.base.Strings;
+import savantly.sprout.domain.user.SproutUser;
 
 @Component
 public class SproutAuditorAware implements AuditorAware<String> {
@@ -18,8 +18,8 @@ public class SproutAuditorAware implements AuditorAware<String> {
 	      return null;
 	    }
 	    
-	    if(!Strings.isNullOrEmpty(authentication.getName())){
-	    	return authentication.getName();
+	    if(authentication.getPrincipal().getClass().isAssignableFrom(SproutUser.class)){
+	    	return ((SproutUser)authentication.getPrincipal()).getId();
 	    }
 	    else{
 	    	throw new RuntimeException("Security Principal is invalid");

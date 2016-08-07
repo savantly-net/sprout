@@ -12,3 +12,4 @@ buildNumber.properties
 /node_modules/
 /.classpath
 /.apt_generated/
+/.factorypath

@@ -40,7 +40,8 @@ public abstract class AuditableSecurityAdapter<T extends
 	
 	@Override
 	public boolean canUpdate(T t) {
-		return t.getCreatedBy().equals(getCurrentUser().getId());
+		String currentUserId = getCurrentUser().getId();
+		return t.getCreatedBy().equals(currentUserId);
 	}
 	
 	@Override

@@ -4,7 +4,12 @@
 angular.module('activity').factory('Activity',[ '$resource', 
     function($resource) {
 			return {
-				api: $resource('rest/activity/:activityId', {activityId : '@id'}, {update: {method : 'PUT'}}),
+				api: $resource('rest/activity/:activityId',
+						{activityId : '@id'}, 
+						{
+							update: { method : 'PUT' },
+							page: { url: 'rest/activity/page' }
+						}),
 				session: {
 					questionAnswers: [], 
 					formAnswers: []

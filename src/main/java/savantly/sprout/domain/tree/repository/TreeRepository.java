@@ -10,7 +10,7 @@ import savantly.sprout.mongo.repository.ExtendedMongoRepository;
 public interface TreeRepository extends ExtendedMongoRepository<Tree, String>, TreeRepositoryCustom {
 
 	//TreeSummary findOneTreeSummaryById(String id);
-	@Query("{'createdBy.username': 'admin'}")
+	@Query("{'createdBy.username': '?0'}")
 	List<TreeSummary> findTreeSummaryListByUsername(String username);
 	
 }

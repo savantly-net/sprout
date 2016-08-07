@@ -244,7 +244,7 @@ angular.module('trees').controller('TreesController', ['$rootScope', '$scope', '
 		
 		$scope.submitUserActivity = function(){
 			var activity = new Activity.api({
-				tree: $scope.tree,
+				treeId: $scope.tree._id,
 				questionAnswers: Activity.session.questionAnswers,
 				formAnswers: Activity.session.formAnswers
 			});

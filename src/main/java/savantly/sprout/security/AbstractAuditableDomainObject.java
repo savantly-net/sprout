@@ -3,6 +3,7 @@ package savantly.sprout.security;
 import java.io.Serializable;
 
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Transient;
 
 import org.joda.time.DateTime;
 import org.mongodb.morphia.annotations.Entity;
@@ -10,7 +11,6 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -67,6 +67,7 @@ public abstract class AbstractAuditableDomainObject<ID extends Serializable> imp
 		this.lastModifiedBy = lastModifiedBy;
 	}
 
+	@Transient
 	public boolean isNew() {
 		return (createdDate == null || createdBy == null);
 	}

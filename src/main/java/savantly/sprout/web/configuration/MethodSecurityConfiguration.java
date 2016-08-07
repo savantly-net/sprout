@@ -4,12 +4,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.PermissionEvaluator;
 
+import savantly.sprout.domain.activity.security.ActivitySecurity;
+import savantly.sprout.domain.activity.security.ActivitySecurityImpl;
 import savantly.sprout.domain.dynamicForm.repository.DynamicFormSecurity;
 import savantly.sprout.domain.dynamicForm.repository.DynamicFormSecurityImpl;
 import savantly.sprout.domain.organization.security.OrganizationSecurity;
 import savantly.sprout.domain.organization.security.OrganizationSecurityImpl;
-import savantly.sprout.domain.report.security.UserActivitySecurity;
-import savantly.sprout.domain.report.security.UserActivitySecurityImpl;
 import savantly.sprout.domain.tree.security.TreeSecurity;
 import savantly.sprout.domain.tree.security.TreeSecurityImpl;
 import savantly.sprout.domain.user.security.UserSecurity;
@@ -40,8 +40,8 @@ public class MethodSecurityConfiguration  {
     }
     
     @Bean
-    public UserActivitySecurity userActivitySecurity() {
-        return new UserActivitySecurityImpl();
+    public ActivitySecurity userActivitySecurity() {
+        return new ActivitySecurityImpl();
     }
     
     public static class PermissionEvaluationConfiguration{

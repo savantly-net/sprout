@@ -1,7 +1,7 @@
 <section data-ng-controller="ViewFormController"
 	data-ng-init="findOne()">
 	<div class="page-header">
-		<div class="pull-right clear" data-ng-show="((authentication.user) && (authentication.user.username == form.createdBy))">
+		<div class="pull-right clear" data-ng-show="((authentication.user) && (authentication.user.id == form.createdBy))">
 			<a class="btn btn-default" href="/#!/forms/{{form.form_id}}/edit">
 				<i class="glyphicon glyphicon-edit"></i>
 			</a>

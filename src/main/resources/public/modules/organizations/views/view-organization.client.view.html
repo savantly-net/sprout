@@ -3,7 +3,7 @@
 		<div class="page-header">
 			<h1 data-ng-bind="organization.name"></h1>
 		</div>
-		<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user.username == organization.createdBy.username))">
+		<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user.id == organization.createdBy.username))">
 			<a class="btn btn-primary" href="/#!/organizations/{{organization.id}}/edit">
 				<i class="glyphicon glyphicon-edit"></i>
 			</a>

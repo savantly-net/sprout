@@ -8,6 +8,7 @@ import savantly.sprout.mongo.repository.ExtendedMongoRepository;
 public interface UserRepository extends ExtendedMongoRepository<SproutUser, String>, UserRepositoryCustom {
 
 	ProfileProjection findProfileFirstByUsername(String username);
+	ProfileProjection findProfileById(String id);
 	SproutUser findOneByUsername(String username);
 	SproutUser findByPrimaryEmailAddress_EmailAddress(String emailAddress);
 	@Query("{'emailAddresses': { $elemMatch: { $id: ?0 }}}")

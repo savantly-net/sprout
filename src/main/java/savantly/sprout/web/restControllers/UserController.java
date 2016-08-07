@@ -119,9 +119,9 @@ public class UserController extends ResourceController<SproutUser, String, UserR
         return newAuthenticationToken;
 	}
 	
-	@RequestMapping(value={"/profile/{username}"},method = RequestMethod.GET)
-	public ProfileProjection getProfile(@PathVariable String username){
-		ProfileProjection profile = entityRepository.findProfileFirstByUsername(username);
+	@RequestMapping(value={"/profile/{id}"},method = RequestMethod.GET)
+	public ProfileProjection getProfile(@PathVariable String id){
+		ProfileProjection profile = entityRepository.findProfileById(id);
 		if(profile == null) 
 			throw new ResourceNotFoundException();
 		
