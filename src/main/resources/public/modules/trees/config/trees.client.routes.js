@@ -15,7 +15,8 @@ angular.module('trees').config(['$stateProvider',
 		}).
 		state('viewTree', {
 			url: '/trees/:treeId',
-			templateUrl: 'modules/trees/views/view-tree.client.view.html'
+			templateUrl: 'modules/trees/views/view-tree.client.view.html',
+			authenticate: true
 		}).
 		// View a specific page
 		state('readTree', {

@@ -1,8 +1,8 @@
 'use strict';
 
 // Authentication service for user variables
-angular.module('users').factory('Authentication', [
-	function() {
+angular.module('users').factory('Authentication', ['$rootScope', '$location', 
+	function($rootScope, $location) {
 
 		var _this = this;
 		var security = window.security;
@@ -32,6 +32,18 @@ angular.module('users').factory('Authentication', [
 				_this._data.user.roles = mapRoles(userDetails.principal.authorities);
 			}
 		};
+		
+		_this._data.isAuthenticated = function(){
+			return (_this._data.security.authenticated === true);
+		};
+		
+		$rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams, options){
+			if (toState.authenticate && !_this._data.isAuthenticated()) {
+                $rootScope.returnToState = toState;
+                $rootScope.returnToStateParams = toParams;
+                $location.path('/signin');
+            }
+		});
 		
 		_this._data.authenticate(security);
 		return _this._data;

@@ -63,30 +63,31 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
         AuthenticationEntryPoint authenticationEntryPoint = new DelegatingAuthenticationEntryPoint(entryPoints());
         
-		http
-        .authorizeRequests()
-            .antMatchers("/", "/home", "/rest/**").permitAll()
-            //.anyRequest().authenticated()
-            .and()
-        .formLogin()
-            .loginPage("/login")
-            .permitAll()
-            .successHandler(successHandler())
-            .and()
-        .logout()
-        	.logoutSuccessHandler(logoutSuccessHandler())
-            .permitAll()
-            .and()
-		.csrf()
-			.disable()
-			.httpBasic()
-			.and()
-		.exceptionHandling()
-			.accessDeniedPage("/errors/403")
-			.authenticationEntryPoint(authenticationEntryPoint)
-			.and()
-		.addFilterBefore(oauth2ClientContextFilter, BasicAuthenticationFilter.class)
-		.addFilterBefore(ssoFilter, BasicAuthenticationFilter.class);
+        http
+            .authorizeRequests()
+                .antMatchers("/", "/home", "/rest/**").permitAll()
+                //.anyRequest().authenticated()
+                .and()
+            .formLogin()
+                .loginPage("/#!/signin")
+                .permitAll()
+                .loginProcessingUrl("/authenticate")
+                .successHandler(successHandler())
+                .and()
+            .logout()
+            	.logoutSuccessHandler(logoutSuccessHandler())
+                .permitAll()
+                .and()
+            .csrf()
+                .disable()
+        	.httpBasic()
+        	.and()
+            .exceptionHandling()
+        	.accessDeniedPage("/errors/403")
+        	.authenticationEntryPoint(authenticationEntryPoint)
+        	.and()
+            .addFilterBefore(oauth2ClientContextFilter, BasicAuthenticationFilter.class)
+            .addFilterBefore(ssoFilter, BasicAuthenticationFilter.class);
 	}
 	
 	private LinkedHashMap<RequestMatcher, AuthenticationEntryPoint> entryPoints() {
@@ -121,6 +122,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 	
 	AuthenticationSuccessHandler successHandler(){
-		return new SimpleUrlAuthenticationSuccessHandler();
+		return new SimpleUrlAuthenticationSuccessHandler("/rest/users/token");
 	}
 }
