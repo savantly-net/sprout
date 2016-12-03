@@ -15,8 +15,8 @@ management:
 
 github:
   client:
-    clientId: be84cf73a55f19218ad6
-    clientSecret: 02ec8e68dffe64768f3178e45aa0b2b9660f83f6
+    clientId: CHANGE_ME
+    clientSecret: CHANGE_ME
     accessTokenUri: https://github.com/login/oauth/access_token
     userAuthorizationUri: https://github.com/login/oauth/authorize
     clientAuthenticationScheme: form
@@ -26,8 +26,8 @@ github:
     
 linkedin:
   client:
-    clientId: 785uoqwaoq853w
-    clientSecret: ytdFR5txsETqdsjW
+    clientId: CHANGE_ME
+    clientSecret: CHANGE_ME
     accessTokenUri: https://www.linkedin.com/oauth/v2/accessToken
     userAuthorizationUri: https://www.linkedin.com/oauth/v2/authorization
     clientAuthenticationScheme: form
