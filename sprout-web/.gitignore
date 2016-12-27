@@ -1,0 +1,6 @@
+/node_modules/
+/bin/
+/.settings/
+/.classpath
+/.project
+/npm-debug.log

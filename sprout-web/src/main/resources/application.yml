@@ -1,12 +1,13 @@
 spring:
+  profiles:
+    active: embedded
   jpa:
     properties:
       jadira.usertype.autoRegisterUserTypes: true
-
-MONGO_HOST: localhost
-MONGO_PORT: 27017
-MONGO_USERDB: admin
-MONGO_DATABASE: sprout
+  data:
+    mongodb:
+      host: 127.0.0.1
+      port: 0
 
 management: 
   context-path: /manage

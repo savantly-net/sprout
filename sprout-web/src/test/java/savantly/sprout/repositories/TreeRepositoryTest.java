@@ -3,19 +3,14 @@ package savantly.sprout.repositories;
 import java.util.UUID;
 
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import savantly.sprout.AbstractIntegrationTest;
 import savantly.sprout.domain.tree.Tree;
 import savantly.sprout.domain.tree.repository.TreeRepository;
-import savantly.sprout.web.Application;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringApplicationConfiguration(classes = Application.class)
-public class TreeRepositoryTest {
+public class TreeRepositoryTest  extends AbstractIntegrationTest{
 	
 	@Autowired
 	private TreeRepository treeRepository;

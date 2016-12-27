@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar target/sprout-web.jar
+web: java -Dserver.port=$PORT -jar sprout-web/target/sprout-web.jar
