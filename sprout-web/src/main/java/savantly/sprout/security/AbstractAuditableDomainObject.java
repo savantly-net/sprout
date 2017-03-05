@@ -14,8 +14,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import net.savantly.sprout.core.security.SproutAuditable;
-
 @Entity
 @MappedSuperclass
 @JsonIgnoreProperties(value={ 
