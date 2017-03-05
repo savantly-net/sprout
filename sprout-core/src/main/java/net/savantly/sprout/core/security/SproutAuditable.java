@@ -1,4 +1,4 @@
-package savantly.sprout.security;
+package net.savantly.sprout.core.security;
 
 import java.io.Serializable;
 

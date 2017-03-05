@@ -11,7 +11,34 @@
 		<artifactId>parent-pom</artifactId>
 		<version>1.0.0-RELEASE</version>
 	</parent>
+	<properties>
+		<java.version>1.8</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<sprout.version>${project.version}</sprout.version>
+	</properties>
 	<modules>
 		<module>sprout-web</module>
+		<module>sprout-domain</module>
+		<module>sprout-security</module>
+		<module>sprout-core</module>
 	</modules>
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>net.savantly.sprout</groupId>
+				<artifactId>sprout-domain</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.savantly.sprout</groupId>
+				<artifactId>sprout-security</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>net.savantly.sprout</groupId>
+				<artifactId>sprout-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

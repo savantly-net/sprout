@@ -24,12 +24,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import net.savantly.sprout.core.security.SproutAuditable;
 import savantly.sprout.domain.user.SproutUser;
 import savantly.sprout.exceptions.UnauthorizedClientException;
 import savantly.sprout.mongo.repository.ExtendedMongoRepository;
 import savantly.sprout.security.AuditedDomainSecurity;
 import savantly.sprout.security.Roles;
-import savantly.sprout.security.SproutAuditable;
 
 @SuppressWarnings("rawtypes")
 public abstract class ResourceController<T extends SproutAuditable<ID>, ID extends Serializable, R extends ExtendedMongoRepository> {
