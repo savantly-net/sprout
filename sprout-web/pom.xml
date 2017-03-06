@@ -10,11 +10,10 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>1.4.0.RELEASE</version>
+		<version>1.5.2.RELEASE</version>
 	</parent>
 
 	<properties>
-		<querydsl.version>4.1.2</querydsl.version>
 		<camunda.version>7.3.0</camunda.version>
 		<java.version>1.8</java.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -28,30 +27,6 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<version>0.0.26</version>
-				<configuration>
-					<nodeVersion>v0.10.18</nodeVersion>
-					<npmVersion>1.3.8</npmVersion>
-					<installDirectory>bin</installDirectory>
-				</configuration>
-				<executions>
-					<execution>
-						<id>install node and npm</id>
-						<goals>
-							<goal>install-node-and-npm</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>bower install</id>
-						<goals>
-							<goal>bower</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
 				<groupId>org.bsc.maven</groupId>
 				<artifactId>maven-processor-plugin</artifactId>
 				<executions>
@@ -62,7 +37,7 @@
 						</goals>
 						<phase>generate-sources</phase>
 						<configuration>
-							<outputDirectory>src/main/generated</outputDirectory>
+							<outputDirectory>target/generated-sources</outputDirectory>
 							<processors>
 								<!-- list of processors to use -->
 								<processor>com.querydsl.apt.morphia.MorphiaAnnotationProcessor</processor>
@@ -98,16 +73,9 @@
 				<version>${camunda.version}</version> <scope>import</scope> <type>pom</type> 
 				</dependency> -->
 			<dependency>
-				<groupId>org.springframework.data</groupId>
-				<artifactId>spring-data-releasetrain</artifactId>
-				<version>Hopper-RELEASE</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-			<dependency>
-				<groupId>net.savantly</groupId>
+				<groupId>net.savantly.sprout</groupId>
 				<artifactId>parent-pom</artifactId>
-				<version>1.0.0-RELEASE</version>
+				<version>1.0.0-SNAPSHOT</version>
 				<type>pom</type>
 				<scope>import</scope>
 			</dependency>
@@ -232,13 +200,11 @@
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-apt</artifactId>
-			<version>${querydsl.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-mongodb</artifactId>
-			<version>${querydsl.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.mongodb.morphia</groupId>
